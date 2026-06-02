@@ -1,43 +1,10 @@
 project:
-  type: book
   output-dir: _book
 
-format:
-  html:
-    toc: true
-    css: style/style.css
-    cssvariables: true
-    link-color: "#3860b6"
-    background-color: "#fefefe"
-    font-color: "#000000"
-    # include-in-header: style/ga.html
-    template-partials:
-      - style/bs4_book.html
+author: "Jorge Cimentada"
+date: "last-modified"
 
-book:
-  title: "Data Harvesting with R"
-  author: "Jorge Cimentada"
-  date: "datespan: 2026-2027"
-  description: |
-    This is a book about webscraping and talking to APIs with R.
-  site-url: https://cimentadaj.github.io/dataharvesting/
-  chapters:
-    - index.qmd
-    - part: "Webscraping"
-      chapters:
-        - 02-primer_webscraping.qmd
-        - 03-data_formats.qmd
-        - 04-regex.qmd
-        - 05-xpath.qmd
-        - 06-case_study_webscraping_spanish_schools.qmd
-        - 07-automating_scripts.qmd
-        - 08-selenium.qmd
-        - 09-ethical_issues.qmd
-    - part: "APIs"
-      chapters:
-        - 10-intro_api.qmd
-        - 11-primer_apis.qmd
-        - 12-dialogue-computers.qmd
-        - 13-intro_json.qmd
-        - 14-case_study_api_amazon.qmd
-        - 15-automation-bicing.qmd
+profile:
+  default: book
+  group:
+  - [slides, book]

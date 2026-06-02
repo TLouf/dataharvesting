@@ -5,6 +5,14 @@ date: '`r Sys.Date()`'
 description: |
   This is a book about webscraping and talking to APIs with R.
 
+other-links:
+    - text: Welcome slides
+      href: 01-welcome/slides.html
+      icon: file-easel-fill
+    - text: Project guidelines
+      href: 01-welcome/project_guidelines.html
+      icon: file-easel-fill
+
 url: https://cimentadaj.github.io/dataharvesting/
 ---
 
@@ -58,7 +66,3 @@ install.packages("tidyverse")
 In general, webscraping and APIs are an inexact art. The data you'll gather from a website will be dirty, messy and unstructured. There's no clear way to get what you want and you'll need to come up with creative solutions to get data as well as to clean it. In particular, we'll develop basic and intermediate skills for cleaning strings. Most of the data you'll grab will be any formats as string (numbers, sentences, paragraphs, chunks of incomplete strings) and you'll need to learn how to clean these strings. Don't be intimidated by this, we'll work hard at understating the logic behind each string manipulation exercises and we'll establish clear feedback loops to quickly learn where we went wrong.
 
 Without further a due, let's begin.
-
-## Slides
-
-- [Welcome slides](./slides/welcome/welcome.html)

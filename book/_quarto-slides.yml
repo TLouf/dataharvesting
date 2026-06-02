@@ -1,0 +1,20 @@
+project:
+  output-dir: _slides
+  render:
+    - 01-welcome/slides.qmd
+    - 01-welcome/project_guidelines.qmd
+    - 02-primer_webscraping/slides.qmd
+    - 03-data_formats/slides.qmd
+    - 04-regex/slides.qmd
+    - 05-xpath/slides.qmd
+    - 06-case_study_webscraping_spanish_schools/slides.qmd
+    - 07-automating_scripts/slides.qmd
+    - 09-ethical_issues/slides.qmd
+    - 10-intro_api/slides.qmd
+    - 11-primer_apis/slides.qmd
+    - 12-dialogue-computers/slides.qmd
+    - 13-intro_json/slides.qmd
+    - 14-case_study_api_amazon/slides.qmd
+    - 15-automation-bicing/slides.qmd
+
+format: revealjs

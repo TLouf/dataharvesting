@@ -4,4 +4,11 @@ _book
 !style/*.html
 **/libs/**
 **/figure-revealjs/**
+**/*cache*/
+**/*files*/
 renv/
+**/automatic_rmarkdown/
+
+
+/.quarto/
+**/*.quarto_ipynb

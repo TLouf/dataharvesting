@@ -1,0 +1,40 @@
+project:
+  type: book
+  output-dir: _book
+
+format:
+  html:
+    toc: true
+    css: style/style.css
+    cssvariables: true
+    link-color: "#3860b6"
+    background-color: "#fefefe"
+    font-color: "#000000"
+    template-partials:
+      - style/bs4_book.html
+
+book:
+  title: "Data Harvesting with R"
+  description: |
+    This is a book about webscraping and talking to APIs with R.
+  site-url: https://cimentadaj.github.io/dataharvesting/
+  chapters:
+    - index.qmd
+    - part: "Webscraping"
+      chapters:
+        - 02-primer_webscraping/index.qmd
+        - 03-data_formats/index.qmd
+        - 04-regex/index.qmd
+        - 05-xpath/index.qmd
+        - 06-case_study_webscraping_spanish_schools/index.qmd
+        - 07-automating_scripts/index.qmd
+        - 08-selenium/index.qmd
+        - 09-ethical_issues/index.qmd
+    - part: "APIs"
+      chapters:
+        - 10-intro_api/index.qmd
+        - 11-primer_apis/index.qmd
+        - 12-dialogue-computers/index.qmd
+        - 13-intro_json/index.qmd
+        - 14-case_study_api_amazon/index.qmd
+        - 15-automation-bicing/index.qmd
