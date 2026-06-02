@@ -15,9 +15,7 @@ knitr::opts_chunk$set(
 
 In this chapter we'll be scraping the location of a sample of schools in Spain. This case study involves using XPath to find the specific chunks of code that contain coordinates of schools in Spain, as well as inspecting the source code of a website in depth. The final result of this chapter is to generate a plot like this one without previous knowledge of where schools are:
 
-```{r, echo = FALSE, out.width = "100%"}
-knitr::include_graphics(file.path(main_dir, "/automatic_rmarkdown/spain-map-schools-1.png"))
-```
+![](images/cs_spanish_school_locations/spain-map-schools-1.png){fig-align="center"}
 
 As usual, the website has been saved locally in the `scrapex` package such that any changes made on the website don't break our code in the future. Althought the links we'll be working with will be hosted locally on your machine, the HTML of the website should be very similar to the one hosted on the online website (with the exception of some images/icons which were deleted on purpose to make the package lightweight). With that said, the local website should be a fairly good representation of what you'll find in real website on the internet. The website is in Spanish so I'll make sure to point out specifically the type of information we're looking for. Non-spanish speakers should be able to work through this chapter without a problem.
 
