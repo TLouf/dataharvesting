@@ -12,9 +12,10 @@ knitr::opts_chunk$set(
 
 # What you need to know about XPath {#xpath-chapter}
 
+
 XPath (XML Path Language) is the language designed to identify the address of one or several tags within an HTML or XML document. With that address, XPath allows us to extract the data under those tags. For example, take a look at the XML below:
 
-```{html}
+```xml
 <bookshelf>
   <dansimmons>
     <book>
@@ -535,15 +536,15 @@ art_p[lengthy_art] %>%
 
 # alternative solution
 nodes <-
-  newspaper |> 
+  newspaper |>
   xml_find_all("//article[./p[@class = 'c_d']]")
 
-nodes |> 
-  xml_children() |> 
-  xml_find_all("//p") |> 
-  xml_text() |> 
-  str_replace("(\n|\\\\n)", "") |> 
-  nchar() |> 
+nodes |>
+  xml_children() |>
+  xml_find_all("//p") |>
+  xml_text() |>
+  str_replace("(\n|\\\\n)", "") |>
+  nchar() |>
   which.max()
 ```
 

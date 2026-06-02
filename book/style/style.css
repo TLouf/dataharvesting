@@ -1,4 +1,7 @@
-div.rmdnote, div.rstudio-tip, div.rmdwarning {
+div.note,
+div.rmdnote,
+div.rstudio-tip,
+div.rmdwarning {
     padding: 1em;
     margin: 1em 0;
     padding-left: 100px;
@@ -17,5 +20,5 @@ div.rmdnote {
 }
 
 div.sourceCode {
-    font-size: 1.0rem;
+    font-size: 1rem;
 }

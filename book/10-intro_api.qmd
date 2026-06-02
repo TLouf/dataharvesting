@@ -11,8 +11,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-# (PART) APIs {-}
-
 # Introduction to REST APIs {#intro-apis}
 
 So far in the book we've covered the subtle art of web scraping. This art is weird in the sense that it's not structured. To scrape some stuff you have to come up with unusual tricks to gather data from websites. You also have to be careful not to do it too often because it might impact the latency of the website due too excessive requests. Moreover, when you do gather the data, you need to apply some ninja-style tricks to clean the results. Overall, a complicated process because this data (on the website) is not meant for you to scrape it.
@@ -74,7 +72,7 @@ Here we can see several things from this endpoint:
 
 4. Right below `Media type`, we can figure out the formats that this endpoint returns. It says this endpoint returns a `JSON` string, a typical format used for sharing data over the web (we'll talk about the JSON format in chapter \@ref(json-chapter)).
 
-Finally, and this is irrespective of any particular endpoint, many REST APIs require that you authenticate before requesting any data. Normally, you'll need to follow the instructions for authenticating for the REST API you're after and in return they'll give you some sort of token. 
+Finally, and this is irrespective of any particular endpoint, many REST APIs require that you authenticate before requesting any data. Normally, you'll need to follow the instructions for authenticating for the REST API you're after and in return they'll give you some sort of token.
 
 As this is a fake REST API from Amazon, you can use the code `r scrapex::amazon_bearer_tokens()` to authenticate. To do this, click on the top right button `Authorize`, input that *token*, click on authorize and close the window:
 

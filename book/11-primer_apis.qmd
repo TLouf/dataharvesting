@@ -31,7 +31,7 @@ library(dplyr)
 library(ggplot2)
 ```
 
-As usual, we'll be using the `scrapex` package. This package contains an internal API that wraps the [COVerAGE-DB](https://www.coverage-db.org/) database. COVerAGE-DB is an open-access database including cumulative counts of confirmed COVID-19 cases, deaths, tests, and vaccines by age and sex. For more information, visit their website at [https://www.coverage-db.org/](https://www.coverage-db.org/). 
+As usual, we'll be using the `scrapex` package. This package contains an internal API that wraps the [COVerAGE-DB](https://www.coverage-db.org/) database. COVerAGE-DB is an open-access database including cumulative counts of confirmed COVID-19 cases, deaths, tests, and vaccines by age and sex. For more information, visit their website at [https://www.coverage-db.org/](https://www.coverage-db.org/).
 
 The aim of this primer is to create a plot like this one:
 
@@ -39,7 +39,7 @@ The aim of this primer is to create a plot like this one:
 knitr::include_graphics(file.path(main_dir_api, "coveragedb_covid_cases_plot.png"))
 ```
 
-This plot shows the the total number of COVID cases for females and males in California. We do not have data on this on your local computer so we’ll need to request the data from an API. 
+This plot shows the the total number of COVID cases for females and males in California. We do not have data on this on your local computer so we’ll need to request the data from an API.
 
 ## Getting familiar with an API
 
@@ -49,7 +49,7 @@ Inside `scrapex` the function `api_coveragedb()` has a local API that was design
 api_covid <- api_coveragedb()
 ```
 
-The API is now launched in the background and we can access it. Note that learning about a new API online you **won't** have to launch any API. APIs are hosted on servers elsewhere and you'll just need to read how to access the API. Since this is a stand-alone book (we don't want any of our examples to depend on fast-changing websites or APIs, making most of the content in this book useless in just a few months), we use a local API that won't change over time and thus we need to launch it ourselves. 
+The API is now launched in the background and we can access it. Note that learning about a new API online you **won't** have to launch any API. APIs are hosted on servers elsewhere and you'll just need to read how to access the API. Since this is a stand-alone book (we don't want any of our examples to depend on fast-changing websites or APIs, making most of the content in this book useless in just a few months), we use a local API that won't change over time and thus we need to launch it ourselves.
 
 When you do access an API, instead you'll be given directly things like the documentation page. That we can see in the print out of the previous R call `r paste0(api_covid$api_web, "/__docs__/")`. **Note that this link won't work on your computer because you need to launch the API on your computer (remember how this is a local API?). Go to your URL and you should see something like this**:
 
@@ -67,7 +67,7 @@ First thing we see is that this endpoint has two parameters: `region` and `sex`.
 
 * A base URL. In this case, it's `r api_covid$api_web`. **Yours will be different because you launched it in your local computer**.
 * The endpoint URL of this specific endpoint. For the COVID cases, this is `/api/v1/covid_cases`.
-* The parameters in the endpoint which are specified after a `?` and each parameter is then concatenated with `&`. 
+* The parameters in the endpoint which are specified after a `?` and each parameter is then concatenated with `&`.
 
 So the complete endpoint URL for this endpoint would be `r paste0(api_covid$api_web, "/api/v1/covid_cases")`. How would we add parameters? We start with a `?` and then add `parameter=value` followed by a `&` to concatenate with other parameters. Sounds confusing? Let's construct it in R:
 
@@ -123,14 +123,14 @@ req_california_m
 Whenever we're happy with our request, we can actually *make* the request with `req_perform`:
 
 ```{r}
-resp_california_m <- 
+resp_california_m <-
   req_california_m %>%
   req_perform()
 
 resp_california_m
 ```
 
-Alright so we can interpret a few things out of this request. First, it was successful. The `200` status code means that it was OK, so nothing failed. Second, the response content-type is `JSON`, meaning the data that was sent is in `JSON` format. Third, the actual body of the request has data, which is now loaded in RAM memory (instead of in your hard drive). 
+Alright so we can interpret a few things out of this request. First, it was successful. The `200` status code means that it was OK, so nothing failed. Second, the response content-type is `JSON`, meaning the data that was sent is in `JSON` format. Third, the actual body of the request has data, which is now loaded in RAM memory (instead of in your hard drive).
 
 Now, you might have noticed that all functions for working with your request in `httr2` start with `req_*`. This means that you can easily search for all `req`uest related functions quickly. Similarly, for the *response* of an API, you can do the same but with the `resp_*`. All `resp`onse functions allow you to perform or extract stuff on a response object. We can extract the status code for example:
 
@@ -241,7 +241,7 @@ resp_df %>%
   theme_bw()
 ```
 
-2. Did the third wave of vaccination start at the same time for males and females in New York? You might need to look at the documentation of the second endpoint of the API to get acquainted with the parameters and values. 
+2. Did the third wave of vaccination start at the same time for males and females in New York? You might need to look at the documentation of the second endpoint of the API to get acquainted with the parameters and values.
 
 ```{r, echo = FALSE, eval = FALSE}
 
@@ -278,7 +278,7 @@ resp_df %>%
 ```{r, echo = FALSE, eval = TRUE}
 api_web_m <- paste0(api_covid$api_web, "/api/v1/covid_cases?region=California&sex=m")
 
-api_web_m %>% 
+api_web_m %>%
   request() %>%
   req_auth_bearer_token("fake token") %>%
   req_retry(max_tries = 5) %>%
@@ -297,4 +297,4 @@ api_web_m <- paste0(api_covid$api_web, "/api/v1/covid_vaccines?region=New%20York
 resp_m <- api_web_m %>% request()%>% req_perform()
 
 api_covid$process$kill()
-````
+```

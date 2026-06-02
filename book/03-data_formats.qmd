@@ -111,7 +111,7 @@ html_test <- "<html>
 
 One of the key differences is that these tags (`<div>`, `<head>`, `<title>`, etc..) have specific properties that structure how a website is shown to someone on a browser. Anything inside the `<head>` tag will be a header on a website. Anything within the `<body>` tag will be the body of the website, and so on. The tags themselves are *standard* across the HTML language and have predetermined behavior on how to format a website. Let's look at another HTML but also with the result of being structured on a website. Here's the code:
 
-```{html}
+```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -229,9 +229,9 @@ The expression above is asking for the node `"/people/jason/person"`. This will 
 
 However, in most cases the 'addresses' used in `xml_find_all` come from a separate language called XPath (in fact, the 'address' we've been looking at **is** XPath). XPath is a complex language (such as regular expressions for strings) which we'll cover in chapter \@ref(xpath-chapter).
 
-Attributes are very flexible in XML and a tag can as many attributes as you see fit. For example:
+Attributes are very flexible in XML and a tag can as many attributes as you see fit. For example:a
 
-```{xml}
+```xml
 <name>
 <person age="23" status="married" occupation="teacher"> John Doe </person>
 </name>
@@ -239,7 +239,7 @@ Attributes are very flexible in XML and a tag can as many attributes as you see 
 
 These attributes can also be repeated many times, so for example, you might have a generic `<person>` tag that is used for each person in your database:
 
-```{xml}
+```xml
 <name>
 <person age="23" status="married" occupation="teacher"> John Doe </person>
 <person age="25" status="single" occupation="doctor"> Jane Doe </person>
@@ -255,7 +255,7 @@ html_structure(html_raw)
 
 The structure shows that each `<div>` tag has an `align` attribute. As you might've guessed, this attribute aligns text. Most of the common attributes of HTML tags are very easy to understand. Here's a list of a few:
 
-```{html}
+```html
 <a href="https://www.w3schools.com">Visit W3Schools</a>
 <img src="img_girl.jpg" width="500" height="600">
 <p style="color:red;">This is a red paragraph.</p>
@@ -265,7 +265,7 @@ The `<a>` tag contains text with a hyperlink (`href`). The `<img>` tag (abbrevia
 
 To finalize, whenever you'll be scraping something, you'll want to know whether it's XML or HTML based. If you manage to receive an `.html` or `.xml` it's just as simple as looking at the extension of the file. If by any chance you have access to the source code of a file, you can also look at the tags and quickly see if there are many of the standard HTML tags and deduce the actual format. Another solution is to just look at the root node and you'll see the hint right away. You'll see that `xml` is signaled right at the beginning:
 
-```{xml}
+```xml
 <?xml version="1.0>
 <company>
     <name> John Doe </name>
@@ -275,7 +275,7 @@ To finalize, whenever you'll be scraping something, you'll want to know whether 
 
 and the same for `html`:
 
-```{html}
+```html
  <!DOCTYPE html>
 <html>
 <body>
@@ -294,7 +294,7 @@ and the same for `html`:
 
 I have to be frank with you. Although XML and HTML have important differences with respect to the technology and their philosophy, this difference is pretty much the same for us: for our webscraping needs, we don't care how the data is formatted on a website (HTML) or whether your tags have special meanings (XML), we only care that they are formatted in tags such that we can extract information.
 
-Let's do a brief recap as a summary. XML and HTML code is tag based, built on opening and closing tags like this: `<tag>` `</tag>`. These languages are hierarchical, meaning that nodes within nodes have parent-child relationships. These tags can have attributes that signal either behavior (HTML) or data (XML) from the tags. 
+Let's do a brief recap as a summary. XML and HTML code is tag based, built on opening and closing tags like this: `<tag>` `</tag>`. These languages are hierarchical, meaning that nodes within nodes have parent-child relationships. These tags can have attributes that signal either behavior (HTML) or data (XML) from the tags.
 
 To read XML and HTML into R we can use the equivalent `read_*` functions from the `xml2` package. To navigate the nodes of these data forms you can use `xml_child` recursively until you find what you're looking for. To extract the children of a given node, you can use `xml_children` and to extract attributes of any given tag, you can resort to `xml_attr`. Finally, if you want to extract the text of a tag, `xml_text` extracts that for you. These functions give you a handy tool set to explore small scale tree nodes from both XML and HTML documents.
 
