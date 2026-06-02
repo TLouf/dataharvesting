@@ -1,13 +1,11 @@
-# Workflow derived from https://github.com/r-lib/actions/tree/master/examples
-# Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
 on:
   push:
     branches: [main, master]
 
-name: bookdown
+name: quarto
 
 jobs:
-  bookdown:
+  build-deploy:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -16,24 +14,22 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       RENV_PATHS_ROOT: ~/.local/share/renv
     steps:
-      - uses: actions/checkout@v2
-
-      - uses: r-lib/actions/setup-pandoc@v2
+      - uses: actions/checkout@v4
 
       - uses: quarto-dev/quarto-actions/setup@v2
         with:
-          version: 0.3.71
+          version: 1.5.8
 
       - uses: r-lib/actions/setup-r@v2
         with:
           use-public-rspm: true
-          r-version: 4.2.2
+          r-version: 4.6.0
 
       - name: Install system-wide depencies
-        run: sudo apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev libv8-dev build-essential fonts-liberation libgdal-dev cmake pkg-config libudunits2-dev libmkl-rt libglpk-dev libfontconfig1-dev libnode-dev libsodium-dev
+        run: sudo apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev libv8-dev build-essential fonts-liberation libgdal-dev cmake pkg-config libudunits2-dev libmkl-rt libfontconfig1-dev libnode-dev libsodium-dev
 
       - name: Cache packages renv
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ${{ env.RENV_PATHS_ROOT }}
           key: ${{ runner.os }}-renv-${{ hashFiles('**/renv.lock') }}
@@ -46,29 +42,18 @@ jobs:
           if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")
           renv::restore()
 
-      - name: Cache quarto results
-        uses: actions/cache@v3
-        with:
-          path: _book
-          key: quarto-${{ hashFiles('**/*.qmd') }}
-          restore-keys: quarto-
-
-      - name: Build site
-        shell: Rscript {0}
-        run: quarto::quarto_render(input = "index.qmd")
+      - name: Render book
+        uses: quarto-dev/quarto-actions/render@v2
 
       - name: Render slides
-        shell: Rscript {0}
-        run: |
-          all_dirs <- fs::dir_ls("slides", type = "directory")
-          all_files <- fs::dir_ls(all_dirs, regexp = "\\.qmd")
-          purrr::walk(all_files, quarto::quarto_render)
+        run: quarto render . --profile=slides
 
-      - name: Move slides to book
-        run: cp -rf ./slides/ ./_book/
+      - name: Merge slides into book
+        run: bash ./merge.sh
 
-      - name: Deploy to GitHub pages 🚀
-        uses: JamesIves/github-pages-deploy-action@4.1.4
+      - name: Deploy to GitHub Pages 🚀
+        uses: quarto-dev/quarto-actions/deploy@v2
         with:
-          branch: gh-pages
-          folder: book/_book
+          target: gh-pages
+          source-dir: _book
+          token: ${{ secrets.GITHUB_TOKEN }}
