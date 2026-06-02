@@ -1,10 +1,7 @@
-_book*
+_book
 .quarto/
-**/*.quarto_ipynb
 *.html
 !style/*.html
 **/libs/**
 **/figure-revealjs/**
 renv/
-
-/.quarto/
