@@ -27,7 +27,7 @@ Although quick to get up and running, web scraping is a delicate issue. It's del
 
 Whenever you run a scraping script, your program makes a *request* to the website. A request means that you *ask* the servers behind the website to send you information. When I learned that scraping worked like that, I was completely shocked. I thought scraping was more like copying the content of the website into my local computer. Nothing harmless in that, right?
 
-Well, to my surprise, I was making that request many times every day without knowing it. Scraping is the same as entering a website through a browser. That moment between when you hit enter to go to a website and when the information is actually displayed is the time it takes for the server behind the website to return all the content. That operation is important for a website. It involves requesting information, waiting for the server to return it and rendering it in your browser. A human is slow enough for a server to handle the requests it needs but imagine a human the tried to enter a website 5 times per second continuously for 48 hours. That amounts to 864,000 requests. That's a lot.
+Well, to my surprise, I was making that request many times every day without knowing it. Scraping is the same as entering a website through a browser. That moment between when you hit enter to go to a website and when the information is actually displayed is the time it takes for the server behind the website to return all the content. That operation is important for a website. It involves requesting information, waiting for the server to return it and rendering it in your browser. A human is slow enough for a server to handle the requests it needs but imagine a human tried to enter a website 5 times per second continuously for 48 hours. That amounts to 864,000 requests. That's a lot.
 
 Big websites such as Google or Amazon have enough servers and throttle to handle millions of requests per second but most of the content on the internet does not. For that reason, it's important that whenever you make a request to a website (calling `read_html` or `read_xml`), you add a *system sleep* to your scraper. In R you can do that with `Sys.sleep(amount_of_seconds)` where `amount_of_seconds` is the amount of seconds you want to sleep before making a request.
 
@@ -58,7 +58,7 @@ for (single_link in school_links) {
 
 We create a single function that works well for scraping a single school. Before we launch that to scrape all different schools, we add `Sys.sleep(5)` before scraping each school. This way, before making a new request, we'll let the servers rest and avoid too many requests in such a short amount of time.
 
-How many seconds should you wait? Sometimes the `robotstxt` file (see the section below) will tell you how many seconds per scrape you should wait. Other than that, there's no real estimate. Depending on how many requests you make you'll want to lower the number of seconds to 2 or 3. Multiplying the total number of websites you'll scrape by the number of seconds you'll sleep will give you a rough estimate of how much time your program will last.
+How many seconds should you wait? Sometimes the `robots.txt` file (see the section below) will tell you how many seconds per scrape you should wait. Other than that, there's no real estimate. Depending on how many requests you make you'll want to lower the number of seconds to 2 or 3. Multiplying the total number of websites you'll scrape by the number of seconds you'll sleep will give you a rough estimate of how much time your program will last.
 
 As a rule of thumb, it's always a good idea to limit your scraping to non-working hours such as over the evening. This can help reduce the chances of collapsing the website since fewer people are visiting websites in the evening.
 
@@ -117,7 +117,7 @@ With that in hand, we just need to tell our scraper to incorporate that in each 
 library(httr)
 
 set_config(
-  user_agent("Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:105.0) Gecko/20100101 Firefox/105.0; Jorge Cimentada / cimentadaj@gmail.com")
+  user_agent("Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:105.0) Gecko/20100101 Firefox/105.0")
 )
 ```
 

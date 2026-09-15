@@ -1,6 +1,8 @@
 ---
 title: "Introduction to Regex"
-format: revealjs
+format:
+    revealjs:
+        chalkboard: true
 ---
 
 ```{r}
@@ -27,6 +29,7 @@ library(stringr)
 library(scrapex)
 library(rvest)
 library(xml2)
+library(dplyr)
 library(lubridate)
 library(vistime)
 library(tibble)
@@ -123,7 +126,7 @@ res
 
 <br>
 
-Use `|` to separate regex. Here we use it to say: replace either `map,` (contains the space) or `century` (contains a space):
+Use `|` to separate regex. Here we use it to say: replace either `maps, ` or ` century`:
 
 <br>
 
@@ -133,7 +136,18 @@ res %>% str_replace_all("maps, | century", "")
 
 ## Anchors
 
-Anchors are `^` for beginning and `$` for ending. If you start with power, you end up with money.
+::::columns
+:::{.column width="80%"}
+Anchors are `^` for beginning and `$` for ending.
+How to remember? If you start with power, you end up with money (_a reverse Tony Montana philosophy, if you will_).
+:::
+
+:::{.column width="10%"}
+![](images/tony_montana_ud.png){width="200px"}
+:::
+::::
+
+<br>
 
 ```{r}
 borges <- "I like hourglasses. I also like maps, eighteenth century typography"
@@ -220,11 +234,10 @@ retirement
 
 ## Special classes: `[]`
 
-```{r, eval = FALSE}
+```{r}
 str_view_all(retirement$Men, "6[789]")
 ```
 
-See output at [here](https://cimentadaj.github.io/dataharvesting/regex.html#special-classes).
 
 ## Special classes: `[]`
 
@@ -271,7 +284,7 @@ history_france <- read_html(history_france_html)
 
 ## Case study: mapping the kings of France
 
-`ul` tags are very common and subsetting only for `ul` tags will bring many matches. XPath is the topic of next chapter but bear with me.
+`ul` tags are very common and subsetting only for `ul` tags will bring many matches. XPath is the topic of the next chapter but bear with me.
 
 -   `//ul`: bring all `ul` tags from the document
 
@@ -313,7 +326,7 @@ all_txt
 
 ## Case study: mapping the kings of France
 
-We have 16 kings/queens but there are two slots that separated them by houses: House of Valois and House of Bourbon.
+We have 16 kings/queens but there are two slots that separate them by houses: House of Valois and House of Bourbon.
 
 ```{r}
 all_txt <- all_txt[!str_detect(all_txt, "^House")]
@@ -330,7 +343,7 @@ We want to extract:
 
 -   years in power
 
-Problem is:
+Problem:
 
 ```{r}
 all_txt[7]
@@ -418,20 +431,14 @@ names_kings
 
 ## Case study: mapping the kings of France
 
-Combine everything into tidy data frame
+Combine everything into a tidy data frame
 
 ```{r}
 # Combine into data frames
-sequence_kings_df <- lapply(sequence_kings, function(x) data.frame(start = x[1], end = x[2]))
-final_kings <- do.call(rbind, sequence_kings_df)
-
-# Add king names
-final_kings$event <- names_kings
-final_kings$start <- make_date(final_kings$start, 1, 1)
-final_kings$end <- make_date(final_kings$end, 1, 1)
-
-# Final data frame
-final_kings <- as_tibble(final_kings)
+start = sapply(sequence_kings, `[[`, 1)
+end = sapply(sequence_kings, `[[`, 2)
+final_kings <- tibble(event=names_kings, start=start, end=end) |>
+  mutate_if(is.numeric, ~make_date(., 1, 1))
 final_kings
 ```
 

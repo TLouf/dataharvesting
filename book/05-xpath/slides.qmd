@@ -1,6 +1,8 @@
 ---
-title: "Introduction XPath"
-format: revealjs
+title: "Introduction to XPath"
+format:
+    revealjs:
+        chalkboard: true
 ---
 
 ```{r, echo = FALSE}
@@ -119,13 +121,13 @@ raw_xml <- "
     </dansimmons>
   </authors>
 </bookshelf>"
-
 book_xml <- raw_xml %>% read_xml()
 ```
 
-Several `book` nodes..
 
 ## XPath tricks `//`
+
+Several `book` nodes..
 
 <br>
 
@@ -167,7 +169,7 @@ Which does not find the node.
 
 ## XPath tricks: subsetting nodes by number
 
--   XPath als allows to pick by number
+- XPath also allows to pick by order of appearance
 
 ```{r}
 book_xml %>%
@@ -250,9 +252,9 @@ book_xml %>%
   xml_text()
 ```
 
-1.  Find all `<book>` tags that have an attribute of `price`
-2.  That is set to `yes`
-3.  That are *descendants* (but not necessarily direct child, because of the `//`) of the `<dansimmons>` tag.
+1. Find all `<book>` tags
+2. Which have an attribute `price` set to `yes`
+3. And are *descendants* (but not necessarily direct child, because of the `//`) of the `<dansimmons>` tag.
 
 ## Filter by attributes
 
@@ -277,7 +279,7 @@ Or find all books which did not have a price:
 
 ```{r}
 book_xml %>%
-  xml_find_all("//book[@price!='yes']")
+  xml_find_all("//book[not(@price)]")
 ```
 
 You can also use the keyword `or` to match certain properties:
@@ -315,7 +317,7 @@ newspaper <- read_html(newspaper_link)
 
 Objective: figuring out the links to all sections of the newspaper to be able to scrape all news separately by area.
 
-![](images/elpais_science_main-02.png){fig-align="center"}
+![](images/elpais_science_main.png){fig-align="center"}
 
 ## Case study: Web scraping El País
 
@@ -341,7 +343,7 @@ XPath seems right but the output returns too many tags...expecting one link (som
 
 We know that between our `<a>` tag and `<section>` tag there are two additional `<header>` and `<div>` tags
 
-![](images/elpais_science_main_sourcecode-01.png){fig-align="center"}
+![](images/elpais_science_main_sourcecode.png){fig-align="center"}
 
 ## Case study: Web scraping El País
 
@@ -409,18 +411,14 @@ newspaper %>%
 
 Five sections, mostly entertainment related except for the first one which is the front page ('aperatura' is something like 'opening')
 
-## XPath cookbook
-
-[Here](https://cimentadaj.github.io/dataharvesting/xpath-chapter.html#xpath-cookbook)
 
 ## Conclusion
 
 XPath is a very rich language with over 20 years of development. I've covered some basics as well as intermediate parts of the language but there's much more to be learned:
 
+- [The course's cookbook](https://cimentadaj.github.io/dataharvesting/xpath-chapter.html#xpath-cookbook)
 -   [XPath Cheetsheet](https://devhints.io/xpath)
-
 -   [Extensive XPath Cheetsheet](https://www.lambdatest.com/blog/most-exhaustive-xpath-locators-cheat-sheet/)
-
 -   [XPath tutorial](https://www.w3schools.com/xml/xpath_intro.asp)
 
 ## Homework

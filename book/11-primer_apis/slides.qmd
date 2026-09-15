@@ -1,6 +1,8 @@
 ---
 title: "A primer on APIs"
-format: revealjs
+format:
+    revealjs:
+        chalkboard: true
 ---
 
 ```{r, echo = FALSE}

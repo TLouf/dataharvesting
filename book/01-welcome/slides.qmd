@@ -1,6 +1,8 @@
 ---
 title: "Welcome"
-format: revealjs
+format:
+    revealjs:
+        chalkboard: true
 ---
 
 ## Welcome to the world of Data Harvesting
@@ -13,136 +15,115 @@ format: revealjs
 
 How about you?
 
-## What will you expect from the course?
+## What can you expect from the course?
 
-We'll learn to scrape data from the internet.
+We'll learn how to scrape data from the web.
 
 ![](images/spain-map-schools-1.png){fig-align="center"}
 
-## What will you expect from the course?
+## What can you expect from the course?
 
-We'll talk to APIs
+We'll learn how to interact with APIs.
 
 ![](images/bicycle_usage.png){fig-align="center"}
 
-## All content of this course
+## Course website and materials
 
-::: {.columns style="display: flex !important; height: 40%;"}
-::: {.column width="50%" style="display: flex; justify-content: center; align-items: center;"}
-### <https://cimentadaj.github.io/dataharvesting/>
-### <https://cimentadaj.github.io/dataharvesting/slides/>
-:::
-:::
+- <https://cimentadaj.github.io/dataharvesting/>
+- <https://cimentadaj.github.io/dataharvesting/slides/>
 
 ## How will this course work?
 
-<br>
-
--   Tutoring on Tuesdays between 18h-20h. **Requests should be per email and should receive a confirmation per email. Tutoring will be online over video call.**
--   My email: **cimentadaj\@gmail.com**
--   Classes on Thursdays
--   Class between 18:00 - 19:30
--   15 minute break
--   Class between 19:45 to 20:45
+-   Office hours on Tuesdays between 18:00 and 20:00. **Requests must be sent by email and confirmed in advance. Office hours will be held online via video call.**
+-   Email: **cimentadaj\@gmail.com**
+-   Classes on Thursdays:
+    -   18:00 – 19:30: First session
+    -   19:30 – 19:45: Break (15 mins)
+    -   19:45 – 20:45: Second session
 
 ## How will this course work?
 
--   Readings and exercises will be assigned for next class.
+-   Readings and exercises will be assigned for each upcoming class.
 
--   This is the material from next class -- read and execute the code.
+-   Review the assigned material beforehand: read the content and run the code.
 
 <br>
 
-Scoring for the class:
+Grading:
 
--   Class participation 20%
+-   Class participation: 20%
 
--   Final project 80%
+-   Final project: 80%
 
 ## Course outline
 
-<br>
+- Web scraping -- First three classes (**30th Jan / 6th Feb / 13th Feb**)
 
-Webscraping -- First three classes (**30st Jan / 6th Feb / 13th Feb)**
+- APIs -- Next three classes (**20th Feb / 27th Feb / 6th March**)
 
-<br>
+- Automating Data Harvesting (Final class, REMOTE CLASS) -- **13th March**
 
-APIs - Next three classes (**20st Feb / 27th Feb / 6th March)**
-
-<br>
-
-Automating Data Harvesting (Final class, REMOTE CLASS) - **13nd March**
-
-<br>22nd February
-
-Presentation of projects - **27nd March / 16:30-19:15**
+- Final project presentations -- **27th March / 16:30–19:15**
 
 ## Final project
 
-Final project spreadsheet is [here](https://docs.google.com/spreadsheets/d/11QmdgRXvbwtN9hSOwVyw9-iVjrN-yeRq_BOudidAnX8/edit#gid=73208201).
+The final project spreadsheet is available [here](https://docs.google.com/spreadsheets/d/11QmdgRXvbwtN9hSOwVyw9-iVjrN-yeRq_BOudidAnX8/edit#gid=73208201).
 
--   30 students / 15 groups
+-   Find your partner as soon as possible -- **deadline: 14th February (third class)**
 
--   Try to find your partner as soon as possible -- **deadline 14 February (third class)**
+-   Submit project ideas -- **deadline: 27th February (fifth class)**
 
--   Final project ideas submission -- **deadline 27th Feb (fifth class)**
+-   Submit final project -- **deadline: 13th March (seventh class)**
 
--   2 weeks of work on final project
+-   Final project presentations -- **27th March / 16:30–19:15**
 
--   Final project submission -- **deadline 13nd March (seventh class)**
-
--   Final project presentation -- **27nd March / 16:30-19:15**
-
--   Every team will have 10 minutes to present.
+-   Each team will have 10 minutes to present.
 
 ## Project expectations
 
--   Handout: Github repository private or public.
+-   Deliverable: A private or public GitHub repository.
 
--   A clear README on how to reproduce the scraper/API program.
+-   A clear `README` explaining how to reproduce the scraper/API pipeline.
 
--   Key is to make it reproducible: I should be able to clone the repository and execute whatever you need to me to produce the scraper.
+-   Reproducibility is key: I should be able to clone the repository and run everything needed to execute the project seamlessly.
 
--   Document what the output is, where it is saved and what each script in the program does.
+-   Document what data is collected, where it is saved, and the purpose of each script.
 
 ## Project expectations
 
--   The idea is for some medium-hard scraping/API projects.
+-   Projects should be of intermediate complexity:
 
-    -   Scrape several sources of information
+    -   Scrape multiple sources of information
 
-    -   Same website or combining several websites
+    -   Combine multiple pages or different websites
 
-    -   Meaningful dataset / Something that might help you on another class
+    -   Produce a meaningful dataset (e.g., something useful for another course or research project)
 
-    -   **Remember most of the mark is for this project.**
+    -   **Remember that most of the grade is based on this project.**
 
--   API Projects: tokens should not be hosted on your repository. Provide clear instructions where to place tokens for reproducibility.
+-   API projects: API keys and tokens must NOT be pushed to your repository. Provide clear instructions on where and how to configure them for reproducibility.
 
 ## Project expectations
 
 <br>
 
-Project ideas should be consulted and approved by me before the deadline
+Project ideas must be discussed with and approved by me before the deadline.
 
 <br>
 
-Emails can be directed at cimentadaj\@gmail.com
+Feel free to reach out via email at cimentadaj\@gmail.com.
 
-Examples from previous classes:
+Examples from previous cohorts:
 
-- https://github.com/myanesp/media-streaming-tmdb
-- https://github.com/myanesp/tmdbR
+- <https://github.com/myanesp/media-streaming-tmdb>
+- <https://github.com/myanesp/tmdbR>
 
 ## Contribute
 
 Contribute to the book!
 
-::: {.columns style="display: flex !important; height: 40%;"}
-::: {.column width="50%" style="display: flex; justify-content: center; align-items: center;"}
 ### <https://cimentadaj.github.io/dataharvesting>
-:::
-:::
+
 
 ## Motivation
 
@@ -150,4 +131,4 @@ Motivation: [https://www.coverage-db.org/](https://www.coverage-db.org/)
 
 <br>
 
-Demotivation: [https://www.vox.com/2016/5/12/11666116/70000-okcupid-users-data-release](https://www.vox.com/2016/5/12/11666116/70000-okcupid-users-data-release)
+Cautionary tale: [https://www.vox.com/2016/5/12/11666116/70000-okcupid-users-data-release](https://www.vox.com/2016/5/12/11666116/70000-okcupid-users-data-release)

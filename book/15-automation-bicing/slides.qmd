@@ -1,6 +1,8 @@
 ---
 title: "Automating API programs"
-format: revealjs
+format:
+    revealjs:
+        chalkboard: true
 ---
 
 ```{r, echo = FALSE}
@@ -34,9 +36,7 @@ Ever wondered how you can grab real time data, **on demand**, without moving a f
 
 ## Automating APIs
 
-My story with bicycles:
-
-![](images/paste-4E2DD2D9.png)
+![](images/bike_station.jpg)
 
 ## The Bicing API
 

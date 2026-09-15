@@ -1,6 +1,8 @@
 ---
 title: "Ethical Issues in Web Scraping"
-format: revealjs
+format:
+    revealjs:
+        chalkboard: true
 ---
 
 ```{r, echo = FALSE}
@@ -34,21 +36,21 @@ How do you affect a website when you webscrape?
 
 -   A human is slow enough for a server to handle the requests
 
--   Imagine a human the tried to enter a website 5 times per second continuously for 48 hours
+-   Imagine a human tried to enter a website 5 times per second continuously for 48 hours
 
 -   That amounts to 864,000 requests
 
--   That's a lot
+-   That's _a lot_
 
 ## Make your scraper sleep
 
--   Big websites such as Google or Amazon have enough servers
+- Big websites such as Google or Amazon have enough servers
 
--   However, most website do not.
+- However, most do not.
 
--   If you're scraping a website only making a *single* request, it shouldn't matter.
+- If you're scraping a website only making a *single* request, it shouldn't matter.
 
--   How does it work?
+- So how to avoid spamming requests?
 
 ## Make your scraper sleep
 
@@ -79,7 +81,7 @@ for (single_link in school_links) {
 
 -   How many seconds should you wait?
 
--   Sometimes `robotstxt` file will tell you
+-   Sometimes `robots.txt` file will tell you
 
 -   Multiplying the total number of websites you'll scrape by the number of seconds you'll sleep will give you a rough estimate of how much time your program will last.
 
@@ -125,19 +127,16 @@ If it's not clear from the terms of services, contact the website and receive wr
 
 The `robots.txt` file of most websites is located in the main URL
 
--   [www.facebook.com/robots.txt](www.facebook.com/robots.txt)
-
--   [www.google.com/robots.txt](www.google.com/robots.txt)
-
--   [www.amazon.com/robots.txt](https://www.amazon.com/robots.txt)
-
--   [www.uc3m.es/robots.txt](https://www.uc3m.es/robots.txt)
+- <https://facebook.com/robots.txt>
+- <https://google.com/robots.txt>
+- <https://amazon.com/robots.txt>
+- <https://uc3m.es/robots.txt>
 
 It documents each URL of the Google website and it explicitly tells you which ones are allowed or disallowed.
 
 ## Copying information
 
--   Validate which paths you can scrape with `robotstxt`
+-   Validate which paths you can scrape with the `robotstxt` package
 
 -   Provide any link you want to scrape to confirm it.
 
@@ -170,6 +169,6 @@ paths_allowed("https://facebook.com")
 library(httr)
 
 set_config(
-  user_agent("Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:105.0) Gecko/20100101 Firefox/105.0; Jorge Cimentada / cimentadaj@gmail.com")
+  user_agent("Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:105.0) Gecko/20100101 Firefox/105.0")
 )
 ```

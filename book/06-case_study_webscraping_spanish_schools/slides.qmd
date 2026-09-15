@@ -1,6 +1,8 @@
 ---
 title: "Case study: Scraping Spanish school locations from the web"
-format: revealjs
+format:
+    revealjs:
+        chalkboard: true
 ---
 
 ```{r, echo = FALSE}
@@ -246,7 +248,7 @@ Great, that's it, this is data we've looking for in the entire chapter. Let's su
 
 # This sets your `User-Agent` globally so that all requests are identified with this `User-Agent`
 set_config(
-  user_agent("Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:105.0) Gecko/20100101 Firefox/105.0; Jorge Cimentada / cimentadaj@gmail.com")
+  user_agent("Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:105.0) Gecko/20100101 Firefox/105.0")
 )
 
 # Collapse all of the code from above into one function called

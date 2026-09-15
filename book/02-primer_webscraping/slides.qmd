@@ -1,6 +1,8 @@
 ---
 title: "Web Scraping"
-format: revealjs
+format:
+    revealjs:
+        chalkboard: true
 ---
 
 ```{r, echo = FALSE}
@@ -26,7 +28,7 @@ knitr::opts_chunk$set(
 
 -   The plot above shows the election results for all political parties in Spain since 1978, all completely [scraped from Wikipedia](https://en.wikipedia.org/wiki/Elections_in_Spain).
 
--   Chapter 2 from book
+-   Chapter 2 of the book
 
 ## Scrapex
 
@@ -73,11 +75,11 @@ browseURL(prep_browser(link))
 
 ## Getting website data into R
 
-Ethical web scraping is identifying yourself
+Ethical web scraping: identifying yourself
 
 ```{r}
 set_config(
-  user_agent("Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:105.0) Gecko/20100101 Firefox/105.0; Jorge Cimentada / cimentadaj@gmail.com")
+  user_agent("Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:105.0) Gecko/20100101 Firefox/105.0")
 )
 ```
 
@@ -110,9 +112,9 @@ What we actually want:
 
 -   The output from `read_html()` is difficult to understand
 
--   Goal is to find actual election data on the website
+-   The goal is to find the actual election data on the website
 
--   `rvest` package has `html_table()` function that can extract tables from website and import into R.
+-   The `rvest` package has the `html_table()` function that can extract tables from a website and import them into R.
 
 <br>
 

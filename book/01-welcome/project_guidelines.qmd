@@ -1,6 +1,8 @@
 ---
 title: "Project Guidelines"
-format: revealjs
+format:
+    revealjs:
+        chalkboard: true
 ---
 
 ## Project guidelines

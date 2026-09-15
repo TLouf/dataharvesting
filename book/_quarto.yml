@@ -1,10 +1,7 @@
 project:
   output-dir: _book
 
-author: "Jorge Cimentada"
-date: "last-modified"
-
 profile:
   default: book
   group:
-  - [slides, book]
+    - [slides, book]

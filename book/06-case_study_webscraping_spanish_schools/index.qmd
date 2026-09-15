@@ -158,7 +158,7 @@ school_raw %>%
 
 Only one match, so this is good news. This means that we can uniquely identify this particular `<p>` tag. Let's refine the search to say: Find all `<a>` tags which are children of that specific `<p>` tag. This only means I'll add a `"//a"` to the previous expression. Since there is only one `<p>` tag with the class, we're interested in checking whether there is more than one `<a>` tag below this `<p>` tag.
 
-```{r }
+```{r}
 
 school_raw %>%
   xml_find_all("//p[@class='d-flex align-items-baseline g-mt-5']//a")
@@ -224,7 +224,7 @@ When moving the code to scrape one single case to many cases, you'll want to mov
 ```{r}
 # This sets your `User-Agent` globally so that all requests are identified with this `User-Agent`
 set_config(
-  user_agent("Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:105.0) Gecko/20100101 Firefox/105.0; Jorge Cimentada / cimentadaj@gmail.com")
+  user_agent("Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:105.0) Gecko/20100101 Firefox/105.0")
 )
 
 # Collapse all of the code from above into one function called

@@ -189,8 +189,14 @@ knitr::include_graphics(file.path(main_dir, "crontab_list.png"))
 
 The output means you have no scheduled scripts in your computer. To schedule a script with `cron` you need two things: the command to execute and the schedule. The command to execute we already know, it's `Rscript ~/newspaper/newspaper_scraper.R`. For specifying schedules, `cron` has a particular syntax. How does it work? Let's take a look:
 
-```{r, echo = FALSE, out.width = "80%"}
-knitr::include_graphics(file.path(main_dir, "crontab_syntax.png"))
+```
+  * * * * * <command to execute>
+# | | | | |
+# | | | | day of the week (0–6) (Sunday to Saturday)
+# | | | month (1–12)
+# | | day of the month (1–31)
+# | hour (0–23)
+# minute (0–59)
 ```
 
 At the bottom of the image we see 5 `*`. The text above it tells what each of these `*` stands for. In this order, they represent minutes, hours, day of month, month and day of week.`*` is in fact a placeholder to signal that whenever there is a `*` it means the command will be repeated at each instance of the place holder. Complicated? Look at this example:

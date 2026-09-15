@@ -1,6 +1,8 @@
 ---
 title: "Introduction to JSON"
-format: revealjs
+format:
+    revealjs:
+        chalkboard: true
 ---
 
 ```{r, echo = FALSE}

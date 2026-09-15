@@ -1,6 +1,8 @@
 ---
 title: "Automating Web Scraping"
-format: revealjs
+format:
+    revealjs:
+        chalkboard: true
 ---
 
 ```{r, echo = FALSE}
@@ -238,11 +240,18 @@ The output means you have no scheduled scripts in your computer.
 
 ## Anatomy of a schedule
 
-1.  A schedule
-2.  What to execute
-3.  `Rscript ~/newspaper/newspaper_scraper.R`
+```
+  * * * * * <command to execute>
+# | | | | |
+# | | | | day of the week (0–6) (Sunday to Saturday)
+# | | | month (1–12)
+# | | day of the month (1–31)
+# | hour (0–23)
+# minute (0–59)
+```
 
-![](images/crontab_syntax.png){fig-align="center"}
+1.  A schedule
+2.  What to execute, here: `Rscript ~/newspaper/newspaper_scraper.R`
 
 ## Anatomy of a schedule
 

@@ -17,4 +17,6 @@ project:
     - 14-case_study_api_amazon/slides.qmd
     - 15-automation-bicing/slides.qmd
 
-format: revealjs
+format:
+    revealjs:
+        chalkboard: true

@@ -32,7 +32,7 @@ This plot shows the election results for all political parties in Spain since 19
 
 ## Getting website data into R
 
-Our very own `scrapex` package has a function called`history_elections_spain_ex()` which points to a locally saved copy of the Wikipedia website that will persist over time(the original online link is https://en.wikipedia.org/wiki/Elections_in_Spain). Let's load all packages and take a look at the website.
+Our very own `scrapex` package has a function called `history_elections_spain_ex()` which points to a locally saved copy of the Wikipedia website that will persist over time (the original online link is https://en.wikipedia.org/wiki/Elections_in_Spain). Let's load all packages and take a look at the website.
 
 ```{r}
 library(scrapex)
@@ -47,7 +47,7 @@ link <- history_elections_spain_ex()
 link
 ```
 
-This is where your the website is saved locally on your computer. We can directly visualize this on our browser like this:
+This is where the website is saved locally on your computer. We can directly visualize this on our browser like this:
 
 ```{r, eval = FALSE}
 browseURL(prep_browser(link))
@@ -57,14 +57,14 @@ browseURL(prep_browser(link))
 knitr::include_graphics(file.path(main_dir, "elections_website.png"))
 ```
 
-On the bottom right you can see the plot that we'd like to generate. This plots has all political parties since 1978 up until the 2020 elections. The first step in webscraping is to 'read' the website into R. We can do that with the `read_html` function. We pass the website link (the typical https://en.wikipedia.org string) but since we already have the website locally, we just pass it the path to the local website:
+On the bottom right you can see the plot that we'd like to generate. This plot has all political parties since 1978 up until the 2020 elections. The first step in webscraping is to 'read' the website into R. We can do that with the `read_html` function. We pass the website link (the typical https://en.wikipedia.org string) but since we already have the website locally, we just pass it the path to the local website:
 
 Before we do that, I will set something called my `User-Agent`. The `User-Agent` is **who** you are. It is good practice to identify the person who is scraping the website because if you're causing any trouble on the website, the website can directly identify who is causing problems. You can figure out your user agent [here](https://www.google.com/search?client=ubuntu&channel=fs&q=what%27s+my+user+agent&ie=utf-8&oe=utf-8) and paste it in the string below. This string contains information about your computer/browser such that the owners of the website can know who you are. I also add my name/email to make identification easier:
 
 
 ```{r}
 set_config(
-  user_agent("Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:105.0) Gecko/20100101 Firefox/105.0; Jorge Cimentada / cimentadaj@gmail.com")
+  user_agent("Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:105.0) Gecko/20100101 Firefox/105.0")
 )
 
 html_website <- link %>% read_html()
@@ -86,7 +86,7 @@ all_tables <-
   html_table()
 ```
 
-`html_table()` reads **all** tables so there's a lot of information in `all_tables` (a list with 10 tables to be more precise). I won't print the entire R object because it's too verbose but I encourage the reader to write `all_tables` in the R console and explore all the tables that it scraped automatically. I did that myself to understand where is the information that we're looking for. After carefully inspecting all tables, I figure out that the table we're looking for is in slot 5:
+`html_table()` reads **all** tables so there's a lot of information in `all_tables` (a list with 10 tables to be more precise). I won't print the entire R object because it's too verbose but I encourage the reader to write `all_tables` in the R console and explore all the tables that it scraped automatically. I did that myself to understand where is the information that we're looking for. After carefully inspecting all tables, I figured out that the table we're looking for is in slot 5:
 
 ```{r}
 elections_data <- all_tables[[5]]
@@ -105,7 +105,7 @@ On the first column we have the year and on each column we have the name of the 
 
 * The first row of the table is empty
 * The `Election` column is a `character` column because in row 15 and 16 it contains months `Apr.` and `Nov.`.
-* For each political party column there are values which are not numbers (these are usually values representing foot notes such as `[k]` and others such as `Dissolved` for parties which dissolved over the years). This forces some columns to be `character` columns where in fact we want all of them to be of class `numeric` to be able to visualize them in a plot.
+* For each political party column there are values which are not numbers (these are usually values representing footnotes such as `[k]` and others such as `Dissolved` for parties which dissolved over the years). This forces some columns to be `character` columns where in fact we want all of them to be of class `numeric` to be able to visualize them in a plot.
 * Column names also have these *footnote* values in their names. We probably should remove them.
 
 As I recalled in the first paragraphs of this primer, to be able to do webscraping, you need to be a data ninja. You'll need to become familiar with the basics of regular expressions (this is a fancy name for manipulating strings) and also on cleaning data. Here we'll use the very basics of string manipulation, it's fine if you feel completely lost. Just work hard at it and little by little you'll learn tricks along the way.
@@ -116,7 +116,7 @@ The first thing we'd want to do is to keep only the columns which are character.
 elections_data %>% select_if(is.character)
 ```
 
-We can see all the different string values in those columns. What we'd want is to replace all non-numeric values for `NA`'s. That way when we convert these columns to numbers we won't loose any information. How can we remove these values? I went through each of these columns and wrote down the `character` values that we need to remove:
+We can see all the different string values in those columns. What we'd want is to replace all non-numeric values with `NA`s. That way when we convert these columns to numbers we won't lose any information. How can we remove these values? I went through each of these columns and wrote down the `character` values that we need to remove:
 
 ```{r}
 wrong_labels <- c(
@@ -131,7 +131,7 @@ wrong_labels <- c(
 )
 ```
 
-Now we just need to apply some regular expression (regex from now on) skills to remove them. Let's explain what we want to do. In the regex world the `|` stands for OR. This means that if we want to find all the words `Banned` and `Boycotted` and replace them with `NA'` we could write `Banned|Boycotted`. This literally means `Banned` OR `Boycotted`. We can take the previous `wrong_labels` vector and insert a `|` between the wrong labels:
+Now we just need to apply some regular expression (regex from now on) skills to remove them. Let's explain what we want to do. In the regex world the `|` stands for OR. This means that if we want to find all the words `Banned` and `Boycotted` and replace them with `NA`s we could write `Banned|Boycotted`. This literally means `Banned` OR `Boycotted`. We can take the previous `wrong_labels` vector and insert a `|` between the wrong labels:
 
 
 ```{r}
@@ -141,7 +141,7 @@ wrong_labels
 
 This effectively says: `Dissolved` OR `[k]` OR `[l]`, ...
 
-With this string we can use the function `str_replace_all` to replace all wrong labels for `NA`'s. Here's how we'd do it:
+With this string we can use the function `str_replace_all` to replace all wrong labels with `NA`s. Here's how we'd do it:
 
 ```{r}
 semi_cleaned_data <-
@@ -155,16 +155,16 @@ semi_cleaned_data <-
 Alright, don't get stressed, we'll explain this line by line. The second line references our data (`elections_data`, the one we've been working with until now). The third line uses the `mutate_if` function which works by applying a function to columns that we subset based on a criteria. Let's break down that explanation even further. You can actually read the code from above like this:
 
 * For the `elections_data`
-* For columns which are `character` columns (`mutate_if(is character, ...)`)
-* Apply a transformation (`mutate_if(is character, ~ str_replace_all(...)`)
+* For columns which are `character` columns (`mutate_if(is.character, ...)`)
+* Apply a transformation (`mutate_if(is.character, ~ str_replace_all(...))`)
 
-For our example this means that for all character columns, the function `str_replace_all` function will be applied. This function replaces all `wrong_labels` for `NA`'s. We can see this right away:
+For our example this means that for all character columns, the `str_replace_all` function will be applied. This function replaces all `wrong_labels` with `NA`s. We can see this right away:
 
 ```{r}
 semi_cleaned_data %>% select_if(is.character)
 ```
 
-All columns **still** are characters, but don't have any of the wrong labels that we identified before. The only problem we have is that the `Election` column has the months `Apr.` and `Nov. ` and we won't be able to convert that to numeric. We can apply our regex trick of saying replace Apr. OR Nov. by an empty string. Let's do that:
+All columns are **still** characters, but don't have any of the wrong labels that we identified before. The only problem we have is that the `Election` column has the months `Apr.` and `Nov. ` and we won't be able to convert that to numeric. We can apply our regex trick of saying replace Apr. OR Nov. with an empty string. Let's do that:
 
 ```{r}
 semi_cleaned_data <-
@@ -180,7 +180,7 @@ Let's check again that everything worked as expected:
 semi_cleaned_data %>% select_if(is.character)
 ```
 
-There we go, we don't have strings in any of the the columns anymore. Let's transform all columns into numeric and remove that first row that is empty:
+There we go, we don't have strings in any of the columns anymore. Let's transform all columns into numeric and remove that first row that is empty:
 
 ```{r}
 semi_cleaned_data <-
@@ -191,9 +191,9 @@ semi_cleaned_data <-
 semi_cleaned_data
 ```
 
-There we go, all columns are of class numeric and look nice and tidy for plotting. Last step we need to take is to remove the footnote values from the party column names. For doing that we'll need some more advanced regex patterns that I'll explain briefly (chapter \@ref(regex) will elaborate the concept of regex more in depth). The pattern we'll use is `[.+]` which means: detect any character (this is the `.`) that is repeated one or more times (this is the `+`) and are enclosed within brackets (this is the `[]` part). So for example, the string `Election` won't find any match because it does not have a bracket with any values repeated one or more times. However, the column name `UCD[a]` does have this pattern: it contains two brackets `[]` that have a value that is repeated one time (`a`).
+There we go, all columns are of class numeric and look nice and tidy for plotting. Last step we need to take is to remove the footnote values from the party column names. For doing that we'll need some more advanced regex patterns that I'll explain briefly (chapter \@ref(regex) will elaborate the concept of regex more in depth). The pattern we'll use is `[.+]` which means: detect any character (this is the `.`) that is repeated one or more times (this is the `+`) and is enclosed within brackets (this is the `[]` part). So for example, the string `Election` won't find any match because it does not have a bracket with any values repeated one or more times. However, the column name `UCD[a]` does have this pattern: it contains two brackets `[]` that have a value that is repeated one time (`a`).
 
-There's also a last trick that we need to take into account which is that brackets (`[]`) have a special meaning in the regex world. To signal to regex that you want to match brackets *literally*, you need to append them with the backslash (`\\`). So the final regex pattern we want to match is: `\\[.+\\]`. Let's use it to rename all columns:
+There's also a last trick that we need to take into account which is that brackets (`[]`) have a special meaning in the regex world. To signal to regex that you want to match brackets *literally*, you need to escape them with the backslash (`\\`). So the final regex pattern we want to match is: `\\[.+\\]`. Let's use it to rename all columns:
 
 
 ```{r}
@@ -204,7 +204,7 @@ semi_cleaned_data <-
 semi_cleaned_data
 ```
 
-The data set is ready to plot. It's tidy and clean. Let's plot it:
+The dataset is ready to plot. It's tidy and clean. Let's plot it:
 
 ```{r}
 # Pivot from wide to long to plot it in ggplot
@@ -221,12 +221,12 @@ cleaned_data %>%
   theme_minimal()
 ```
 
-So there you have it. This primer gave you a very direct experience on what webscraping involves. It involves read data from a website into R, manually or automatically finding the chunks of data you want to scrape, extracting those and cleaning them enough to be able to do something useful with it. In the next chapter you'll see more in depth how to work with HTML and XML data, as you'll need some intuition on how to find stuff within an HTML or XML document.
+So there you have it. This primer gave you a very direct experience on what webscraping involves. It involves reading data from a website into R, manually or automatically finding the chunks of data you want to scrape, extracting those, and cleaning them enough to be able to do something useful with them. In the next chapter you'll see more in depth how to work with HTML and XML data, as you'll need some intuition on how to find stuff within an HTML or XML document.
 
 
 ## Exercises
 
-1. Europe has an ageing problem and the mandatory retirement age is being constantly revised. In the `scrapex` package there's a copy of the "Retirement in Europe" wikipedia website [https://en.wikipedia.org/wiki/Retirement_in_Europe](https://en.wikipedia.org/wiki/Retirement_in_Europe). You can find the local link in the function `retirement_age_europe_ex()`. Can you inspect the website, parse the table and replicate the plot below? (Hint: you might need the function `str_sub` from the `stringr` package).
+1. Europe has an aging problem and the mandatory retirement age is being constantly revised. In the `scrapex` package there's a copy of the "Retirement in Europe" Wikipedia website [https://en.wikipedia.org/wiki/Retirement_in_Europe](https://en.wikipedia.org/wiki/Retirement_in_Europe). You can find the local link in the function `retirement_age_europe_ex()`. Can you inspect the website, parse the table and replicate the plot below? (Hint: you might need the function `str_sub` from the `stringr` package).
 
 ```{r, echo = FALSE}
 library(scrapex)
@@ -254,7 +254,7 @@ aging_europe %>%
   theme_minimal()
 ```
 
-2. When parsing the elections table, we parsed all tables of the Wikipedia table into `all_tables`. Among all those tables, there's one table that documents the years at which there were general elections, presidential elections, european elections, local elections, regional elections and referendums in Spain. Can you extract into a *numeric* vector all the years at which there were general elections in Spain? (Hint: you might need `str_split` and other `stringr` functions and the resulting vector should start by 1810 and end with 2019).
+2. When parsing the elections table, we parsed all tables of the Wikipedia table into `all_tables`. Among all those tables, there's one table that documents the years in which there were general elections, presidential elections, European elections, local elections, regional elections and referendums in Spain. Can you extract into a *numeric* vector all the years in which there were general elections in Spain? (Hint: you might need `str_split` and other `stringr` functions and the resulting vector should start with 1810 and end with 2019).
 
 ```{r, eval = FALSE, echo = FALSE}
 important_dates <- all_tables[[6]]
@@ -273,7 +273,7 @@ general_elections <- all_years[!is.na(all_years)]
 general_elections
 ```
 
-3. Building on your previous code, can you tell me the years where local elections, european elections and general elections overlapped?
+3. Building on your previous code, can you tell me the years where local elections, European elections and general elections overlapped?
 
 ```{r, eval = FALSE, echo = FALSE}
 important_dates <- all_tables[[6]]
@@ -292,48 +292,3 @@ all_years <-
 overlapping_years <- intersect(all_years[[1]], intersect(all_years[[2]], all_years[[3]]))
 overlapping_years
 ```
-
-
-<!-- # TODO: This is too hard for an exercise right away. You thought of saving cleaned_data to scrapex -->
-<!-- # and raise this exercises later on such that students can recycle the data frame elsewhere and -->
-<!-- # just focus on scraping the colors. This should be once students know xpath. -->
-
-<!-- html_website %>% -->
-<!--   html_nodes(xpath = "//table[@style='text-align:center; font-size:90%;']") %>% -->
-<!--   html_nodes(xpath = "//th") -->
-
-<!-- # TODO: can you come up with a direct xpath to background colors? That -->
-<!-- # way it's less verbose -->
-<!-- all_style_attr <- -->
-<!--   html_website %>% -->
-<!--   html_nodes(xpath = "//table[@style='text-align:center; font-size:90%;']") %>% -->
-<!--   html_nodes(xpath = "//tbody//th[@style]") %>% -->
-<!--   html_attr("style") -->
-
-<!-- where_background <- all_style_attr %>% str_detect("background") -->
-
-<!-- party_colors <- all_style_attr[where_background] %>% str_replace_all("background:", "") -->
-
-<!-- parties <- names(semi_cleaned_data)[-1] -->
-<!-- colors_lookup <- tibble(parties = parties, party_colors = party_colors) -->
-
-<!-- cleaned_colors_data <- -->
-<!--   cleaned_data %>% -->
-<!--   left_join(colors_lookup) -->
-
-<!-- tmp_colors <- cleaned_colors_data %>% distinct(parties, party_colors) -->
-<!-- vector_colors <- tmp_colors$party_colors -->
-<!-- names(vector_colors) <- tmp_colors$parties -->
-
-<!-- cleaned_colors_data %>% -->
-<!--   ggplot(aes(Election, value, color = parties)) + -->
-<!--   geom_line() + -->
-<!--   scale_y_continuous(name = "% of votes", labels = function(x) paste0(x, "%")) + -->
-<!--   xlab("Election years") + -->
-<!--   scale_colour_manual(values = vector_colors) + -->
-<!--   ggtitle(label = "Parties and share of votes in all Spanish Elections") + -->
-<!--   theme_minimal() -->
-
-<!-- ``` -->
-
-<!-- - Here a quick example using rvest to scrape IMDB (? better example ?). You need to add the Wikipedia page to `scrapex`. -->

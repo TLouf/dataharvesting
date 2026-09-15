@@ -20,9 +20,9 @@ knitr::opts_chunk$set(
 # What you need to know about regular expressions {#regex}
 
 
-Before I set out to write this chapter I was hesitant to do it. I don't consider myself an expert on regular expressions nor do I think I would be able to take you from beginner to expert on such a complicated topic. On top of that, there are dozens of excellent tutorials on regular expressions out there that would do the topic more justice that I would be able to. With that said, you cannot do web scraping without knowing *some* regular expression techniques. Most of the data you'll extract from the web will need some type of massaging. Other times you'll find the data you need will be a string, combined with other stuff. You'll need to know that there are tools to clean this string and extract just what you need.
+Before I set out to write this chapter I was hesitant to do it. I don't consider myself an expert on regular expressions nor do I think I would be able to take you from beginner to expert on such a complicated topic. On top of that, there are dozens of excellent tutorials on regular expressions out there that would do the topic more justice than I would be able to. With that said, you cannot do web scraping without knowing *some* regular expression techniques. Most of the data you'll extract from the web will need some type of massaging. Other times you'll find the data you need will be a string, combined with other stuff. You'll need to know that there are tools to clean this string and extract just what you need.
 
-For that reason, I decided I wanted to write this chapter but focusing only on what I think are the the basics in regexp. Moreover, I wanted the chapter to use webscraping examples as soon as you had the basics in mind. These basics are the bare minimum you'll need to clean the usual web scraping strings you'll extract. This means that I'll give you a very incomplete picture of what regexp can do but enough to get you up and running in a very short of amount of time. If the reader is interested in the topic, I refer them to the chapter on [strings](https://r4ds.had.co.nz/strings.html) from the book R For Data Science. That chapter will give you a more thorough introduction into the topic with more general applications. Without further a due, let's begin.
+For that reason, I decided I wanted to write this chapter focusing only on what I think are the basics in regexp. Moreover, I wanted the chapter to use webscraping examples as soon as you had the basics in mind. These basics are the bare minimum you'll need to clean the usual web scraping strings you'll extract. This means that I'll give you a very incomplete picture of what regexp can do but enough to get you up and running in a very short amount of time. If the reader is interested in the topic, I refer them to the chapter on [strings](https://r4ds.had.co.nz/strings.html) from the book R For Data Science. That chapter will give you a more thorough introduction into the topic with more general applications. Without further ado, let's begin.
 
 ## Basic matches
 
@@ -33,6 +33,7 @@ library(stringr)
 library(scrapex)
 library(rvest)
 library(xml2)
+library(dplyr)
 library(lubridate)
 library(vistime)
 library(tibble)
@@ -90,7 +91,7 @@ borges_two_phrase <- c(
 str_view_all(borges_two_phrase, "maps, . century")
 ```
 
-Nothing was matched. Why? Because we're saying we want to match something like this: `maps, [a] century.`. Replace `[a]` with whatever character you want and that's what your matching. Of course, that doesn't have a match anywhere in the string. What we want instead is this:
+Nothing was matched. Why? Because we're saying we want to match something like this: `maps, [a] century.`. Replace `[a]` with whatever character you want and that's what you're matching. Of course, that doesn't have a match anywhere in the string. What we want instead is this:
 
 ```{r}
 str_view_all(borges_two_phrase, "maps, .+ century")
@@ -107,10 +108,10 @@ borges <- "I like hourglasses. I also like maps, eighteenth century typography"
 str_view_all(borges, "I like .+")
 ```
 
-`I like .+` is almost there. It says: match the phrase `I like` followed by any character repeated one or more times. However, that matches the entire phrase because it doesn't know we want it stop at the first `.`, right after hourglasses. To match a literal `.` you need to append it with two `\\`. It would look like this: `I like .+\\.`. This reads like this:
+`I like .+` is almost there. It says: match the phrase `I like` followed by any character repeated one or more times. However, that matches the entire phrase because it doesn't know we want it to stop at the first `.`, right after hourglasses. To match a literal `.` you need to prepend it with two `\\`. It would look like this: `I like .+\\.`. This reads like this:
 
 * Match the phrase `I like`
-* Followed be any character that is repeated one or more times (`.+`)
+* Followed by any character that is repeated one or more times (`.+`)
 * Until there is a literal dot (`\\.`)
 
 Let's apply it:
@@ -119,7 +120,7 @@ Let's apply it:
 str_view_all(borges, "I like .+\\.")
 ```
 
-Be aware that you need to append `\\` in front of **any** special character in regexp. For example, if you wanted to match the quantifier `+` literally, you'll need to do it like this: `\\+`. There's a bunch of special character in regexp but you'll just need to know a few like `(`, `)`, `+`, `.`, `$`, `^` or `|`.
+Be aware that you need to prepend `\\` in front of **any** special character in regexp. For example, if you wanted to match the quantifier `+` literally, you'll need to do it like this: `\\+`. There are a bunch of special characters in regexp but you'll just need to know a few like `(`, `)`, `+`, `.`, `$`, `^` or `|`.
 
 ## The OR (`|`) operator
 
@@ -135,7 +136,7 @@ res <- str_extract_all(borges_two_phrase, "maps, .+ century")
 res
 ```
 
-However, we want to extract only the actual century and replace `maps,` and `century`. We can use a regexp to say: replace either `maps, ` or `century` with an empty space, which will give you only the actual century. In our case the regexp would be like this: `maps, | century`. Using `str_replace_all` we can match that expression and replace it with empty space:
+However, we want to extract only the actual century and replace `maps,` and `century`. We can use a regexp to say: replace either `maps, ` or `century` with an empty string, which will give you only the actual century. In our case the regexp would be like this: `maps, | century`. Using `str_replace_all` we can match that expression and replace it with an empty string:
 
 ```{r}
 res %>% str_replace_all("maps, | century", "")
@@ -171,7 +172,7 @@ Both phrases have "I like" at the beginning but also have "I like" after the end
 str_view_all(borges_long, "^I like .+")
 ```
 
-To achieve what we want we could use the trick to match literal dot and add the anchor of the beginning:
+To achieve what we want we could use the trick to match a literal dot and add the anchor of the beginning:
 
 
 ```{r}
@@ -186,7 +187,7 @@ You can also match spaces in regexp and replace them:
 str_view_all(borges, " ")
 ```
 
-Since spaces come in different ways (new lines or a tabs), you can also use the special character `\\s`:
+Since spaces come in different ways (new lines or tabs), you can also use the special character `\\s`:
 
 ```{r}
 str_replace_all(borges, "\\s", "")
@@ -210,7 +211,7 @@ gdp <- c(
 )
 ```
 
-The keyword `\\d` will match a single digit. So for example, if we wanted to match the age of a child in a string (`Angel is 8 years old)`, writing a regexp like `\\d` will match that `8`. For example:
+The keyword `\\d` will match a single digit. So for example, if we wanted to match the age of a child in a string (`Angel is 8 years old`), writing a regexp like `\\d` will match that `8`. For example:
 
 ```{r}
 str_view_all("Angel is 8 years old", "\\d")
@@ -243,7 +244,7 @@ lapply(gdp_chr, as.numeric)
 
 * `[abc]`: matches a, b, or c.
 
-Regexps also has a cool shortcut to extend the regexp `|` (or) and make it more flexible. For example, say we wanted to match all retirement ages of men in Europe that are between 67 and 69:
+Regexp also has a cool shortcut to extend the regexp `|` (or) and make it more flexible. For example, say we wanted to match all retirement ages of men in Europe that are between 67 and 69:
 
 ```{r}
 retirement <-
@@ -282,7 +283,7 @@ All ages which are below 65 will be matched.
 
 ## Case study: mapping the kings of France
 
-`scrapex` contains a copy of the Wikipedia page "History of France". Throughout all of the historical details, this website has several sections where it outlines all kings/queens of France and the years they were in power. In this case study we'll plot a timeline plot, where we'll be able to visualize the length of the kingdom of each king.
+`scrapex` contains a copy of the Wikipedia page "History of France". Throughout all of the historical details, this website has several sections where it outlines all kings/queens of France and the years they were in power. In this case study we'll plot a timeline plot, where we'll be able to visualize the length of the reign of each king.
 
 Let's load and read the website:
 
@@ -306,7 +307,7 @@ If you scroll down to the section "Early Modern France (1453 - 1789)" you'll fin
 knitr::include_graphics(file.path(main_dir, "kings_timeline_wk.png"))
 ```
 
-We want to extract the names of each one and their corresponding years of kingdomship. Let's open up the developer tools in that specific chunk of the website:
+We want to extract the names of each one and their corresponding years of reign. Let's open up the developer tools in that specific chunk of the website:
 
 ```{r, echo = FALSE, out.width = "100%"}
 knitr::include_graphics(file.path(main_dir, "kings_timeline_wk_developertools.png"))
@@ -342,7 +343,7 @@ all_txt <-
 all_txt
 ```
 
-The text is pretty dirty as all the text is concatenated into one single string but it contains all the kings/queens and their period of kingdomship. Let's clean it up. First thing we want to do is split the string based on the character `\n`. If you take a close look at the string all the names of each person are separated by `\n`. Let's apply it as see how it looks:
+The text is pretty dirty as all the text is concatenated into one single string but it contains all the kings/queens and their period of reign. Let's clean it up. First thing we want to do is split the string based on the character `\n`. If you take a close look at the string all the names of each person are separated by `\n`. Let's apply it and see how it looks:
 
 ```{r}
 all_txt <-
@@ -353,25 +354,25 @@ all_txt <-
 all_txt
 ```
 
-Better. We have 16 kings/queens but there are two slots that separated them by houses. House of Valois and House of Bourbon. We probably want to remove these two strings from the vector because we're not interested in distinguishing them for now. For that we'll use the regexp `^House` which matches any string that begins with `House`. We'll combine it with `str_detect` which returns `TRUE` or `FALSE` if there's a match. We'll use that to exclude these two strings from the vector:
+Better. We have 16 kings/queens but there are two slots that separate them by houses: House of Valois and House of Bourbon. We probably want to remove these two strings from the vector because we're not interested in distinguishing them for now. For that we'll use the regexp `^House` which matches any string that begins with `House`. We'll combine it with `str_detect` which returns `TRUE` or `FALSE` if there's a match. We'll use that to exclude these two strings from the vector:
 
 ```{r}
 all_txt <- all_txt[!str_detect(all_txt, "^House")]
 all_txt
 ```
 
-There we go, 16 names and their corresponding period. The task we're after is to extract two things from this vector. The years they were in power and their names. Let's first extract the years. We could do that with the regexp `\\d+` that will extract all digits from each of the strings. However, this will also extract the extra years for Charles IX inside the parenthesis:
+There we go, 16 names and their corresponding period. The task we're after is to extract two things from this vector: the years they were in power and their names. Let's first extract the years. We could do that with the regexp `\\d+` that will extract all digits from each of the strings. However, this will also extract the extra years for Charles IX inside the parenthesis:
 
 ```{r}
 all_txt[7]
 ```
 
-Since these years are just a clarification, we can remove the parenthesis and everything inside it to just keep the first period next to his name. Let's think of how a regexp like this can be:
+Since these years are just a clarification, we can remove the parenthesis and everything inside it to just keep the first period next to his name. Let's think of what a regexp like this can look like:
 
-* Parenthesis are special characters in regexp so to match them we have to escape them like this: `\\(` or `\\)`
-* We don't care what text is inside the parenthesis so we can just use the `.` placeholder with `+` to match as many character are needed
+* Parentheses are special characters in regexp so to match them we have to escape them like this: `\\(` or `\\)`
+* We don't care what text is inside the parentheses so we can just use the `.` placeholder with `+` to match as many characters as are needed
 
-The final regexp can be something like this: `\\(.+\\)`. Match any parenthesis (literal) that have any text inside. Let's replace it with an empty character
+The final regexp can be something like this: `\\(.+\\)`. Match any parentheses (literal) that have any text inside. Let's replace it with an empty string:
 
 ```{r}
 all_txt <-
@@ -381,7 +382,7 @@ all_txt <-
 all_txt
 ```
 
-Perfect, we removed the extra parenthesis so we can now extract all years:
+Perfect, we removed the extra parentheses so we can now extract all years:
 
 ```{r}
 res <-
@@ -410,7 +411,7 @@ convert_time_period <- function(x) {
 }
 ```
 
-This function accepts the character vector of length two containing both the start and end year of period where they reigned. The function checks if the number of character of the *end* year has only two years, and if it does, it subsets the first two years from the *start* year and pastes them together. Let's apply the function in a loop for each of the years:
+This function accepts the character vector of length two containing both the start and end year of the period in which they reigned. The function checks if the number of characters of the *end* year has only two digits, and if it does, it subsets the first two digits from the *start* year and pastes them together. Let's apply the function in a loop for each of the years:
 
 ```{r}
 sequence_kings <- lapply(res, convert_time_period)
@@ -430,7 +431,7 @@ all_txt %>%
   str_extract("^.+,")
 ```
 
-Great, all names we matched correctly. We just have to replace the comma with an empty space to make it cleaner:
+Great, all names were matched correctly. We just have to replace the comma with an empty space to make it cleaner:
 
 ```{r}
 names_kings <-
@@ -441,20 +442,14 @@ names_kings <-
 names_kings
 ```
 
-Alright, with that out of the way, the rest is combining the years and names together into a data frame. Let's look over `sequence_kings` and convert them into data frames. Combine all of them with the king names and convert all dates into `date` objects in R:
+Alright, with that out of the way, the rest is combining the years and names together into a data frame. Let's loop over `sequence_kings` and convert them into data frames. Combine all of them with the king names and convert all dates into `date` objects in R:
 
 ```{r}
 # Combine into data frames
-sequence_kings_df <- lapply(sequence_kings, function(x) data.frame(start = x[1], end = x[2]))
-final_kings <- do.call(rbind, sequence_kings_df)
-
-# Add king names
-final_kings$event <- names_kings
-final_kings$start <- make_date(final_kings$start, 1, 1)
-final_kings$end <- make_date(final_kings$end, 1, 1)
-
-# Final data frame
-final_kings <- as_tibble(final_kings)
+start = sapply(sequence_kings, `[[`, 1)
+end = sapply(sequence_kings, `[[`, 2)
+final_kings <- tibble(event=names_kings, start=start, end=end) |>
+  mutate_if(is.numeric, ~make_date(., 1, 1))
 final_kings
 ```
 
@@ -553,7 +548,7 @@ Instead, what we want is:
 str_extract_all(text, "I like .+?\\.")[[1]]
 ```
 
-Look up what `?` does in regexp and come up a way to fix the regexp to obtain what we want.
+Look up what `?` does in regexp and come up with a way to fix the regexp to obtain what we want.
 
 3. Can you extract all unique royal houses from the Wikipedia document? That is, produce a vector like this one:
 
@@ -570,4 +565,4 @@ history_france %>%
   unique()
 ```
 
-Hint: No need to use any XPath, `xml_text()` the entire document to extract all of the text of the website and apply regexp to grab the houses. You'll need to use `?` and also figure out what `[:punct:]` does in regexp.
+Hint: No need to use any XPath, use `xml_text()` on the entire document to extract all of the text of the website and apply regexp to grab the houses. You'll need to use `?` and also figure out what `[:punct:]` does in regexp.

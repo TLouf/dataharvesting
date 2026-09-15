@@ -1,6 +1,8 @@
 ---
 title: "Data Formats Web Scraping"
-format: revealjs
+format:
+    revealjs:
+        chalkboard: true
 ---
 
 ```{r, echo=FALSE}
@@ -76,7 +78,7 @@ xml_test <- "<people>
 
 ## Data Formats for Webscraping: XML
 
--   XML tags have a beginning and end, with the end being signified by '\</\>'
+-   XML tags have a beginning and end, with the end being signified by '</>'
 
 -   XML tags can have any meaning, while HTML has standard tags for website structure.
 
@@ -149,7 +151,7 @@ For example...
 
 -   XML tags have no meaning other than what the creator intended for them.
 
--   HTML tags have predetermined behavior and standard across the language.
+-   HTML tags have predetermined behavior and are standard across the language.
 
 ## Data Formats for Webscraping
 
@@ -290,8 +292,8 @@ How to separate XML from HTML?
 
 ## Homework
 
--   Complete the exercises of chapter 2/3
+-   Complete the exercises of chapters 2 and 3
 
--   Read and complete exercises of chapter 4 and 5
+-   Read and complete the exercises of chapters 4 and 5
 
 -   Start finding a partner for your group. [Here](https://docs.google.com/spreadsheets/d/11QmdgRXvbwtN9hSOwVyw9-iVjrN-yeRq_BOudidAnX8/edit#gid=73208201).

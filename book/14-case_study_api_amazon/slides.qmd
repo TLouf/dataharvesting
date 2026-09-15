@@ -1,6 +1,8 @@
 ---
 title: "Case study: Exploring the Amazon API"
-format: revealjs
+format:
+    revealjs:
+        chalkboard: true
 ---
 
 ```{r, echo = FALSE}
@@ -19,8 +21,6 @@ knitr::opts_chunk$set(
 -   Amazon, the largest e-commerce website, has many APIs.
 
 -   Some of these are open to the public while others are used internally.
-
--   Your company has just hired an Amazon which grants your company to access one of the Amazon APIs.
 
 -   This is the same API we explore in the presentation on "Introduction to REST APIs"
 

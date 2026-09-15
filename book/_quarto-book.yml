@@ -17,7 +17,7 @@ book:
   title: "Data Harvesting with R"
   description: |
     This is a book about webscraping and talking to APIs with R.
-  site-url: https://cimentadaj.github.io/dataharvesting/
+  site-url: https://tlouf.github.io/dataharvesting/
   chapters:
     - index.qmd
     - part: "Webscraping"
