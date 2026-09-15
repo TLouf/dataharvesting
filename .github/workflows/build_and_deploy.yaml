@@ -52,7 +52,7 @@ jobs:
         run: bash ./merge.sh
 
       - name: Deploy to GitHub Pages 🚀
-        uses: quarto-dev/quarto-actions/deploy@v2
+        uses: quarto-dev/quarto-actions/publish@v2
         with:
           target: gh-pages
           source-dir: _book
