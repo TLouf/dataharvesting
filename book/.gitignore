@@ -6,7 +6,6 @@ _book
 **/figure-revealjs/**
 **/*cache*/
 **/*files*/
-renv/
 **/automatic_rmarkdown/
 
 
