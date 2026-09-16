@@ -416,7 +416,7 @@ Five sections, mostly entertainment related except for the first one which is th
 
 XPath is a very rich language with over 20 years of development. I've covered some basics as well as intermediate parts of the language but there's much more to be learned:
 
-- [The course's cookbook](./index.html#xpath-cookbook)
+- [The course's cookbook](./index.html#sec-xpath-cookbook)
 - [XPath Cheatsheet](https://devhints.io/xpath)
 - [Extensive XPath Cheatsheet](https://www.lambdatest.com/blog/most-exhaustive-xpath-locators-cheat-sheet/)
 - [XPath tutorial](https://www.w3schools.com/xml/xpath_intro.asp)

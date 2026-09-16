@@ -213,7 +213,7 @@ resp
 
 ## Amazon Books: User Behavior
 
-- Link user behavior through different endpoints. Take user `319` (see [14.2](./index.html#understand-amazon-books)) and see which other products the user has bought on Amazon.
+- Link user behavior through different endpoints. Take user `319` (see [14.2](./index.html#sec-understand-amazon-books)) and see which other products the user has bought on Amazon.
 
 - Hidden relationships that you could uncover with the real data set: people who read certain books might have propensities to order certain products
 
