@@ -78,7 +78,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-1d495bf0b3d7decfc3a5ab2c9f414beb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-eb96c05b7f203a23b18f87ac89c0dd72.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -201,7 +201,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../08-selenium/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Scraping JavaScript based website</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Scraping JavaScript-based websites</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -281,7 +281,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../10-intro_api/index.html">APIs</a></li><li class="breadcrumb-item"><a href="../13-intro_json/index.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">What you need to know about JSON</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="json-chapter" class="quarto-section-identifier"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">What you need to know about JSON</span></span></h1>
+<h1 class="title"><span id="sec-json-chapter" class="quarto-section-identifier"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">What you need to know about JSON</span></span></h1>
 </div>
 
 
@@ -298,16 +298,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Most of the content you’ll grab from an API will probably be in JavaScript Object Notation or JSON for short. This is a format that was designed to be easily shared over the internet and is pretty much the standard for sharing data over APIs. JSON’s are text based and allow you to store all the usual stuff you’re used to such as strings and numbers. However, JSON’s also allow you to use arrays, and more importantly, build complex nested structure.</p>
-<p>As always, you might ask yourself, why is this new format important? I’ll skip you the technical boring details and leave with you the three most important points:</p>
+<p>Most of the content you’ll grab from an API will probably be in JavaScript Object Notation or JSON for short. This is a format that was designed to be easily shared over the internet and is pretty much the standard for sharing data over APIs. JSONs are text-based and allow you to store all the usual stuff you’re used to such as strings and numbers. However, JSONs also allow you to use arrays, and more importantly, build complex nested structures.</p>
+<p>As always, you might ask yourself, why is this new format important? I’ll skip the boring technical details and leave you with the three most important points:</p>
 <ul>
 <li>It’s lightweight and easy to share</li>
 <li>It has support in nearly all programming languages</li>
 <li>It allows you to make nested relationships and they’re easy to read</li>
 </ul>
-<p>In this chapter we’ll jump directly to the content that is mostly related to parsing JSON’s in the context of API requests. This means that we won’t be looking at toy examples but rather at a typical response you might get from an API, which has very nested structures. The idea is for users not to have perfect knowledge on JSON’s but rather learn tricks on how to convert it to the format that they’re interested in.</p>
-<p>If you want more information on JSON’s in R, be sure to visit Gaston Sanchez’s JSON intro, from which this chapter is very much inspired ( <a href="https://www.gastonsanchez.com/intro2cwd/json.html">https://www.gastonsanchez.com/intro2cwd/json.html</a>)</p>
-<p>With theory out of the way, let’s get our hands dirty. Let’s load the package we’ll use in this chapter:</p>
+<p>In this chapter we’ll jump directly to the content that is mostly related to parsing JSONs in the context of API requests. This means that we won’t be looking at toy examples but rather at a typical response you might get from an API, which has very nested structures. The idea is for users not to have perfect knowledge of JSONs but rather learn tricks on how to convert them to the format that they’re interested in.</p>
+<p>If you want more information on JSONs in R, be sure to visit Gaston Sanchez’s JSON intro, from which this chapter is very much inspired ( <a href="https://www.gastonsanchez.com/intro2cwd/json.html">https://www.gastonsanchez.com/intro2cwd/json.html</a>)</p>
+<p>With theory out of the way, let’s get our hands dirty. Let’s load the packages we’ll use in this chapter:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
@@ -321,7 +321,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "vicepresident": "Kantos",
   "opposition": "Pitaso"
 }</code></pre>
-<p>Each <code>key:value</code> needs to be wrapped in quotes (<code>"</code>). In <code>R</code> we can parse JSON’s with several packages. In this book we’ll use <code>jsonlite</code> but feel free to explore other options. Let’s lparse the string we specified before with the function <code>fromJSON</code>:</p>
+<p>Each <code>key:value</code> needs to be wrapped in quotes (<code>"</code>). In <code>R</code> we can parse JSONs with several packages. In this book we’ll use <code>jsonlite</code> but feel free to explore other options. Let’s parse the string we specified before with the function <code>fromJSON</code>:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>json_str <span class="ot">&lt;-</span> <span class="st">'{</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="st">  "president": "Parlosi",</span></span>
@@ -341,8 +341,8 @@ $opposition
 [1] "Pitaso"</code></pre>
 </div>
 </div>
-<p>It parses the key/value pairs as a named list. That’s exactly how yo can think of JSON’s for now. A way to store named arrays. At this point I could show you a few examples of how JSON’s work but it’s pretty much it: <code>key:value</code> pairs. You can write number instead of strings as well but there’s nothing to be gained from this example of JSON at the moment.</p>
-<p>It’s inevitable to say that the true deal breaker with JSON’s is the nested nature of the format. Here’s what you can achieve with very simple syntax:</p>
+<p>It parses the key/value pairs as a named list. That’s exactly how you can think of JSONs for now. A way to store named arrays. At this point I could show you a few examples of how JSONs work but that’s pretty much it: <code>key:value</code> pairs. You can write numbers instead of strings as well but there’s nothing to be gained from this example of JSON at the moment.</p>
+<p>It’s safe to say that the true power of JSONs is the nested nature of the format. Here’s what you can achieve with very simple syntax:</p>
 <pre><code>{
     "president": [
         {
@@ -417,7 +417,7 @@ $opposition
 1    Pitaso Everyone United  45</code></pre>
 </div>
 </div>
-<p>You get precisely a named list where each slot contains a data frame. Are you with me? So far so good. We have that JSON’s are <code>key:value</code> pairs and the value it self can be an array with other key/value pairs. So, with that idea in mind, you might get something like this:</p>
+<p>You get precisely a named list where each slot contains a data frame. Are you with me? So far so good. We have that JSONs are <code>key:value</code> pairs and the value itself can be an array with other key/value pairs. So, with that idea in mind, you might get something like this:</p>
 <pre><code>{
     "president": [
         {
@@ -439,7 +439,7 @@ $opposition
         "age": 45
     }
 }</code></pre>
-<p>Without looking further down, what you think will be the result of this in R? Study it and write it down. Let’s look at the result:</p>
+<p>Without looking further down, what do you think will be the result of this in R? Study it and write it down. Let’s look at the result:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>json_str <span class="ot">&lt;-</span> <span class="st">'</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="st">{</span></span>
@@ -487,13 +487,13 @@ $opposition$age
 [1] 45</code></pre>
 </div>
 </div>
-<p>Well, It has something we’ve never looked at before. It has:</p>
+<p>Well, it has something we’ve never looked at before. It has:</p>
 <ol type="1">
 <li><p>A data frame for the first slot. That’s correct because the JSON contained an array with two sets of <code>key:value</code> pairs. That’s translatable to a data frame with two rows even though one of the two sets did not have a field for <code>age</code>.</p></li>
 <li><p>An NA value since <code>null</code> is the way missing values are represented in JSON but notice that this <code>null</code> is in a JSON array so this is effectively a data frame with an <code>NA</code> value.</p></li>
 <li><p>A named list. That’s right because there is no array structure (<code>[...]</code>) so <code>key:value</code> pairs are interpreted as a named list.</p></li>
 </ol>
-<p>If for some reason you were thinking, why is this important? Let me tell you that for much of the JSON you’ll find in the wild, you’ll see it becomes more and more convoluted to read as it becomes more nested. You’ll need to learn to use your subsetting skills to actually convert the data into the format that you want. For example, you might want to convert the existing <code>opposition</code> slot into a data frame because the array structure was missing (<code>[...]</code>):</p>
+<p>If for some reason you were thinking, why is this important? Let me tell you that for much of the JSON data you’ll find in the wild, you’ll see it becomes more and more convoluted to read as it becomes more nested. You’ll need to learn to use your subsetting skills to actually convert the data into the format that you want. For example, you might want to convert the existing <code>opposition</code> slot into a data frame because the array structure was missing (<code>[...]</code>):</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>res<span class="sc">$</span>opposition <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(res<span class="sc">$</span>opposition)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>res</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -541,7 +541,7 @@ $opposition
 3 opposition    &lt;df [1 × 3]&gt;</code></pre>
 </div>
 </div>
-<p>The first column contains the names of the named list while the second column contains the list-column. The list column is telling you right away that it has two data frames and an empty slot. This is very useful for reading nested stuff because it gives you a high level overview of everything that you’re working with but how can we actually do something with this? We work with this using <code>unnest</code>. Contrary to <code>enframe</code>, <code>unnest</code> takes list-columns and ‘unpacks’ them into the common class of the list. Let me repeat that. <code>unnest</code> needs to be passed a list-column (the list-column can contain anything) and it will try to unpack it into whatever is the common class of all objects. If the all objects are of different classes (<code>data.frame</code>, <code>vectors</code>, etc..), then <code>unnest</code> will fail. However, if all objects within the list are of the same class, it will combine all of them into a proper column or ‘unpack’ it’s values.</p>
+<p>The first column contains the names of the named list while the second column contains the list-column. The list column is telling you right away that it has two data frames and an empty slot. This is very useful for reading nested stuff because it gives you a high level overview of everything that you’re working with but how can we actually do something with this? We work with this using <code>unnest</code>. Contrary to <code>enframe</code>, <code>unnest</code> takes list-columns and ‘unpacks’ them into the common class of the list. Let me repeat that. <code>unnest</code> needs to be passed a list-column (the list-column can contain anything) and it will try to unpack it into whatever is the common class of all objects. If all objects are of different classes (<code>data.frame</code>, <code>vectors</code>, etc..), then <code>unnest</code> will fail. However, if all objects within the list are of the same class, it will combine all of them into a proper column or ‘unpack’ its values.</p>
 <p>That’s a somewhat convoluted explanation, and it’s totally fine if it’s not clear since there are many edge cases on how <code>unnest</code> works. Through the chapter we’ll focus on understanding how this function works.</p>
 <p>Let’s unpack the <code>value</code> column using <code>unnest</code>:</p>
 <div class="cell" data-layout-align="center">
@@ -558,7 +558,7 @@ $opposition
 4 opposition    Pitaso     Everyone United    45</code></pre>
 </div>
 </div>
-<p>Since all objects of the list-column were compatible (all were data frames with the same number of columns), <code>unnest</code> unpacks the column entirely to simply expand the data frame’s into one single data frame. A perfect example where <code>unnest</code> fails is when the different objects in the list are not easily mergeable. Say we use the same example as before but don’t convert the third slot into a data frame. We’ll that the JSON is parsed like this:</p>
+<p>Since all objects of the list-column were compatible (all were data frames with the same number of columns), <code>unnest</code> unpacks the column entirely to simply expand the data frames into one single data frame. A perfect example where <code>unnest</code> fails is when the different objects in the list are not easily mergeable. Say we use the same example as before but don’t convert the third slot into a data frame. We’ll see that the JSON is parsed like this:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>json_str <span class="ot">&lt;-</span> <span class="st">'</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="st">{</span></span>
@@ -612,15 +612,15 @@ $opposition$age
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">enframe</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(<span class="at">cols =</span> value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-error">
-<pre><code>Error in `unnest()` at magrittr/R/pipe.R:136:3:
+<pre><code>Error in `unnest()`:
 ! Can't combine `value[[1]]` &lt;data.frame&gt; and `value[[3]]` &lt;list&gt;.</code></pre>
 </div>
 </div>
-<p>It says exactly that: the first slot is a data frame and the third slot is a list. It can’t find a way to combine them. The main problem you’ll encounter with JSON’s is that you’re trying to parse some JSON that has many nested arrays and some of these arrays are not compatible for unnesting so you’ll have to submerge yourself into these nested arrays and fix whatever data you want to extract.</p>
+<p>It says exactly that: the first slot is a data frame and the third slot is a list. It can’t find a way to combine them. The main problem you’ll encounter with JSONs is that you’re trying to parse some JSON that has many nested arrays and some of these arrays are not compatible for unnesting so you’ll have to submerge yourself into these nested arrays and fix whatever data you want to extract.</p>
 </section>
 <section id="accessing-deeply-nested-jsons" class="level2" data-number="13.3">
 <h2 data-number="13.3" class="anchored" data-anchor-id="accessing-deeply-nested-jsons"><span class="header-section-number">13.3</span> Accessing deeply nested JSONs</h2>
-<p>Suppose that as part of a research project, you’ve recently been granted access to the API of a company. You’re interested in studying the relationship between the geo-location of clients, their shopping patterns and their social class. Once they grant you access to their private API, the endpoint that returns the geo location for each client returns a JSON like the one below. You use <code>fromJSON</code> to parse it and here is what you get:</p>
+<p>Suppose that as part of a research project, you’ve recently been granted access to the API of a company. You’re interested in studying the relationship between the geo-location of clients, their shopping patterns and their social class. Once they grant you access to their private API, the endpoint that returns the geo-location for each client returns a JSON like the one below. You use <code>fromJSON</code> to parse it and here is what you get:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>json_str <span class="ot">&lt;-</span> <span class="st">'</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="st">{</span></span>
@@ -686,7 +686,7 @@ $client2
 <pre><code>[1] "Device: list(type = \"iphone\", location = list(list(lat = 213.12, lon = 43.213)))"</code></pre>
 </div>
 </div>
-<p>Ups, what? Oh, <code>device</code> column is not a character vector, it’s something like a list. Let’s explore it:</p>
+<p>Oops, what? Oh, the <code>device</code> column is not a character vector, it’s something like a list. Let’s explore it:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>res<span class="sc">$</span>client1<span class="sc">$</span>device[[<span class="dv">1</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -694,7 +694,7 @@ $client2
 1 iphone 213.120, 43.213</code></pre>
 </div>
 </div>
-<p><code>device</code> is a list with a data frame inside. Let’s see what class is each of these columns to avoid the same mistake:</p>
+<p><code>device</code> is a list with a data frame inside. Let’s see what class each of these columns is to avoid the same mistake:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(res<span class="sc">$</span>client1<span class="sc">$</span>device[[<span class="dv">1</span>]], class)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -726,7 +726,7 @@ $location
 1 Kurt Rosenwinkel iphone  213.  43.2</code></pre>
 </div>
 </div>
-<p>Let’s apply our general <code>enframe</code> + <code>unnest</code> strategy but applying <code>unnest</code> as many times as we need:</p>
+<p>Let’s apply our general <code>enframe</code> + <code>unnest</code> strategy by applying <code>unnest</code> as many times as we need:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>all_res <span class="ot">&lt;-</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  res <span class="sc">%&gt;%</span></span>
@@ -780,8 +780,8 @@ $location
 2 client2 YEITUEI          android  211.  53.2</code></pre>
 </div>
 </div>
-<p>There we go. That’s how you handle nested JSON’s in R. Beware that for this example, everything worked well because each nested object was an array that could be merged with other types but the real challenge in parsing JSON’s is when some nested object does not conform well when unpacking everything into the same structure.</p>
-<p>JSON’s are not that hard but the main challenge is understanding how to combine everything into R data frames when a lot of nested arrays have different classes or shapes. Remember that whenever you try to unpack something, be sure to pay attention to whether the error is related to unmergeable classes or objects of different lengths.</p>
+<p>There we go. That’s how you handle nested JSONs in R. Beware that for this example, everything worked well because each nested object was an array that could be merged with other types but the real challenge in parsing JSONs is when some nested object does not conform well when unpacking everything into the same structure.</p>
+<p>JSONs are not that hard but the main challenge is understanding how to combine everything into R data frames when a lot of nested arrays have different classes or shapes. Remember that whenever you try to unpack something, be sure to pay attention to whether the error is related to unmergeable classes or objects of different lengths.</p>
 </section>
 <section id="exercises" class="level2" data-number="13.4">
 <h2 data-number="13.4" class="anchored" data-anchor-id="exercises"><span class="header-section-number">13.4</span> Exercises</h2>
@@ -817,7 +817,7 @@ $location
 <span id="cb45-26"><a href="#cb45-26" aria-hidden="true" tabindex="-1"></a><span class="fu">fromJSON</span>(json_str)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ol start="2" type="1">
-<li>Here’s an excerpt of a deeply nested JSON. Can you parse it into R and unnest all columns as needed. Why can’t you do it? Can you manually change the code to fix it?</li>
+<li>Here’s an excerpt of a deeply nested JSON. Can you parse it into R and unnest all columns as needed? Why can’t you do it? Can you manually change the code to fix it?</li>
 </ol>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>json_str <span class="ot">&lt;-</span> <span class="st">'</span></span>

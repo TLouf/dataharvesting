@@ -78,7 +78,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-1d495bf0b3d7decfc3a5ab2c9f414beb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-eb96c05b7f203a23b18f87ac89c0dd72.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -201,7 +201,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../08-selenium/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Scraping JavaScript based website</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Scraping JavaScript-based websites</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -270,7 +270,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#tokens-and-security" id="toc-tokens-and-security" class="nav-link active" data-scroll-target="#tokens-and-security"><span class="header-section-number">14.1</span> Tokens and security</a></li>
-  <li><a href="#understand-amazon-books" id="toc-understand-amazon-books" class="nav-link" data-scroll-target="#understand-amazon-books"><span class="header-section-number">14.2</span> Understanding Amazon Books</a></li>
+  <li><a href="#sec-understand-amazon-books" id="toc-sec-understand-amazon-books" class="nav-link" data-scroll-target="#sec-understand-amazon-books"><span class="header-section-number">14.2</span> Understanding Amazon Books</a></li>
   <li><a href="#amazon-user-behavior" id="toc-amazon-user-behavior" class="nav-link" data-scroll-target="#amazon-user-behavior"><span class="header-section-number">14.3</span> Amazon User Behavior</a></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">14.4</span> Exercises</a></li>
   </ul>
@@ -298,8 +298,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Amazon, one of the largest e-commerce website on the web, has many APIs. Some of these are open to the public while others are used internally. In this case study we’ll be exploring the internal databases from Amazon through a fake example of their API. This API should be somewhat familiar to you because it’s the one we used in chapter @ref(intro-apis). If you remember correctly, the API can be launched with the function <code>api_amazon()</code> from the <code>scrapex</code> package.</p>
-<p>Before we begin, let’s load all the package we’ll use in the chapter:</p>
+<p>Amazon, one of the largest e-commerce websites on the web, has many APIs. Some of these are open to the public while others are used internally. In this case study we’ll be exploring the internal databases from Amazon through a fake example of their API. This API should be somewhat familiar to you because it’s the one we used in <a href="../10-intro_api/index.html" class="quarto-xref"><span>Chapter 10</span></a>. If you remember correctly, the API can be launched with the function <code>api_amazon()</code> from the <code>scrapex</code> package.</p>
+<p>Before we begin, let’s load all the packages we’ll use in the chapter:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scrapex)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr2)</span>
@@ -308,10 +308,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Let’s launch the API:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>az_api <span class="ot">&lt;-</span> <span class="fu">api_amazon</span>()</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "Visit your REST API at http://localhost:36467"</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "Documentation is at http://localhost:36467/__docs__/"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "Visit your REST API at http://localhost:30040"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "Documentation is at http://localhost:30040/__docs__/"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>The print out of <code>api_amazon</code> tells us the URL that we have to visit to access the documentation of the API. Pretty much every time you begin working with an API, you’ll begin by visiting the documentation, looking at what each endpoint does and webbing together the dots on how you can obtain the data you’re looking for.</p>
+<p>The printout of <code>api_amazon</code> tells us the URL that we have to visit to access the documentation of the API. Pretty much every time you begin working with an API, you’ll begin by visiting the documentation, looking at what each endpoint does and webbing together the dots on how you can obtain the data you’re looking for.</p>
 <p>Let’s look at the documentation for hints of how this API works:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -322,18 +322,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>The API has 7 endpoints. The blue button on each endpoint tells us that <em>all</em> endpoints are <code>GET</code> endpoints. We don’t have any of the other request types we discussed in chapter @ref(type-requests). This is important because depending on the type of request you might need to do additional things (for <code>POST</code> you’ll need to add a request body, for example). In this book we’ll only work with <code>GET</code> requests because this is the type of request you’ll typically encounter when gathering data. However, be aware the you might encounter other types of request out there in the wild.</p>
-<p>The endpoints contains data on all sorts of data from Amazon: authors and books from Amazon Books, users who visited Amazon and how each of these users bought certain Amazon products. As you might be hinting, this is quite some sensitive data. Unless you work at Amazon, you’ll probably never have access to this. That’s when security comes in.</p>
+<p>The API has 7 endpoints. The blue button on each endpoint tells us that <em>all</em> endpoints are <code>GET</code> endpoints. We don’t have any of the other request types we discussed in <a href="../12-dialogue-computers/index.html#sec-type-requests" class="quarto-xref"><span>Section 12.2</span></a>. This is important because depending on the type of request you might need to do additional things (for <code>POST</code> you’ll need to add a request body, for example). In this book we’ll only work with <code>GET</code> requests because this is the type of request you’ll typically encounter when gathering data. However, be aware that you might encounter other types of requests out there in the wild.</p>
+<p>The endpoints contain all sorts of data from Amazon: authors and books from Amazon Books, users who visited Amazon and how each of these users bought certain Amazon products. As you might suspect, this is quite sensitive data. Unless you work at Amazon, you’ll probably never have access to this. That’s when security comes in.</p>
 <section id="tokens-and-security" class="level2" data-number="14.1">
 <h2 data-number="14.1" class="anchored" data-anchor-id="tokens-and-security"><span class="header-section-number">14.1</span> Tokens and security</h2>
-<p>Let’s assume that you are a researcher at a university who has signed a contract with Amazon to do some research using their internal database. Amazon has granted you access to their internal APIs but every few days Amazon has forced you to log in to your Amazon account and extract a token that needs to be refreshed before making any requests to the API.</p>
-<p>Why does Amazon do this? Because they want to make sure that no one else is accessing this data except you. The token is associated with your personal email and whenever you finalize using the token, it expires. The function <code>api_amazon</code> has a companion function <code>amazon_bearer_tokens</code> which returns valid tokens to make requests. In the real world you won’t have such a function; instead you’ll have to follow the security guidelines of the API you’re using to obtain your token. Let’s call <code>amazon_bearer_tokens</code> to obtain our valid token and save it in a variable:</p>
+<p>Let’s assume that you are a researcher at a university who has signed a contract with Amazon to do some research using their internal database. Amazon has granted you access to their internal APIs but every few days Amazon forces you to log in to your Amazon account and extract a token that needs to be refreshed before making any requests to the API.</p>
+<p>Why does Amazon do this? Because they want to make sure that no one else is accessing this data except you. The token is associated with your personal email and whenever you finish using the token, it expires. The function <code>api_amazon</code> has a companion function <code>amazon_bearer_tokens</code> which returns valid tokens to make requests. In the real world you won’t have such a function; instead you’ll have to follow the security guidelines of the API you’re using to obtain your token. Let’s call <code>amazon_bearer_tokens</code> to obtain our valid token and save it in a variable:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>token <span class="ot">&lt;-</span> <span class="fu">amazon_bearer_tokens</span>()</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>token</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "wyutxkSQjT"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Tokens will usually look like that. These are randomly generated strings that the developers of the API will create for you. The next thing you might be thinking about is how do I use this token? Where should I specify it? This depends on the API. You’ll need to read the documentation and find where the token should be specified. For many APIs, the token needs to be set as a header (check out chapter @ref(primer-apis) for details on headers). More specifically, the token should be set under the header <code>Authorization</code> and must have the word <code>Bearer</code> in front of it. Let’s use <code>httr2</code>, the root URL of the API in <code>az_api</code> and the token to create a dummy request:</p>
+<p>Tokens will usually look like that. These are randomly generated strings that the developers of the API will create for you. The next thing you might be thinking about is how do I use this token? Where should I specify it? This depends on the API. You’ll need to read the documentation and find where the token should be specified. For many APIs, the token needs to be set as a header (check out <a href="../11-primer_apis/index.html" class="quarto-xref"><span>Chapter 11</span></a> for details on headers). More specifically, the token should be set under the header <code>Authorization</code> and must have the word <code>Bearer</code> in front of it. Let’s use <code>httr2</code>, the root URL of the API in <code>az_api</code> and the token to create a dummy request:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>main_api_path <span class="ot">&lt;-</span> <span class="fu">paste0</span>(az_api<span class="sc">$</span>api_web, <span class="st">"/api/v1/amazon/"</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>header_token <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"Bearer "</span>, token)</span>
@@ -345,15 +345,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>req</span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="do">## &lt;httr2_request&gt;</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="do">## GET http://localhost:36467/api/v1/amazon/</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="do">## GET http://localhost:30040/api/v1/amazon/</span></span>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="do">## Headers:</span></span>
 <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="do">## * Authorization: &lt;REDACTED&gt;</span></span>
 <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="do">## Body: empty</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The request shows that we’ve specified the root URL of the API (we are not pointing to a particular endpoint just yet) and that we’ve specified one <code>key=value</code> pair for the headers. This <code>key=value</code> pair is <code>Authorization</code> and it doesn’t show the token because it automatically detects this header is private so it won’t show it. That’s how we go from no request to a full dummy request ready to be performed.</p>
 </section>
-<section id="understand-amazon-books" class="level2" data-number="14.2">
-<h2 data-number="14.2" class="anchored" data-anchor-id="understand-amazon-books"><span class="header-section-number">14.2</span> Understanding Amazon Books</h2>
+<section id="sec-understand-amazon-books" class="level2" data-number="14.2">
+<h2 data-number="14.2" class="anchored" data-anchor-id="sec-understand-amazon-books"><span class="header-section-number">14.2</span> Understanding Amazon Books</h2>
 <p>The first endpoint of the Amazon API contains data on all the authors that belong to their Amazon Books product. The following two endpoints allow you to extract all the books they’ve written in the Amazon database as well as sample text from these books. Let’s see the details of the <code>authors</code> endpoint (first endpoint):</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -372,12 +372,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>req_res</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="do">## &lt;httr2_request&gt;</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="do">## GET http://localhost:36467/api/v1/amazon/authors</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="do">## GET http://localhost:30040/api/v1/amazon/authors</span></span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Headers:</span></span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="do">## * Authorization: &lt;REDACTED&gt;</span></span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Body: empty</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>The <code>GET</code> request was updated with the endpoint URL and we’re ready to perform the request. Let’s make the request and checkout the response:</p>
+<p>The <code>GET</code> request was updated with the endpoint URL and we’re ready to perform the request. Let’s make the request and check out the response:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  req_res <span class="sc">%&gt;%</span></span>
@@ -385,7 +385,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>res</span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="do">## &lt;httr2_response&gt;</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="do">## GET http://localhost:36467/api/v1/amazon/authors</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="do">## GET http://localhost:30040/api/v1/amazon/authors</span></span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Status: 200 OK</span></span>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Content-Type: application/json</span></span>
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Body: In memory (217 bytes)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -401,8 +401,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 4     Genoveva Hand        A</span></span>
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 5      Kobe Effertz Possimus</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>There we go, great! Amazon Books has five authors each one writing in a unique genre (no repetitions). Note that this data and all other examples shown in this chapter are completely made up! Don’t try to interpret these names or numbers as anything other than illustrative examples.</p>
-<p>Alright, so we have the names of the authors. Let’s extract what books they’ve written. We can go back to the documentation and read the details on this endpoint:</p>
+<p>There we go, great! Amazon Books has five authors, each one writing in a unique genre (no repetitions). Note that this data and all other examples shown in this chapter are completely made up! Don’t try to interpret these names or numbers as anything other than illustrative examples.</p>
+<p>Alright, so we have the names of the authors. Let’s extract what books they’ve written. We can go back to the documentation and read the details of this endpoint:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -421,7 +421,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>req_res</span>
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="do">## &lt;httr2_request&gt;</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="do">## GET http://localhost:36467/api/v1/amazon/books?author=Stuart%20Armstrong&amp;genre=Sunt</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="do">## GET http://localhost:30040/api/v1/amazon/books?author=Stuart%20Armstrong&amp;genre=Sunt</span></span>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Headers:</span></span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="do">## * Authorization: &lt;REDACTED&gt;</span></span>
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Body: empty</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -504,7 +504,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>The description states that in this endpoint you can <em>…access amazon’s products/users database</em>. This is interesting. This means that we can start to link user behavior through different endpoints. For example, we can take user <code>319</code> (see results of the request to the <code>books</code> endpoint in section @ref(understand-amazon-books) for all other user ids) and see which other products the user has bought on Amazon. Imagine the hidden relationships that you could uncover with the real data set: people who read certain books might have propensities to order certain products and you could improve their behavior and help them buy similar products.</p>
+<p>The description states that in this endpoint you can <em>…access amazon’s products/users database</em>. This is interesting. This means that we can start to link user behavior through different endpoints. For example, we can take user <code>319</code> (see results of the request to the <code>books</code> endpoint in <a href="#sec-understand-amazon-books" class="quarto-xref"><span>Section 14.2</span></a> for all other user ids) and see which other products the user has bought on Amazon. Imagine the hidden relationships that you could uncover with the real data set: people who read certain books might have propensities to order certain products and you could improve their behavior and help them buy similar products.</p>
 <p>This endpoint needs only one parameter, the user id. However, note that right below the parameter name it states that it is expecting an integer, not a string. Let’s keep that in mind when we specify the query parameters. Let’s construct the endpoint in R, make the request and extract the JSON as a data frame:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co">: If user_id has been specified in the request, the response must have that exact same user_id.</span></span>
@@ -532,7 +532,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>This endpoint needs the <code>product_id</code> as an integer parameter. Let’s construct the request and finally get the products name and description:</p>
+<p>This endpoint needs the <code>product_id</code> as an integer parameter. Let’s construct the request and finally get the product’s name and description:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>resp <span class="ot">&lt;-</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  req <span class="sc">%&gt;%</span></span>
@@ -548,7 +548,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;int&gt; &lt;chr&gt;                      &lt;chr&gt;                                        </span></span>
 <span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 1    74 Quod qui sit vero vero ad. Mollitia ullam animi aut et perspiciatis et …</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>There we go, the name of the product is Quod qui sit vero vero ad.. Quite a hassle eh? In the exercise section you’ll be asked to come up with a way to automate this entire process such that it’s very easy to check which products a user bought.</p>
+<p>There we go, the name of the product is Quod qui sit vero vero ad.. Quite a hassle, eh? In the exercises section you’ll be asked to come up with a way to automate this entire process such that it’s very easy to check which products a user bought.</p>
 <p>Finally, let’s explore the endpoint that details each user. Here are the docs from the API:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -592,7 +592,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 1     700 Germany   41:5B:FE:BF:21:B4 53.214.36.82 </span></span>
 <span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 2     505 Germany   31:4E:07:78:81:09 78.141.68.137</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Two users in the database were located in Germany when using Amazon. As you can see, different endpoints return information that allow you access other information from other endpoints. In the end, APIs are like a series of branches that you can access on demand and some of the information you need to access one depends on the result of another one.</p>
+<p>Two users in the database were located in Germany when using Amazon. As you can see, different endpoints return information that allows you to access other information from other endpoints. In the end, APIs are like a series of branches that you can access on demand and some of the information you need to access one depends on the result of another one.</p>
 <p>This case study was meant to give you a real world example of what talking to APIs means. APIs are interactive in nature and force you to learn how different endpoints work. Moreover, you’ll need to be creative in linking how information from one endpoint can help you get information from another one. In all honesty, most serious APIs out there will contain thorough documentation on how to get specific data sets you’re looking for but other APIs will require you to get to know some of the technical details before you start getting your hands dirty.</p>
 </section>
 <section id="exercises" class="level2" data-number="14.4">
@@ -604,7 +604,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 ##   50   39   1   ...</code></pre>
 <p>Hint: you need to loop over all authors, grab their books and count the users using <code>table</code></p>
 <ol start="2" type="1">
-<li>From all products that were bought (this means all users who bought any products), which are the most common tags? Similarly to the previous exercise, you need to end up with a vector with frequency of categories throughout all products like this one:</li>
+<li>From all products that were bought (this means all users who bought any products), which are the most common tags? Similarly to the previous exercise, you need to end up with a vector with the frequency of categories throughout all products like this one:</li>
 </ol>
 <pre><code>##   apperiam  at  quo ...
 ##   50        39  1   ...</code></pre>
@@ -612,7 +612,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ol start="3" type="1">
 <li>Can you create a function that when passed the ID of a user, returns the unique names of all the products that user bought?</li>
 </ol>
-<p>When ran, the function should return this:</p>
+<p>When run, the function should return this:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">all_user_products</span>(<span class="at">user_id =</span> <span class="dv">187</span>)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "Impedit veniam corporis illo."</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>

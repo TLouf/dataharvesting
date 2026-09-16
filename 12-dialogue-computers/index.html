@@ -43,7 +43,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-1d495bf0b3d7decfc3a5ab2c9f414beb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-eb96c05b7f203a23b18f87ac89c0dd72.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -166,7 +166,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../08-selenium/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Scraping JavaScript based website</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Scraping JavaScript-based websites</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -235,7 +235,7 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#anatomy-of-a-request" id="toc-anatomy-of-a-request" class="nav-link active" data-scroll-target="#anatomy-of-a-request"><span class="header-section-number">12.1</span> Anatomy of a request</a></li>
-  <li><a href="#type-requests" id="toc-type-requests" class="nav-link" data-scroll-target="#type-requests"><span class="header-section-number">12.2</span> Types of requests</a></li>
+  <li><a href="#sec-type-requests" id="toc-sec-type-requests" class="nav-link" data-scroll-target="#sec-type-requests"><span class="header-section-number">12.2</span> Types of requests</a></li>
   <li><a href="#rest-apis" id="toc-rest-apis" class="nav-link" data-scroll-target="#rest-apis"><span class="header-section-number">12.3</span> REST APIs</a></li>
   <li><a href="#ethics-in-apis" id="toc-ethics-in-apis" class="nav-link" data-scroll-target="#ethics-in-apis"><span class="header-section-number">12.4</span> Ethics in APIs</a></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">12.5</span> Exercises</a></li>
@@ -264,8 +264,8 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>With the advent of computing in the modern world, we’ve seen the surge of the shiny concept of ‘cloud computing’. The technical folks that work in the area know pretty well what ‘cloud’ means. However, even experienced users of the cloud often don’t know that ‘cloud’ is just another word for computer. The arcane phrase <em>“we’re moving to the cloud”</em> can actually be translate to <em>“we’re moving our data to a computer hosted somewhere else in the world where professionals can take care of making backups of the data and if the computer breaks they can immediately launch a new computer with the backup copy of the data”</em>.</p>
-<p>This means that whenever you hear that your files are on the cloud (think of any Google/Microsoft service such as Word, Excel, etc..) there’s really no magic behind this: they are probably somewhere in a computer in the United States/Europe. But wait, it doesn’t end there. <em>Every website in the world has a computer behind it that hosts the data and information showed in the website</em>. Yep, that’s right. Every time you type a website into your browser (for example, <code>www.google.com</code>), your browser knocks on the door of the computer behind the website asking for the content to show you. Whenever the server responds back (and this is not instant, it might take from even a few milliseconds to half a minute) the browser prettifies the information and renders it for you. Here’s a visual depiction of how it works:</p>
+<p>With the advent of computing in the modern world, we’ve seen the surge of the shiny concept of ‘cloud computing’. The technical folks that work in the area know pretty well what ‘cloud’ means. However, even experienced users of the cloud often don’t know that ‘cloud’ is just another word for computer. The arcane phrase <em>“we’re moving to the cloud”</em> can actually be translated to <em>“we’re moving our data to a computer hosted somewhere else in the world where professionals can take care of making backups of the data and if the computer breaks they can immediately launch a new computer with the backup copy of the data”</em>.</p>
+<p>This means that whenever you hear that your files are in the cloud (think of any Google/Microsoft service such as Word, Excel, etc..) there’s really no magic behind this: they are probably somewhere on a computer in the United States/Europe. But wait, it doesn’t end there. <em>Every website in the world has a computer behind it that hosts the data and information shown on the website</em>. Yep, that’s right. Every time you type a website into your browser (for example, <code>www.google.com</code>), your browser knocks on the door of the computer behind the website asking for the content to show you. Whenever the server responds back (and this is not instant, it might take anywhere from a few milliseconds to half a minute) the browser prettifies the information and renders it for you. Here’s a visual depiction of how it works:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -278,7 +278,7 @@ ul.task-list li input[type="checkbox"] {
 <p>Rephrasing what I described above, the browser sends a <strong>request</strong> to the server behind the website.</p>
 <section id="anatomy-of-a-request" class="level2" data-number="12.1">
 <h2 data-number="12.1" class="anchored" data-anchor-id="anatomy-of-a-request"><span class="header-section-number">12.1</span> Anatomy of a request</h2>
-<p>Chances are you’ve made over thousands of requests in your life without even knowing it. When you use the browser, the browser makes the request for you. However, in all previous webscraping examples in this book we actually made requests to the servers behind the website. You didn’t see it because we were running high level functions such as <code>read_html</code> or <code>read_xml</code> but these functions <em>actually</em> make a request for you to access the code behind the website.</p>
+<p>Chances are you’ve made thousands of requests in your life without even knowing it. When you use the browser, the browser makes the request for you. However, in all previous webscraping examples in this book we actually made requests to the servers behind the website. You didn’t see it because we were running high level functions such as <code>read_html</code> or <code>read_xml</code> but these functions <em>actually</em> make a request for you to access the code behind the website.</p>
 <p>What is a request? It’s a set of instructions that describe what you want. So the usual request that you send to a website looks like this:</p>
 <pre><code>GET / HTTP/3
 User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:105.0) Gecko/20100101 Firefox/105.0
@@ -286,13 +286,13 @@ Host: google.com
 Accept: */*</code></pre>
 <p>It describes several things:</p>
 <ul>
-<li>The type of request you’re making (<code>GET /HTTP/3</code>). There are several types of request that we’ll describe next.</li>
+<li>The type of request you’re making (<code>GET /HTTP/3</code>). There are several types of requests that we’ll describe next.</li>
 <li>The <code>User-Agent</code> or, in other words, who you are. This string describes the browser/computer that you’re using such that a website can identify you.</li>
 <li>The host. This is the website you are requesting data from.</li>
 <li>The format that the request can accept. This is primarily for formats such as HTML, XML, JSON, etc.. In this case, since it has <code>*/*</code>, it means the browser can accept any format.</li>
 </ul>
-<p>A request contains extra information but we won’t delve into those in this introduction. In short, it contains ‘attachments’ called headers which contain options such as the supported encoding and other technical details. However, as an introduction, there’s no need for you to know these details right now.</p>
-<p>As it is common for human interactions, a dialogue is between two parties. When your browser sends a request, it is expecting a response. When the computer/server responds back, it gives back an answer like this one:</p>
+<p>A request contains extra information but we won’t delve into that in this introduction. In short, it contains ‘attachments’ called headers which contain options such as the supported encoding and other technical details. However, as an introduction, there’s no need for you to know these details right now.</p>
+<p>As is common for human interactions, a dialogue is between two parties. When your browser sends a request, it is expecting a response. When the computer/server responds back, it gives back an answer like this one:</p>
 <pre><code>HTTP/3 301 Moved Permanently
 Date: Mon, 25 Dic 2022 15:37:00 GMT
 Server: Apache/2.4.54 (Ubuntu)
@@ -305,7 +305,7 @@ Content-Type: text/html; charset=iso-8859-1
 &lt;html lang="en-us"&gt;
 ...
 &lt;/html&gt;</code></pre>
-<p>The top of the response contains technical details associated with the response such as the date, the content length and the content type. The key part of the answer of the request is the bottom part:</p>
+<p>The top of the response contains technical details associated with the response such as the date, the content length and the content type. The key part of the answer to the request is the bottom part:</p>
 <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html lang="en-us"&gt;
 ...
@@ -322,26 +322,26 @@ Content-Type: text/html; charset=iso-8859-1
 </div>
 <p>This happens every time you click a hyperlink, a tab or a button inside a website. The web is a series of thousands of requests made every millisecond.</p>
 </section>
-<section id="type-requests" class="level2" data-number="12.2">
-<h2 data-number="12.2" class="anchored" data-anchor-id="type-requests"><span class="header-section-number">12.2</span> Types of requests</h2>
-<p>Nearly all requests that your browser makes for you are <code>GET</code> requests. <code>GET</code> requests ask for information and receive information back, as we saw in the previous section. The world of requests, however, has evolved over time and many other type of requests have been developed. Here are the most common ones:</p>
+<section id="sec-type-requests" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="sec-type-requests"><span class="header-section-number">12.2</span> Types of requests</h2>
+<p>Nearly all requests that your browser makes for you are <code>GET</code> requests. <code>GET</code> requests ask for information and receive information back, as we saw in the previous section. The world of requests, however, has evolved over time and many other types of requests have been developed. Here are the most common ones:</p>
 <ul>
 <li><code>GET</code>: retrieves whatever information is identified by the URL</li>
-<li><code>POST</code>: requests data just as <code>GET</code> but allows to enclose data in the ‘body’ of the request. That is, aside from the usual details from the <code>GET</code> we saw above, it allows to enclose additional information that is often needed by a website to return information.</li>
+<li><code>POST</code>: requests data just as <code>GET</code> but allows you to enclose data in the ‘body’ of the request. That is, aside from the usual details from the <code>GET</code> we saw above, it allows you to enclose additional information that is often needed by a website to return information.</li>
 <li><code>HEAD</code>: identical to GET except that the server MUST NOT return a message-body in the response. This means that the actual content of the response is not returned; only the response metadata</li>
 <li><code>PUT</code>: request that creates a new resource or replaces a resource on the server</li>
 <li><code>DELETE</code>: deletes a resource on the server</li>
 </ul>
-<p>These explanations are fine but we probably need some hand-on examples of how this works in practice. Suppose that you enter a website that orders food to your home. When you enter the website, your browser sends <code>GET</code> request to the servers behind the website and receives the content it will show you. The browser renders it and you can navigate the content freely. You spend about 15 minutes choosing which plate you’re gonna order. You finally click on ‘submit order’. What happens? You just sent <code>POST</code> request. What does that mean? Aside from the usual details of the <code>GET</code> request, the <code>POST</code> request also allows you to ‘enclose’ a body with a message. This body contains information needed by the server to be able to send a response back. In our food example, this <code>POST</code> request contains all the details of your order which are saved on the servers of the website and allow people at the kitchen start preparing your food. How does a <code>POST</code> request look like?</p>
+<p>These explanations are fine but we probably need some hands-on examples of how this works in practice. Suppose that you enter a website that orders food to your home. When you enter the website, your browser sends a <code>GET</code> request to the servers behind the website and receives the content it will show you. The browser renders it and you can navigate the content freely. You spend about 15 minutes choosing which plate you’re gonna order. You finally click on ‘submit order’. What happens? You just sent a <code>POST</code> request. What does that mean? Aside from the usual details of the <code>GET</code> request, the <code>POST</code> request also allows you to ‘enclose’ a body with a message. This body contains information needed by the server to be able to send a response back. In our food example, this <code>POST</code> request contains all the details of your order which are saved on the servers of the website and allow people in the kitchen to start preparing your food. What does a <code>POST</code> request look like?</p>
 <pre><code>POST /test / HTTP/3
 Host: foo.example
 Content-Type: application/x-www-form-urlencoded
 Content-Length: 27
 
 main_plate=poke_bowl&amp;drinks=water</code></pre>
-<p>This <code>POST</code> request has a very similar format as the <code>GET</code> request we described above but has some extra content at the bottom which contains the body of the request. For our food example, this contains our order. <code>PUT</code> works very similar to <code>POST</code> but has one main difference: it can be used to create/update one thing. <code>POST</code> was created to make as many submits as you need. You can make 10 orders and each order on the website will be <em>in addition</em> to the other ones; no replacement is done on the previous orders. <code>PUT</code> is meant to create/update something as many times as needed. For example, when you enter the website, the developers might use <code>PUT</code> to show the currency exchange of the dollar-euro. Whenever it changes, they might update it again with <code>PUT</code> but completely erases the previous one. In general, these two ‘verbs’ are a way to submit information and receive a response based on this submission.</p>
-<p><code>HEAD</code> on the other hand is pretty much the same as <code>GET</code> but it is not supposed to return the response body. This is meant as a precaution in case the response has a lot of data, someone can filter and act accordingly using <code>HEAD</code>. The benefit of <code>HEAD</code> is that it cannot contain the body of the message but it contains information of the request, such as the content length.</p>
-<p>Finally, <code>DELETE</code> is a request type that, as it’s name says, it requests a deletion of a resource in the server. This is the counterpart to <code>POST</code>. If you place 10 orders, each using <code>POST</code>, you can delete each one sending a <code>DELETE</code> request.</p>
+<p>This <code>POST</code> request has a very similar format as the <code>GET</code> request we described above but has some extra content at the bottom which contains the body of the request. For our food example, this contains our order. <code>PUT</code> works very similarly to <code>POST</code> but has one main difference: it can be used to create/update one thing. <code>POST</code> was created to make as many submits as you need. You can make 10 orders and each order on the website will be <em>in addition</em> to the other ones; no replacement is done on the previous orders. <code>PUT</code> is meant to create/update something as many times as needed. For example, when you enter the website, the developers might use <code>PUT</code> to show the currency exchange of the dollar-euro. Whenever it changes, they might update it again with <code>PUT</code>, which completely erases the previous one. In general, these two ‘verbs’ are a way to submit information and receive a response based on this submission.</p>
+<p><code>HEAD</code> on the other hand is pretty much the same as <code>GET</code> but it is not supposed to return the response body. This is meant as a precaution in case the response has a lot of data, so someone can filter and act accordingly using <code>HEAD</code>. The benefit of <code>HEAD</code> is that it cannot contain the body of the message but it contains information about the request, such as the content length.</p>
+<p>Finally, <code>DELETE</code> is a request type that, as its name says, requests the deletion of a resource on the server. This is the counterpart to <code>POST</code>. If you place 10 orders, each using <code>POST</code>, you can delete each one by sending a <code>DELETE</code> request.</p>
 </section>
 <section id="rest-apis" class="level2" data-number="12.3">
 <h2 data-number="12.3" class="anchored" data-anchor-id="rest-apis"><span class="header-section-number">12.3</span> REST APIs</h2>
@@ -357,17 +357,17 @@ main_plate=poke_bowl&amp;drinks=water</code></pre>
 </div>
 <p>However, the main difference is that REST APIs are designed to share data. REST APIs have their biggest objective as a way to share data that was traditionally gathered through web scraping. So in most instances, an API would return a JSON or an XML file with the data you requested in the body of the response. In webscraping, the requests return the source code of the website.</p>
 <p>REST APIs organize the internal data of a website and share them using a standard interface following the REST guidelines. REST stands for “Representational state transfer” and is a standard architecture for sharing data.</p>
-<p>Enough of technical descriptions, how do these REST APIs work? In layman terms, REST APIs have documentation which shows something called endpoints, just as we saw in chapter @ref(intro-apis). Each of these endpoints are connected internally to databases. Each endpoint is responsible for returning one set of data. Depending on which parameters you pass to the URL of a given endpoint, the endpoint filters data and returns results accordingly.</p>
-<p>Other endpoints that have access to the data also allows to alter data. For example, the Spotify API, once you log in with your credentials and obtain a ‘token’ to access the API, allows you to remove playlists or add songs to particular albums. This is all done using requests such as <code>DELETE</code> or <code>POST</code>. Like in chapter @ref(intro-apis), each of these endpoints has documentation on how to access the data behind it.</p>
-<p>This should sound familiar to how we described requests above, because it is very familiar. The idea is that APIs are persistent machines (they’re always on) that can support thousands of requests per minute from people requesting data. The data that you request from an API can change depend from parameters from the website. However, the key idea of this chapter is the APIs are computers that host data. You can speak to these computers using different types of requests and filter data from these requests using parameters in the URL.</p>
+<p>Enough of technical descriptions, how do these REST APIs work? In layman’s terms, REST APIs have documentation which shows something called endpoints, just as we saw in <a href="../10-intro_api/index.html" class="quarto-xref"><span>Chapter 10</span></a>. Each of these endpoints is connected internally to databases. Each endpoint is responsible for returning one set of data. Depending on which parameters you pass to the URL of a given endpoint, the endpoint filters data and returns results accordingly.</p>
+<p>Other endpoints that have access to the data also allow altering data. For example, the Spotify API, once you log in with your credentials and obtain a ‘token’ to access the API, allows you to remove playlists or add songs to particular albums. This is all done using requests such as <code>DELETE</code> or <code>POST</code>. Like in <a href="../10-intro_api/index.html" class="quarto-xref"><span>Chapter 10</span></a>, each of these endpoints has documentation on how to access the data behind it.</p>
+<p>This should sound familiar to how we described requests above, because it is very familiar. The idea is that APIs are persistent machines (they’re always on) that can support thousands of requests per minute from people requesting data. The data that you request from an API can change depending on parameters sent to the website. However, the key idea of this chapter is that APIs are computers that host data. You can speak to these computers using different types of requests and filter data from these requests using parameters in the URL.</p>
 </section>
 <section id="ethics-in-apis" class="level2" data-number="12.4">
 <h2 data-number="12.4" class="anchored" data-anchor-id="ethics-in-apis"><span class="header-section-number">12.4</span> Ethics in APIs</h2>
-<p>Even though companies are giving you data for free, this doesn’t mean we shouldn’t abide by some general guidelines on behavior. Ethical guidelines for APIs are very similar to the ones described in chapter @ref(ethical-issues) for web scraping. They can be summarized in bullet points:</p>
+<p>Even though companies are giving you data for free, this doesn’t mean we shouldn’t abide by some general guidelines on behavior. Ethical guidelines for APIs are very similar to the ones described in <a href="../09-ethical_issues/index.html" class="quarto-xref"><span>Chapter 9</span></a> for web scraping. They can be summarized in bullet points:</p>
 <ul>
 <li><p><strong>Excessive requests</strong>: since APIs are just computers sending data, they have a finite amount of bandwidth they can use. Remember to use system sleeps to avoid cluttering the servers.</p></li>
-<li><p><strong>Read the terms of services</strong>: companies are sharing data freely over the web but this doesn’t mean you can do anything with it. Be sure to read the terms of services from the website as they might forbid something you can do with the data.</p></li>
-<li><p><strong>Authentication</strong>: as opposed to webscraping, where you usually just specify the <code>User-Agent</code>, many APIs require authentication. This means that you need to log in or create a developer account on the website of interest and obtain a token. This token is used on every request you make to the API, validating that you have authenticated with the website. Make sure to do this every time it is needed, as it ensures that you can access correct information and the owners can control how requests data from their website.</p></li>
+<li><p><strong>Read the terms of service</strong>: companies are sharing data freely over the web but this doesn’t mean you can do anything with it. Be sure to read the terms of service from the website as they might forbid something you can do with the data.</p></li>
+<li><p><strong>Authentication</strong>: as opposed to webscraping, where you usually just specify the <code>User-Agent</code>, many APIs require authentication. This means that you need to log in or create a developer account on the website of interest and obtain a token. This token is used on every request you make to the API, validating that you have authenticated with the website. Make sure to do this every time it is needed, as it ensures that you can access correct information and the owners can control who requests data from their website.</p></li>
 </ul>
 </section>
 <section id="exercises" class="level2" data-number="12.5">
@@ -376,7 +376,7 @@ main_plate=poke_bowl&amp;drinks=water</code></pre>
 <li>Can you browse the internet and find out how to make a <code>GET</code> request using R? Search for the <code>httr2</code> R package.</li>
 </ol>
 <ol start="2" type="1">
-<li>APIs often have something called rate limiting. Can you search online what it means? If you had a program that requests data from an API how could you control rate limiting?</li>
+<li>APIs often have something called rate limiting. Can you search online what it means? If you had a program that requests data from an API, how could you handle rate limiting?</li>
 </ol>
 
 

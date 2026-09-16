@@ -112,6 +112,7 @@
     }
     .reveal .slide:not(.center) {
       height: 100%;
+      overflow-y: auto;
     }
     .reveal .slide.scrollable {
       overflow-y: auto;
@@ -205,14 +206,13 @@
 <ul>
 <li><p>Amazon, the largest e-commerce website, has many APIs.</p></li>
 <li><p>Some of these are open to the public while others are used internally.</p></li>
-<li><p>Your company has just hired an Amazon which grants your company to access one of the Amazon APIs.</p></li>
-<li><p>This is the same API we explore in the presentation on “Introduction to REST APIs”</p></li>
+<li><p>This is the same API we explored in the presentation on “Introduction to REST APIs”</p></li>
 <li><p>If you remember correctly, the API can be launched with the function <a href="https://rdrr.io/pkg/scrapex/man/api_amazon.html"><code>api_amazon()</code></a> from the <code>scrapex</code> package.</p></li>
 </ul>
 </section>
 
 <section>
-<section id="exploring-amazon-api-1" class="title-slide slide level1 center">
+<section id="exploring-amazon-api-1" class="title-slide slide level1 center scrollable">
 <h1>Exploring Amazon API</h1>
 <p>Launching the API:</p>
 <div class="cell" data-layout-align="center">
@@ -221,8 +221,8 @@
 <span id="cb1-3"><a href=""></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb1-4"><a href=""></a>az_api <span class="ot">&lt;-</span> <span class="fu">api_amazon</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Visit your REST API at http://localhost:4397"
-[1] "Documentation is at http://localhost:4397/__docs__/"</code></pre>
+<pre><code>[1] "Visit your REST API at http://localhost:37492"
+[1] "Documentation is at http://localhost:37492/__docs__/"</code></pre>
 </div>
 </div>
 <ol type="1">
@@ -242,12 +242,12 @@
 <li><p>All of them are <code>GET</code> requests: important, we don’t need to add a <code>body</code> anywhere.</p></li>
 </ul>
 <blockquote>
-<p>The endpoints contains data on all sorts of data from Amazon: authors and books from Amazon Books, users who visited Amazon and how each of these users bought certain Amazon products. As you might be hinting, this is quite some sensitive data. Unless you work at Amazon, you’ll probably never have access to this. That’s when security comes in.</p>
+<p>The endpoints contain all sorts of data from Amazon: authors and books from Amazon Books, users who visited Amazon and how each of these users bought certain Amazon products. As you might suspect, this is quite sensitive data. Unless you work at Amazon, you’ll probably never have access to this. That’s when security comes in.</p>
 </blockquote>
 </section>
 <section id="tokens-and-security" class="slide level2">
 <h2>Tokens and security</h2>
-<p>Amazon has granted you access to their internal APIs but every few days Amazon has forced you to log in to your Amazon account and extract a token that needs to be refreshed before making any requests to the API.</p>
+<p>Amazon has granted you access to their internal APIs but every few days Amazon forces you to log in to your Amazon account and extract a token that needs to be refreshed before making any requests to the API.</p>
 <p><br></p>
 <ul>
 <li><p>Tokens are common in the API world</p></li>
@@ -259,9 +259,9 @@
 <section id="tokens-and-security-1" class="slide level2">
 <h2>Tokens and security</h2>
 <ul>
-<li><p>For real examples, this token is usually sent over email or on your profile page somwhere</p></li>
+<li><p>For real examples, this token is usually sent over email or on your profile page somewhere</p></li>
 <li><p>Since this is a fake example, <code>scrapex</code> has <code>amazon_bearer_token()</code></p></li>
-<li><p>Token are a random set of characters</p></li>
+<li><p>Tokens are a random set of characters</p></li>
 <li><p>Every time you run it, it will return a new “valid” token</p></li>
 </ul>
 <div class="cell" data-layout-align="center">
@@ -277,7 +277,7 @@
 <p>With this token in hand, how do I use it?</p>
 <ul>
 <li><p>Depends on API</p></li>
-<li><p>Read on docs how to do it</p></li>
+<li><p>Read the docs to find out how to do it</p></li>
 <li><p>It’s very common for these tokens to go in the headers</p></li>
 </ul>
 <div class="cell" data-layout-align="center">
@@ -296,7 +296,7 @@
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a>req</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;httr2_request&gt;
-GET http://localhost:4397/api/v1/amazon/
+GET http://localhost:37492/api/v1/amazon/
 Headers:
 * Authorization: &lt;REDACTED&gt;
 Body: empty</code></pre>
@@ -321,7 +321,7 @@ Body: empty</code></pre>
 <span id="cb8-2"><a href=""></a>req_res</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;httr2_request&gt;
-GET http://localhost:4397/api/v1/amazon/authors
+GET http://localhost:37492/api/v1/amazon/authors
 Headers:
 * Authorization: &lt;REDACTED&gt;
 Body: empty</code></pre>
@@ -333,7 +333,7 @@ Body: empty</code></pre>
 <span id="cb10-2"><a href=""></a>res</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;httr2_response&gt;
-GET http://localhost:4397/api/v1/amazon/authors
+GET http://localhost:37492/api/v1/amazon/authors
 Status: 200 OK
 Content-Type: application/json
 Body: In memory (217 bytes)</code></pre>
@@ -373,7 +373,7 @@ Body: In memory (217 bytes)</code></pre>
 <span id="cb14-6"><a href=""></a>req_res</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;httr2_request&gt;
-GET http://localhost:4397/api/v1/amazon/books?author=Stuart%20Armstrong&amp;genre=Sunt
+GET http://localhost:37492/api/v1/amazon/books?author=Stuart%20Armstrong&amp;genre=Sunt
 Headers:
 * Authorization: &lt;REDACTED&gt;
 Body: empty</code></pre>
@@ -452,7 +452,7 @@ Body: empty</code></pre>
 <section id="amazon-books-user-behavior-1" class="slide level2">
 <h2>Amazon Books: User Behavior</h2>
 <ul>
-<li><p>Link user behavior through different endpoints. Take user <code>319</code> (see <a href="https://cimentadaj.github.io/dataharvesting/case-study-exploring-the-amazon-api.html#understand-amazon-books">14.2</a>) and see which other products the user has bought on Amazon.</p></li>
+<li><p>Link user behavior through different endpoints. Take user <code>319</code> (see <a href="14-case_study_api_amazon#understand-amazon-books">14.2</a>) and see which other products the user has bought on Amazon.</p></li>
 <li><p>Hidden relationships that you could uncover with the real data set: people who read certain books might have propensities to order certain products</p></li>
 <li><p>This endpoint needs only one parameter, the user id (int not str)</p></li>
 </ul>
@@ -581,9 +581,9 @@ Body: empty</code></pre>
 <section id="homework" class="slide level2">
 <h2>Homework</h2>
 <ul>
-<li><p>No homework, focus on final project</p></li>
+<li><p>No homework, focus on the final project</p></li>
 <li><p>Make sure to submit the project ASAP. Will give me more time to revise. <strong>Deadline is next class.</strong></p></li>
-<li><p>Submission of your project will be to paste the Github URL to the repo <a href="https://docs.google.com/spreadsheets/d/11QmdgRXvbwtN9hSOwVyw9-iVjrN-yeRq_BOudidAnX8/edit#gid=73208201">here</a>.</p></li>
+<li><p>To submit your project, paste the GitHub URL to the repo <a href="https://docs.google.com/spreadsheets/d/11QmdgRXvbwtN9hSOwVyw9-iVjrN-yeRq_BOudidAnX8/edit#gid=73208201">here</a>.</p></li>
 </ul>
 
 </section></section>

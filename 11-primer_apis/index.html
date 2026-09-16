@@ -78,7 +78,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-1d495bf0b3d7decfc3a5ab2c9f414beb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-eb96c05b7f203a23b18f87ac89c0dd72.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -201,7 +201,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../08-selenium/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Scraping JavaScript based website</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Scraping JavaScript-based websites</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -280,7 +280,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../10-intro_api/index.html">APIs</a></li><li class="breadcrumb-item"><a href="../11-primer_apis/index.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">A primer on APIs</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="primer-apis" class="quarto-section-identifier"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">A primer on APIs</span></span></h1>
+<h1 class="title"><span id="sec-primer-apis" class="quarto-section-identifier"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">A primer on APIs</span></span></h1>
 </div>
 
 
@@ -298,9 +298,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>When you make requests to an API, most probably you want to make them programmatically. By programmatically I mean to request data using a programming language. In this book we’ll do it with R but you can do this with most programming languages.</p>
-<p>Why do you want to do this programmatically when you can just use the documentation page to make sample requests as we did in chapter @ref(intro-apis)? For several reasons. First, you can create a scheduled program to download data on specific intervals of time. Doing that in a web browser would be tedious as you need to constantly go to your computer to manually click on some buttons and then save the data somewhere. Second, APIs are built to persist thousands of requests per minutes. You might want to make 60 requests every minute. That sounds like a handful for a human clicking in a browser through out the day, right? Third, because you can do much more within a programming language. For example, you might want to request some data from an endpoint that is then passed as input into another endpoint, which has a fallback value in case the request doesn’t not return any data. Fourth and finally, because you might want to do things ‘real-time’ with your program. You might build a web application that when a user clicks on a button, you grab data from an API ‘real-time’ and on demand, and train a machine learning with the recently requested data.</p>
-<p>You might think APIs are a very convoluted concept at this point but you need to think of APIs as just another way to gather data. Using a programming language allows you to automate the gathering of data and add value in the data gathering process by making it more automatic, persistent and available any time. The reasons to do it programmatically are very numerous and that’s why for the remaining of this book we’ll focus on requesting data from APIs with R.</p>
-<p>As we did in chapter @ref(primer-webscraping), throughout this chapter I’ll give you a one-to-one tour on what to expect when requesting data from an API in the wild. We’ll skip the usual ‘start from the basics’ sections to directly request data from an API and see results from your efforts right away. Before we begin, let’s load the packages we’ll use in this chapter:</p>
+<p>Why do you want to do this programmatically when you can just use the documentation page to make sample requests as we did in <a href="../10-intro_api/index.html" class="quarto-xref"><span>Chapter 10</span></a>? For several reasons. First, you can create a scheduled program to download data on specific intervals of time. Doing that in a web browser would be tedious as you need to constantly go to your computer to manually click on some buttons and then save the data somewhere. Second, APIs are built to persist thousands of requests per minute. You might want to make 60 requests every minute. That sounds like a handful for a human clicking in a browser throughout the day, right? Third, because you can do much more within a programming language. For example, you might want to request some data from an endpoint that is then passed as input into another endpoint, which has a fallback value in case the request does not return any data. Fourth and finally, because you might want to do things in ‘real-time’ with your program. You might build a web application where, when a user clicks on a button, you grab data from an API in ‘real-time’ and on demand, and train a machine learning model with the recently requested data.</p>
+<p>You might think APIs are a very convoluted concept at this point but you need to think of APIs as just another way to gather data. Using a programming language allows you to automate the gathering of data and add value in the data gathering process by making it more automatic, persistent and available any time. The reasons to do it programmatically are very numerous and that’s why for the remainder of this book we’ll focus on requesting data from APIs with R.</p>
+<p>As we did in <a href="../02-primer_webscraping/index.html" class="quarto-xref"><span>Chapter 2</span></a>, throughout this chapter I’ll give you a one-to-one tour of what to expect when requesting data from an API in the wild. We’ll skip the usual ‘start from the basics’ sections to directly request data from an API and see results from your efforts right away. Before we begin, let’s load the packages we’ll use in this chapter:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scrapex)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr2)</span>
@@ -318,17 +318,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>This plot shows the the total number of COVID cases for females and males in California. We do not have data on this on your local computer so we’ll need to request the data from an API.</p>
+<p>This plot shows the total number of COVID cases for females and males in California. We do not have data on this on your local computer so we’ll need to request the data from an API.</p>
 <section id="getting-familiar-with-an-api" class="level2" data-number="11.1">
 <h2 data-number="11.1" class="anchored" data-anchor-id="getting-familiar-with-an-api"><span class="header-section-number">11.1</span> Getting familiar with an API</h2>
 <p>Inside <code>scrapex</code> the function <code>api_coveragedb()</code> has a local API that was designed to be used in this book. Let’s load it:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>api_covid <span class="ot">&lt;-</span> <span class="fu">api_coveragedb</span>()</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "Visit your REST API at http://localhost:24916"</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "Documentation is at http://localhost:24916/__docs__/"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "Visit your REST API at http://localhost:26407"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "Documentation is at http://localhost:26407/__docs__/"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>The API is now launched in the background and we can access it. Note that learning about a new API online you <strong>won’t</strong> have to launch any API. APIs are hosted on servers elsewhere and you’ll just need to read how to access the API. Since this is a stand-alone book (we don’t want any of our examples to depend on fast-changing websites or APIs, making most of the content in this book useless in just a few months), we use a local API that won’t change over time and thus we need to launch it ourselves.</p>
-<p>When you do access an API, instead you’ll be given directly things like the documentation page. That we can see in the print out of the previous R call http://localhost:24916/<strong>docs</strong>/. <strong>Note that this link won’t work on your computer because you need to launch the API on your computer (remember how this is a local API?). Go to your URL and you should see something like this</strong>:</p>
+<p>The API is now launched in the background and we can access it. Note that when learning about a new API online you <strong>won’t</strong> have to launch any API. APIs are hosted on servers elsewhere and you’ll just need to read how to access the API. Since this is a stand-alone book (we don’t want any of our examples to depend on fast-changing websites or APIs, making most of the content in this book useless in just a few months), we use a local API that won’t change over time and thus we need to launch it ourselves.</p>
+<p>When you do access an API, instead you’ll be directly given things like the documentation page. That we can see in the printout of the previous R call http://localhost:26407/<strong>docs</strong>/. <strong>Note that this link won’t work on your computer because you need to launch the API on your computer (remember how this is a local API?). Go to your URL and you should see something like this</strong>:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -338,7 +338,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>We can see that this API has two endpoints. The first one allows you to access data on the number of COVID cases for the American states California, Utah and New York State. The second one returns vaccination rates for the same three cities. As opposed to our example in chapter @ref(intro-apis), this API does not need any authentication so we can directly go to the first endpoint to read how it works:</p>
+<p>We can see that this API has two endpoints. The first one allows you to access data on the number of COVID cases for the American states California, Utah and New York State. The second one returns vaccination rates for the same three regions. As opposed to our example in <a href="../10-intro_api/index.html" class="quarto-xref"><span>Chapter 10</span></a>, this API does not need any authentication so we can directly go to the first endpoint to read how it works:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -350,11 +350,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>First thing we see is that this endpoint has two parameters: <code>region</code> and <code>sex</code>. Both are required. Also, the documentation of each parameter tells us the valid values that can be accepted. Aside from that, we see that this endpoint returns a JSON structured response as well as the usual return codes that are standard (<code>200</code> for a successful request and <code>500</code> for a standard error code). Alright, we have enough information to construct our <em>first</em> endpoint. Let’s go over a few things. Each endpoint is composed of three things:</p>
 <ul>
-<li>A base URL. In this case, it’s http://localhost:24916. <strong>Yours will be different because you launched it in your local computer</strong>.</li>
+<li>A base URL. In this case, it’s http://localhost:26407. <strong>Yours will be different because you launched it on your local computer</strong>.</li>
 <li>The endpoint URL of this specific endpoint. For the COVID cases, this is <code>/api/v1/covid_cases</code>.</li>
 <li>The parameters in the endpoint which are specified after a <code>?</code> and each parameter is then concatenated with <code>&amp;</code>.</li>
 </ul>
-<p>So the complete endpoint URL for this endpoint would be http://localhost:24916/api/v1/covid_cases. How would we add parameters? We start with a <code>?</code> and then add <code>parameter=value</code> followed by a <code>&amp;</code> to concatenate with other parameters. Sounds confusing? Let’s construct it in R:</p>
+<p>So the complete endpoint URL for this endpoint would be http://localhost:26407/api/v1/covid_cases. How would we add parameters? We start with a <code>?</code> and then add <code>parameter=value</code> followed by an <code>&amp;</code> to concatenate with other parameters. Sounds confusing? Let’s construct it in R:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># COVID cases endpoint</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>api_web <span class="ot">&lt;-</span> <span class="fu">paste0</span>(api_covid<span class="sc">$</span>api_web, <span class="st">"/api/v1/covid_cases"</span>)</span>
@@ -363,7 +363,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>cases_endpoint <span class="ot">&lt;-</span> <span class="fu">paste0</span>(api_web, <span class="st">"?region=California&amp;sex=m"</span>)</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>cases_endpoint</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "http://localhost:24916/api/v1/covid_cases?region=California&amp;sex=m"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "http://localhost:26407/api/v1/covid_cases?region=California&amp;sex=m"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The parameters we specified were <code>?region=California&amp;sex=m</code>. It’s not that difficult to construct these paths but rather tedious. Imagine having to construct this for an endpoint with 7 parameters. Too many <code>&amp;</code> can confuse anyone and it can start to get difficult to read. Instead, the <code>httr2</code> package can help us with this. With <code>httr2</code> we just pass the endpoint URL and use functions to add as many parameters as we see fit.</p>
 </section>
@@ -376,7 +376,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>req <span class="ot">&lt;-</span> <span class="fu">request</span>(api_web)</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>req</span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="do">## &lt;httr2_request&gt;</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="do">## GET http://localhost:24916/api/v1/covid_cases</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="do">## GET http://localhost:26407/api/v1/covid_cases</span></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Body: empty</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>There we go. The <code>request</code> function from <code>httr2</code> builds something like a placeholder for our request. It says it already has the endpoint URL (we can see it in the <code>GET</code> line) but it does not say anything about our parameters or headers. Let’s add the endpoint and parameters:</p>
@@ -387,16 +387,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>req_california_m</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="do">## &lt;httr2_request&gt;</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="do">## GET http://localhost:24916/api/v1/covid_cases?region=California&amp;sex=m</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="do">## GET http://localhost:26407/api/v1/covid_cases?region=California&amp;sex=m</span></span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Body: empty</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>The function <code>req_url_query</code> constructs the endpoint by adding as many parameters as we want. Do you see the idea here? <code>request</code> builds a placeholder for the endpoint and then you add as many “add-on’s” as you want to your request. Our “add-on” so far has just been parameters but you could hypothetically add authentication headers and a retry step, for example:</p>
+<p>The function <code>req_url_query</code> constructs the endpoint by adding as many parameters as we want. Do you see the idea here? <code>request</code> builds a placeholder for the endpoint and then you add as many “add-ons” as you want to your request. Our “add-on” so far has just been parameters but you could hypothetically add authentication headers and a retry policy, for example:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>req_california_m <span class="sc">%&gt;%</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_auth_basic</span>(<span class="at">username =</span> <span class="st">"fake name"</span>, <span class="at">password =</span> <span class="st">"fake password"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_retry</span>(<span class="at">max_tries =</span> <span class="dv">3</span>, <span class="at">max_seconds =</span> <span class="dv">5</span>)</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="do">## &lt;httr2_request&gt;</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="do">## GET http://localhost:24916/api/v1/covid_cases?region=California&amp;sex=m</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="do">## GET http://localhost:26407/api/v1/covid_cases?region=California&amp;sex=m</span></span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Headers:</span></span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="do">## * Authorization: &lt;REDACTED&gt;</span></span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Body: empty</span></span>
@@ -408,12 +408,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="do">## * retry_failure_timeout  : 30</span></span>
 <span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="do">## * retry_realm            : "localhost"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Our request object also added the headers as well as a retry policy: if the request fails for some reason, try it 3 more times, waiting 5 seconds in between. If you type <code>req_</code> and hit tab on most IDE’s you’ll get a complete list of functions that allow to add stuff into our request as well as extract stuff from a request. Feel free to explore these to get familiar with the capabilities of <code>httr2</code>.</p>
-<p>Let’s get back to our initial request. Since we don’t need any further add-on’s to our request, it should look like this:</p>
+<p>Our request object also added the headers as well as a retry policy: if the request fails for some reason, try it 3 more times, waiting 5 seconds in between. If you type <code>req_</code> and hit tab in most IDEs you’ll get a complete list of functions that allow you to add stuff into our request as well as extract stuff from a request. Feel free to explore these to get familiar with the capabilities of <code>httr2</code>.</p>
+<p>Let’s get back to our initial request. Since we don’t need any further add-ons to our request, it should look like this:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>req_california_m</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="do">## &lt;httr2_request&gt;</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="do">## GET http://localhost:24916/api/v1/covid_cases?region=California&amp;sex=m</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="do">## GET http://localhost:26407/api/v1/covid_cases?region=California&amp;sex=m</span></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Body: empty</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Whenever we’re happy with our request, we can actually <em>make</em> the request with <code>req_perform</code>:</p>
@@ -424,13 +424,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>resp_california_m</span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="do">## &lt;httr2_response&gt;</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="do">## GET http://localhost:24916/api/v1/covid_cases?region=California&amp;sex=m</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="do">## GET http://localhost:26407/api/v1/covid_cases?region=California&amp;sex=m</span></span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Status: 200 OK</span></span>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Content-Type: application/json</span></span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Body: In memory (1086936 bytes)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Alright so we can interpret a few things out of this request. First, it was successful. The <code>200</code> status code means that it was OK, so nothing failed. Second, the response content-type is <code>JSON</code>, meaning the data that was sent is in <code>JSON</code> format. Third, the actual body of the request has data, which is now loaded in RAM memory (instead of in your hard drive).</p>
-<p>Now, you might have noticed that all functions for working with your request in <code>httr2</code> start with <code>req_*</code>. This means that you can easily search for all <code>req</code>uest related functions quickly. Similarly, for the <em>response</em> of an API, you can do the same but with the <code>resp_*</code>. All <code>resp</code>onse functions allow you to perform or extract stuff on a response object. We can extract the status code for example:</p>
+<p>Alright so we can interpret a few things out of this request. First, it was successful. The <code>200</code> status code means that it was OK, so nothing failed. Second, the response content-type is <code>JSON</code>, meaning the data that was sent is in <code>JSON</code> format. Third, the actual body of the request has data, which is now loaded in RAM (instead of on your hard drive).</p>
+<p>Now, you might have noticed that all functions for working with your request in <code>httr2</code> start with <code>req_*</code>. This means that you can easily search for all <code>req</code>uest related functions quickly. Similarly, for the <em>response</em> of an API, you can do the same but with <code>resp_*</code>. All <code>resp</code>onse functions allow you to perform or extract stuff on a response object. We can extract the status code for example:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">resp_status</span>(resp_california_m)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 200</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -463,7 +463,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 USA     Calif… US-CA 2020… m     10        10 Count  Cases       0 USA_CDC_c…</span></span>
 <span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="do">## # ℹ 5,838 more rows</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>There we go. We see that data from California has 5848 rows and that we have 11 columns. You’ll notice that I used the argument <code>simplifyVector</code> inside <code>resp_body_json</code>. This is because the <code>JSON</code> format is know as a <em>nested</em> format. This means that you can have columns within columns within columns and so on. That argument <em>tries</em> (but not always succeeds) in simplifying this structure into a data frame. With that out of the way, let’s visualize the overall number of COVID cases:</p>
+<p>There we go. We see that data from California has 5848 rows and that we have 11 columns. You’ll notice that I used the argument <code>simplifyVector</code> inside <code>resp_body_json</code>. This is because the <code>JSON</code> format is known as a <em>nested</em> format. This means that you can have columns within columns within columns and so on. That argument <em>tries</em> (but does not always succeed) in simplifying this structure into a data frame. With that out of the way, let’s visualize the overall number of COVID cases:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># To avoid scientific numbering</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">231241231</span>)</span>
@@ -492,7 +492,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Great, we can see a rather big jump starting 2021 for California. Let’s perform the same request as before but replace the sex for females to compare the trend. After it, let’s count the number of cases per date as we did for males and combine everything into one data frame. Finally, let’s produce the same plot as before but for both sexes:</p>
+<p>Great, we can see a rather big jump starting 2021 for California. Let’s perform the same request as before but replace the sex with females to compare the trend. After it, let’s count the number of cases per date as we did for males and combine everything into one data frame. Finally, let’s produce the same plot as before but for both sexes:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform the same request but for females and grab the JSON result</span></span>
@@ -532,27 +532,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>As we see, we start to see a difference in cases right at the start of 2021 with females having greater number of cases after 2021. Before we close the chapter, remember to <em>kill</em> the API that we launched. You wan’t have to do it when you request data from online APIs, this is only for our local version:</p>
+<p>As we see, we start to see a difference in cases right at the start of 2021 with females having a greater number of cases after 2021. Before we close the chapter, remember to <em>kill</em> the API that we launched. You won’t have to do it when you request data from online APIs, this is only for our local version:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>api_covid<span class="sc">$</span>process<span class="sc">$</span><span class="fu">kill</span>()</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] TRUE</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>So there you have it. This primer gave you a very direct experience on what requesting data from an API involves. It’s usually all about studying the documentation to see what each endpoint returns, constructing URLs that directly grab the data that you want and extracting the data from the response. In the next chapter you’ll see more in depth how APIs work behind the scenes.</p>
+<p>So there you have it. This primer gave you a very direct experience of what requesting data from an API involves. It’s usually all about studying the documentation to see what each endpoint returns, constructing URLs that directly grab the data that you want and extracting the data from the response. In the next chapter you’ll see more in depth how APIs work behind the scenes.</p>
 </section>
 <section id="exercises" class="level2" data-number="11.3">
 <h2 data-number="11.3" class="anchored" data-anchor-id="exercises"><span class="header-section-number">11.3</span> Exercises</h2>
 <ol type="1">
-<li>Generate the same plot that we created for males/females but for the state New York. However, construct the path manually (do not use the function <code>req_url_query</code>). You might need to look how <em>spaces</em> are written down in URLs on the internet.</li>
+<li>Generate the same plot that we created for males/females but for the state New York. However, construct the path manually (do not use the function <code>req_url_query</code>). You might need to look at how <em>spaces</em> are written in URLs on the internet.</li>
 </ol>
 <ol start="2" type="1">
 <li>Did the third wave of vaccination start at the same time for males and females in New York? You might need to look at the documentation of the second endpoint of the API to get acquainted with the parameters and values.</li>
 </ol>
 <ol start="3" type="1">
-<li>Can you recreate the request below? You will need to look at a few <code>req_*</code> but make sure you understand what each of these <code>req_*</code> functions do before reconstructing the request.</li>
+<li>Can you recreate the request below? You will need to look at a few <code>req_*</code> functions but make sure you understand what each of these <code>req_*</code> functions does before reconstructing the request.</li>
 </ol>
 <div class="cell" data-layout-align="center">
 <pre><code>## &lt;httr2_request&gt;
-## GET http://localhost:24916/api/v1/covid_cases?region=California&amp;sex=m
+## GET http://localhost:26407/api/v1/covid_cases?region=California&amp;sex=m
 ## Headers:
 ## * Authorization: &lt;REDACTED&gt;
 ## * Content-type : "*/*"
@@ -569,7 +569,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 ## * throttle_realm         : "localhost"</code></pre>
 </div>
 <ol start="4" type="1">
-<li>Can you make a request specifying sex but an unavailable region (Florida, for example)? What status code does it return? Look up on the internet what these status codes mean. After copying the endpoint on your browser (the entire endpoint with parameters on your browser), what message do you see?</li>
+<li>Can you make a request specifying sex but an unavailable region (Florida, for example)? What status code does it return? Look up on the internet what these status codes mean. After copying the endpoint into your browser (the entire endpoint with parameters in your browser), what message do you see?</li>
 </ol>
 
 

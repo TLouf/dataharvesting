@@ -77,7 +77,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-1d495bf0b3d7decfc3a5ab2c9f414beb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-eb96c05b7f203a23b18f87ac89c0dd72.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -200,7 +200,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../08-selenium/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Scraping JavaScript based website</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Scraping JavaScript-based websites</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -297,11 +297,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Grabbing data from APIs can be achieved with all of the techniques we’ve covered in the book so far. However, as it is the case with web scraping, data is ephemeral. If you’re interested in web scraping some temperature data for your city on a website, the temperature from 6 months ago for a given neighborhood might not be available any more. That’s why it’s very common for for web scraping or API scripts to be automated.</p>
-<p>Let me tell you a brief story that motivates this chapter. Throughout my PhD studies I was living in Barcelona where I used to take a bike ride from my house to my university. As it is common in Barcelona, I used the public bicycle system called “Bicing”. Every day, I took the bike from the upper part of the city, riding down the city to the campus that was next to the beach. Whenever the day was coming to an end, I took the bike up again to the upper part of the city.</p>
-<p>Although that sounds very pleasent, every day when I tried to find a bike, there were no bikes available in the stations. This happened both in the upper part of the city as well as in the stations close to my university. I used to waste up to 15-20 minutes per trajectory just waiting for bikes to arrive in one of the stations. With 3-4 stations near my university, I also had to juggle between which station I would wait for the bike. My ‘estimation’ was based on experience: on this day I’ve seen that bikes arrive much more often on this station than in the other one. However, that was something of a leap of faith: when I logged into the ‘Bicing’ mobile app, I saw that some bikes arrived earlier in other stations and I’d missed that opportunity.</p>
-<p>After spending about 2-3 years doing this I started to think there must be a way to make my ‘estimations’ more accurate. For example, if I had data on the availability of bikes on each station, I could probably estimate some type of poisson process where I could measure and predict the rate at which bikes arrived during different periods of the day. All of that was fine but I didn’t have data on that. <strong>That’s until I found it</strong>.</p>
-<p>Bicing had a real time API that allow you to check the status of each station (number of bikes available) and the time stamp at the time I was requesting this data. That’s it, that’s the information I needed but I needed it pretty much every minute, to be able to get the entire history of the station during the day. This near second-by-second snapshot would allow me to record at which interval of the day a bike was retrieved and at which interval another bike was deposited on each station. How do I do that? With automation.</p>
+<p>Grabbing data from APIs can be achieved with all of the techniques we’ve covered in the book so far. However, as is the case with web scraping, data is ephemeral. If you’re interested in web scraping some temperature data for your city on a website, the temperature from 6 months ago for a given neighborhood might not be available anymore. That’s why it’s very common for web scraping or API scripts to be automated.</p>
+<p>Let me tell you a brief story that motivates this chapter. Throughout my PhD studies I was living in Barcelona where I used to take a bike ride from my house to my university. As is common in Barcelona, I used the public bicycle system called “Bicing”. Every day, I took the bike from the upper part of the city, riding down the city to the campus that was next to the beach. Whenever the day was coming to an end, I took the bike up again to the upper part of the city.</p>
+<p>Although that sounds very pleasant, every day when I tried to find a bike, there were no bikes available at the stations. This happened both in the upper part of the city as well as at the stations close to my university. I used to waste up to 15-20 minutes per journey just waiting for bikes to arrive at one of the stations. With 3-4 stations near my university, I also had to juggle which station to wait at for a bike. My ‘estimation’ was based on experience: on this day I’ve seen that bikes arrive much more often at this station than at the other one. However, that was something of a leap of faith: when I logged into the ‘Bicing’ mobile app, I saw that some bikes arrived earlier at other stations and I’d missed that opportunity.</p>
+<p>After spending about 2-3 years doing this I started to think there must be a way to make my ‘estimations’ more accurate. For example, if I had data on the availability of bikes at each station, I could probably estimate some type of Poisson process where I could measure and predict the rate at which bikes arrived during different periods of the day. All of that was fine but I didn’t have data on that. <strong>That’s until I found it</strong>.</p>
+<p>Bicing had a real-time API that allowed you to check the status of each station (number of bikes available) and the timestamp at the time I was requesting this data. That’s it, that’s the information I needed, but I needed it pretty much every minute to be able to get the entire history of the station during the day. This near second-by-second snapshot would allow me to record at which interval of the day a bike was retrieved and at which interval another bike was deposited at each station. How do I do that? With automation.</p>
 <section id="the-bicing-api" class="level2" data-number="15.1">
 <h2 data-number="15.1" class="anchored" data-anchor-id="the-bicing-api"><span class="header-section-number">15.1</span> The Bicing API</h2>
 <p>The <code>scrapex</code> package contains a replica of the bicing API that I used during my PhD studies. Let’s load the packages we’ll use in the chapter and launch the bicing API.</p>
@@ -310,11 +310,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr2)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>bicing <span class="ot">&lt;-</span> <span class="fu">api_bicing</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>bicing <span class="ot">&lt;-</span> <span class="fu">api_bicing</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Visit your REST API at http://localhost:5876"
-[1] "Documentation is at http://localhost:5876/__docs__/"</code></pre>
+<pre><code>[1] "Visit your REST API at http://localhost:3218"
+[1] "Documentation is at http://localhost:3218/__docs__/"</code></pre>
 </div>
 </div>
 <p>As usual, the first thing we want to do is access the documentation. Here’s what we get:</p>
@@ -342,13 +343,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Access real time bicycle usage from a sample of 20 stations from Barcelona’s public bicycle system</p>
 </blockquote>
 <p>As this is an example API, I’ve only included 20 stations from the original results. The original results contain information for over 100 stations all over Barcelona. We can also see under the <em>parameters</em> heading that this endpoint does not need any parameters.</p>
-<p>However, the most important thing from this endpoint can be interpreted from the description that we see above. <em>Access real time bicycle usage</em> is very transparent in highlighting that this data is <em>real time</em>. This means that data that we see in a request right now, might not be the same data that we see in 10 minutes. Since I created this sample API, I made sure that this is the case. This means that every time that we request some data from this endpoint, we’ll see completely new data from the previous request. The nature of this API forces us to think along two lines: if we want to understand bicycle patterns, we need to automate this process and we need to save this data somewhere.</p>
-<p>Since we already know enough of the single endpoint of this API, let’s try to build a request to check how the output is structured. From the image above we can see that the endpoint is <code>/api/v1/real_time_bicycles</code> so let’s append it to the base of the API:</p>
+<p>However, the most important thing from this endpoint can be interpreted from the description that we see above. <em>Access real time bicycle usage</em> is very transparent in highlighting that this data is <em>real time</em>. This means that the data that we see in a request right now might not be the same data that we see in 10 minutes. Since I created this sample API, I made sure that this is the case. This means that every time that we request some data from this endpoint, we’ll see completely new data from the previous request. The nature of this API forces us to think along two lines: if we want to understand bicycle patterns, we need to automate this process and we need to save this data somewhere.</p>
+<p>Since we already know enough about the single endpoint of this API, let’s try to build a request to check how the output is structured. From the image above we can see that the endpoint is <code>/api/v1/real_time_bicycles</code> so let’s append it to the base of the API:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>rt_bicing <span class="ot">&lt;-</span> <span class="fu">paste0</span>(bicing<span class="sc">$</span>api_web, <span class="st">"/api/v1/real_time_bicycles"</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>rt_bicing</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "http://localhost:5876/api/v1/real_time_bicycles"</code></pre>
+<pre><code>[1] "http://localhost:3218/api/v1/real_time_bicycles"</code></pre>
 </div>
 </div>
 <p>There we go, let’s make a request and check the body:</p>
@@ -360,12 +361,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>resp_output</span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="do">## &lt;httr2_response&gt;</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="do">## GET http://localhost:5876/api/v1/real_time_bicycles</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="do">## GET http://localhost:3218/api/v1/real_time_bicycles</span></span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Status: 200 OK</span></span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Content-Type: application/json</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Body: In memory (3313 bytes)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Body: In memory (3314 bytes)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>The status code of the request is <code>200</code> so everything went successful. We see that the content-type is in JSON format, so it’s everything we’re used to. Let’s check the content of the body:</p>
+<p>The status code of the request is <code>200</code> so everything was successful. We see that the content-type is in JSON format, so it’s everything we’re used to. Let’s check the content of the body:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>sample_output <span class="ot">&lt;-</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  resp_output <span class="sc">%&gt;%</span></span>
@@ -394,10 +395,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 [1] 29
 
 [[1]]$current_time
-[1] "2026-09-15 18:03:13"
+[1] "2026-09-16 13:21:04"
 
 [[1]]$in_use
-[1] 19
+[1] 4
 
 
 [[2]]
@@ -420,10 +421,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 [1] 27
 
 [[2]]$current_time
-[1] "2026-09-15 18:03:13"
+[1] "2026-09-16 13:21:04"
 
 [[2]]$in_use
-[1] 17</code></pre>
+[1] 6</code></pre>
 </div>
 </div>
 <p>I’ve only shown the first two slots of the resulting list (parsed from the JSON directly using <code>resp_body_json</code>). This output looks like each slot is the row of a data frame where each contains a column, with names like <code>slots</code>, <code>in_use</code>, <code>latitude/longitude</code> and <code>streetName</code>. There are different ways to parse this output but the first that comes to mind is to loop over each slot and simply try to convert it to a data frame. Since each slot has a named list inside, <code>data.frame</code> can convert that directly to a data frame and we can bind all those rows into a single data frame. Let’s try it:</p>
@@ -436,11 +437,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 1 BIKE  41.3980    2.1800 Gran Via Corts Catalanes          760    29
 2 BIKE  41.3955    2.1771  Roger de Flor/ Gran Vía          126    27
          current_time in_use
-1 2026-09-15 18:03:13     19
-2 2026-09-15 18:03:13     17</code></pre>
+1 2026-09-16 13:21:04      4
+2 2026-09-16 13:21:04      6</code></pre>
 </div>
 </div>
-<p>Yep, works well. Let’s go back to the request an extract all stations and combine them together:</p>
+<p>Yep, works well. Let’s go back to the request and extract all stations and combine them together:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>all_stations <span class="ot">&lt;-</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  resp_output <span class="sc">%&gt;%</span></span>
@@ -475,26 +476,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 19 BIKE  41.4102    2.1758                      Cartagena          308    20
 20 BIKE  41.4109    2.1740       Sant Antoni Maria Claret          214     2
           current_time in_use
-1  2026-09-15 18:03:13     19
-2  2026-09-15 18:03:13     17
-3  2026-09-15 18:03:13     26
-4  2026-09-15 18:03:13     16
-5  2026-09-15 18:03:13      7
-6  2026-09-15 18:03:13     29
-7  2026-09-15 18:03:13     15
-8  2026-09-15 18:03:13     18
-9  2026-09-15 18:03:13      0
-10 2026-09-15 18:03:13      7
-11 2026-09-15 18:03:13      3
-12 2026-09-15 18:03:13      1
-13 2026-09-15 18:03:13      2
-14 2026-09-15 18:03:13     18
-15 2026-09-15 18:03:13     12
-16 2026-09-15 18:03:13     19
-17 2026-09-15 18:03:13      7
-18 2026-09-15 18:03:13     17
-19 2026-09-15 18:03:13     20
-20 2026-09-15 18:03:13      1</code></pre>
+1  2026-09-16 13:21:04      4
+2  2026-09-16 13:21:04      6
+3  2026-09-16 13:21:04     25
+4  2026-09-16 13:21:04      1
+5  2026-09-16 13:21:04      6
+6  2026-09-16 13:21:04     27
+7  2026-09-16 13:21:04     22
+8  2026-09-16 13:21:04     11
+9  2026-09-16 13:21:04     19
+10 2026-09-16 13:21:04     19
+11 2026-09-16 13:21:04     23
+12 2026-09-16 13:21:04      3
+13 2026-09-16 13:21:04     18
+14 2026-09-16 13:21:04      0
+15 2026-09-16 13:21:04     11
+16 2026-09-16 13:21:04     11
+17 2026-09-16 13:21:04     11
+18 2026-09-16 13:21:04     11
+19 2026-09-16 13:21:04     18
+20 2026-09-16 13:21:04      0</code></pre>
 </div>
 </div>
 <p>Great, there we go. We managed to access the API, request the real time information of all bicycles and parse the output into a data frame. The most important columns here are <code>slots</code>, <code>current_time</code> and <code>in_use</code>. With these three you can calculate the rate at which the station is used throughout the day. In addition, we have cool stuff like the <code>latitude</code>/<code>longitude</code> to locate the station in case we want to make, for example, maps of bicycle usage. Let’s take a step back and move all of our code into a function that makes a request:</p>
@@ -526,33 +527,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_cols</span>(first, second)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   first_in_use second_in_use
-1            17            25
-2             5            27
-3             8            22
-4            12            17
-5             4            20
-6            23            34
-7             5             3
-8             0            23
-9             3             0
-10           19            15
-11            4            24
-12            1             3
-13           25             9
-14            3            18
-15           19             4
-16            7            13
-17           22            13
-18            9            23
-19            6            19
-20            0             0</code></pre>
+1            18            12
+2            13            27
+3            26             2
+4            10            10
+5            15            32
+6            17            10
+7             0             9
+8             3            11
+9            18            22
+10            8             0
+11           22            22
+12            0             2
+13           23             0
+14           11             3
+15            2             9
+16            0            21
+17           22            14
+18           16            11
+19           12            10
+20            2             0</code></pre>
 </div>
 </div>
-<p>We performed two requests and only selected the column <code>in_use</code> to check that these two columns are different. In effect, the bicycle usage of two requests just 1 second apart shows vastly different usage patterns for each station. This highlights that what we’re really interested here is in adding the two ingredients for making this a robust program: save the data on the fly and automate the script.</p>
+<p>We performed two requests and only selected the column <code>in_use</code> to check that these two columns are different. In effect, the bicycle usage of two requests just 1 second apart shows vastly different usage patterns for each station. This highlights that what we’re really interested in here is adding the two ingredients for making this a robust program: save the data on the fly and automate the script.</p>
 </section>
 <section id="saving-data-in-api-programs" class="level2" data-number="15.2">
 <h2 data-number="15.2" class="anchored" data-anchor-id="saving-data-in-api-programs"><span class="header-section-number">15.2</span> Saving data in API programs</h2>
-<p>The first step we’ll take is saving the data. The strategy here can be very different depending on your needs. For example, you might want to access an online database such as MySQL and save the data there. That has a lot of benefits and also some drawbacks. In this example we’ll go with the very basics and save the result in a local CSV file. This is a very valid strategy depending on your needs. The main drawback from this strategy is that we’ll save the data <em>locally</em> meaning we have no backup in case you loose your computer or it breaks. An alternative is to host a CSV, for example, on a Google Drive and access it real time to save your results. We’ll focus on a simpler example by loading/saving our CSV in our local computer.</p>
+<p>The first step we’ll take is saving the data. The strategy here can be very different depending on your needs. For example, you might want to access an online database such as MySQL and save the data there. That has a lot of benefits and also some drawbacks. In this example we’ll go with the very basics and save the result in a local CSV file. This is a very valid strategy depending on your needs. The main drawback from this strategy is that we’ll save the data <em>locally</em>, meaning we have no backup in case you lose your computer or it breaks. An alternative is to host a CSV, for example, on Google Drive and access it in real time to save your results. We’ll focus on a simpler example by loading/saving our CSV on our local computer.</p>
 <p>For saving data we need to focus on several things:</p>
 <ul>
 <li><p>We must perform the request to the bicing API</p></li>
@@ -560,31 +561,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>If the CSV file does not exist, then we should create it from scratch</p></li>
 <li><p>If the CSV file <em>exists</em>, then we want to append the result</p></li>
 </ul>
-<p><strong>You’ll see that in the remaining part of this chapter I’ll use my local path to save the CSV file. This is in the variable <code>local_csv</code>. You should replace this with your local path before running any of the R code below</strong>. Here’s a rough implementation of the bullet points above with comments:</p>
+<p>Here’s a rough implementation of the bullet points above with comments:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>save_bicing_data <span class="ot">&lt;-</span> <span class="cf">function</span>(bicing_api) {</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Perform a request to the bicing API and get the data frame back</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  bicing_results <span class="ot">&lt;-</span> <span class="fu">real_time_bicing</span>(bicing_api)</span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Specify the local path where the file will be saved</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  local_csv <span class="ot">&lt;-</span> <span class="st">"/home/jorge.cimentada/bicing/bicing_history.csv"</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Extract the directory where the local file is saved</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  main_dir <span class="ot">&lt;-</span> <span class="fu">dirname</span>(local_csv)</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># If the directory does *not* exist, create it, recursively creating each folder</span></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">dir.exists</span>(main_dir)) {</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dir.create</span>(main_dir, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># If the file does not exist, save the current bicing response</span></span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(local_csv)) {</span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">write_csv</span>(bicing_results, local_csv)</span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># If the file does exist, the *append* the result to the already existing CSV file</span></span>
-<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">write_csv</span>(bicing_results, local_csv, <span class="at">append =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Specify the local path where the file will be saved: in the `data` directory</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># located "here", which is in the directory of this script</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  local_csv <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"bicing_history.csv"</span>)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Extract the directory where the local file is saved</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  main_dir <span class="ot">&lt;-</span> <span class="fu">dirname</span>(local_csv)</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># If the directory does *not* exist, create it, recursively creating each folder</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">dir.exists</span>(main_dir)) {</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dir.create</span>(main_dir, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># If the file does not exist, save the current bicing response</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(local_csv)) {</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">write_csv</span>(bicing_results, local_csv)</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># If the file does exist, then *append* the result to the already existing CSV file</span></span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">write_csv</span>(bicing_results, local_csv, <span class="at">append =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>One way to test whether this works is to run this twice and read the results back to a data frame to check that the data frame is correctly structured. Let’s try it:</p>
 <div class="cell" data-layout-align="center">
@@ -592,7 +594,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.sleep</span>(<span class="dv">5</span>)</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">save_bicing_data</span>(bicing)</span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>bicing_history <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"/home/jorge.cimentada/bicing/bicing_history.csv"</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>bicing_history <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"bicing_history.csv"</span>))</span>
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>bicing_history <span class="sc">%&gt;%</span></span>
 <span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(current_time)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -605,7 +607,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 2 2022-12-20 23:52:04</code></pre>
 </div>
 </div>
-<p>We called the API once, saved the results and allowed the program to sleep for 5 seconds. We then called the API again and saved the results. After this, we read the <code>bicing_history.csv</code> file into an R data frame and showed the distinct time stamps that the file has. If we requested the data from the API twice and saved the results, then we should find two time stamps, rather than one. That’s precisely what we find in the results. In addition, we should also have two different numbers in the column <code>in_use</code> for the number of bicycles under usage. Let’s pick one station to check that it works:</p>
+<p>We called the API once, saved the results and allowed the program to sleep for 5 seconds. We then called the API again and saved the results. After this, we read the <code>bicing_history.csv</code> file into an R data frame and showed the distinct timestamps that the file has. If we requested the data from the API twice and saved the results, then we should find two timestamps, rather than one. That’s precisely what we find in the results. In addition, we should also have two different numbers in the column <code>in_use</code> for the number of bicycles under usage. Let’s pick one station to check that it works:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>bicing_history <span class="sc">%&gt;%</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(streetName <span class="sc">==</span> <span class="st">"Ribes"</span>) <span class="sc">%&gt;%</span></span>
@@ -620,11 +622,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 2 2022-12-20 23:52:04 Ribes          19</code></pre>
 </div>
 </div>
-<p>In the first time stamp the station had 13 bikes and in the second time stamp it had 19. Our aim is to automate this to run very frequently and thus we’ll get hundreds of rows for each station.</p>
+<p>In the first timestamp the station had 13 bikes and in the second timestamp it had 19. Our aim is to automate this to run very frequently and thus we’ll get hundreds of rows for each station.</p>
 </section>
 <section id="automating-the-program" class="level2" data-number="15.3">
 <h2 data-number="15.3" class="anchored" data-anchor-id="automating-the-program"><span class="header-section-number">15.3</span> Automating the program</h2>
-<p>Just as we did in chapter @ref(automating-scripts), APIs need to be automated. The strategy is pretty much the same as what we did in that chapter. We create a script that defines the functions we’ll use for the program and run the functions at the end. In our case, that’s running the function <code>save_bicing_data</code>. We then automate the process using <code>cron</code> by running the script in a schedule.</p>
+<p>Just as we did in <a href="../07-automating_scripts/index.html" class="quarto-xref"><span>Chapter 7</span></a>, APIs need to be automated. The strategy is pretty much the same as what we did in that chapter. We create a script that defines the functions we’ll use for the program and run the functions at the end. In our case, that’s running the function <code>save_bicing_data</code>. We then automate the process using <code>cron</code> by running the script on a schedule.</p>
 <p>Let’s organize all of our code in a script. Here’s what we should have:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scrapex)</span>
@@ -658,29 +660,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Perform a request to the bicing API and get the data frame back</span></span>
 <span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a>  bicing_results <span class="ot">&lt;-</span> <span class="fu">real_time_bicing</span>(bicing_api)</span>
 <span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Specify the local path where the file will be saved</span></span>
-<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a>  local_csv <span class="ot">&lt;-</span> <span class="st">"/home/jorge.cimentada/bicing/bicing_history.csv"</span></span>
-<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Extract the directory where the local file is saved</span></span>
-<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a>  main_dir <span class="ot">&lt;-</span> <span class="fu">dirname</span>(local_csv)</span>
-<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-38"><a href="#cb20-38" aria-hidden="true" tabindex="-1"></a>  <span class="co"># If the directory does *not* exist, create it, recursively creating each folder</span></span>
-<span id="cb20-39"><a href="#cb20-39" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">dir.exists</span>(main_dir)) {</span>
-<span id="cb20-40"><a href="#cb20-40" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dir.create</span>(main_dir, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb20-41"><a href="#cb20-41" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb20-42"><a href="#cb20-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-43"><a href="#cb20-43" aria-hidden="true" tabindex="-1"></a>  <span class="co"># If the file does not exist, save the current bicing response</span></span>
-<span id="cb20-44"><a href="#cb20-44" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(local_csv)) {</span>
-<span id="cb20-45"><a href="#cb20-45" aria-hidden="true" tabindex="-1"></a>    <span class="fu">write_csv</span>(bicing_results, local_csv)</span>
-<span id="cb20-46"><a href="#cb20-46" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb20-47"><a href="#cb20-47" aria-hidden="true" tabindex="-1"></a>    <span class="co"># If the file does exist, the *append* the result to the already existing CSV file</span></span>
-<span id="cb20-48"><a href="#cb20-48" aria-hidden="true" tabindex="-1"></a>    <span class="fu">write_csv</span>(bicing_results, local_csv, <span class="at">append =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb20-49"><a href="#cb20-49" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb20-50"><a href="#cb20-50" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb20-51"><a href="#cb20-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-52"><a href="#cb20-52" aria-hidden="true" tabindex="-1"></a><span class="fu">save_bicing_data</span>(bicing)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Specify the local path where the file will be saved: in the `data` directory</span></span>
+<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a>  <span class="co"># located "here", which is in the directory of this script</span></span>
+<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a>  local_csv <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"bicing_history.csv"</span>)</span>
+<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Extract the directory where the local file is saved</span></span>
+<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a>  main_dir <span class="ot">&lt;-</span> <span class="fu">dirname</span>(local_csv)</span>
+<span id="cb20-38"><a href="#cb20-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-39"><a href="#cb20-39" aria-hidden="true" tabindex="-1"></a>  <span class="co"># If the directory does *not* exist, create it, recursively creating each folder</span></span>
+<span id="cb20-40"><a href="#cb20-40" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">dir.exists</span>(main_dir)) {</span>
+<span id="cb20-41"><a href="#cb20-41" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dir.create</span>(main_dir, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb20-42"><a href="#cb20-42" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb20-43"><a href="#cb20-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-44"><a href="#cb20-44" aria-hidden="true" tabindex="-1"></a>  <span class="co"># If the file does not exist, save the current bicing response</span></span>
+<span id="cb20-45"><a href="#cb20-45" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(local_csv)) {</span>
+<span id="cb20-46"><a href="#cb20-46" aria-hidden="true" tabindex="-1"></a>    <span class="fu">write_csv</span>(bicing_results, local_csv)</span>
+<span id="cb20-47"><a href="#cb20-47" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb20-48"><a href="#cb20-48" aria-hidden="true" tabindex="-1"></a>    <span class="co"># If the file does exist, then *append* the result to the already existing CSV file</span></span>
+<span id="cb20-49"><a href="#cb20-49" aria-hidden="true" tabindex="-1"></a>    <span class="fu">write_csv</span>(bicing_results, local_csv, <span class="at">append =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb20-50"><a href="#cb20-50" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb20-51"><a href="#cb20-51" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb20-52"><a href="#cb20-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-53"><a href="#cb20-53" aria-hidden="true" tabindex="-1"></a><span class="fu">save_bicing_data</span>(bicing)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p><strong>Remember that you need to change the local path to save the CSV from this script. You should change the variable <code>local_csv</code> wherever you want to save the CSV file</strong>. I’m going to save this script as <code>bicing_api.R</code> in <code>/home/jorge.cimentada/bicing/</code> but you need to save it locally on <em>your</em> computer, in the same directory you defined in <code>local_csv</code>. Once you have the script saved we have to set up the <code>cron</code> job to schedule the script. Refer to chapter @ref(automating-scripts) on how <code>cron</code> works and how the syntax for setting the schedule works. So at this point you should have the the file <code>bicing_api.R</code> saved locally wherever you want to store the bicing data. In my case, you can see it here:</p>
+<p>You can then save this script as <code>bicing_api.R</code> wherever you prefer. Once you have the script saved we have to set up the <code>cron</code> job to schedule the script. Refer to <a href="../07-automating_scripts/index.html" class="quarto-xref"><span>Chapter 7</span></a> on how <code>cron</code> works and how the syntax for setting the schedule works. So at this point you should have the file <code>bicing_api.R</code> saved locally wherever you want to store the bicing data. In my case, you can see it here:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -730,7 +733,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Since we want to run this every minute, the <code>cron</code> expression we want is <code>* * * * * Rscript /home/jorge.cimentada/bicing/api_bicing.R</code>. This effectively reads as: for every minute of every day of every year, run the script <code>api_bicing.R</code>. This is how it should look like in <code>crontab</code>:</p>
+<p>Since we want to run this every minute, the <code>cron</code> expression we want is <code>* * * * * Rscript &lt;path to api_bicing.R&gt;</code>. This effectively reads as: for every minute of every day of every year, run the script <code>api_bicing.R</code>. This is what it should look like in <code>crontab</code>:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -761,8 +764,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="exercises" class="level2" data-number="15.4">
 <h2 data-number="15.4" class="anchored" data-anchor-id="exercises"><span class="header-section-number">15.4</span> Exercises</h2>
 <ol type="1">
-<li><p>Can you disable the <code>cron</code> expression we just enable above?</p></li>
-<li><p>Can you create a <code>logs.txt</code> file inside the directory where the <code>cron</code> is running and save the time stamp, the number of rows and columns of the request response? Logs are extremely important in these programs because you can check them to see why a scheduled program might have failed. The print out of your logs should look something like this for each of the request that your program makes:</p></li>
+<li><p>Can you disable the <code>cron</code> expression we just enabled above?</p></li>
+<li><p>Can you create a <code>logs.txt</code> file inside the directory where the <code>cron</code> is running and save the timestamp, the number of rows and columns of the request response? Logs are extremely important in these programs because you can check them to see why a scheduled program might have failed. The printout of your logs should look something like this for each of the requests that your program makes:</p></li>
 </ol>
 <pre><code>#############################################################################
 Current timestamp of request 2022-12-21 01:41:25
@@ -775,7 +778,7 @@ Number rows: 20</code></pre>
 <p>Some hints:</p>
 <ul>
 <li>You’ll need to create an empty logs file if it doesn’t exist.</li>
-<li>You’ll need to extract the time stamp and dimensions of the data frame</li>
+<li>You’ll need to extract the timestamp and dimensions of the data frame</li>
 <li>You’ll need to use one of the <code>write_*</code> functions to save to a <code>txt</code> file and remember to <em>append</em> the results to accumulate everything.</li>
 </ul>
 <p>After adding these changes, relaunch your schedule and look at your logs file: it should populate every minute with the status of your program.</p>

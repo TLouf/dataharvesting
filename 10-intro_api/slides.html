@@ -112,6 +112,7 @@
     }
     .reveal .slide:not(.center) {
       height: 100%;
+      overflow-y: auto;
     }
     .reveal .slide.scrollable {
       overflow-y: auto;
@@ -200,8 +201,8 @@
 </div>
 
 </section>
-<section id="introduction-rest-apis" class="slide level2">
-<h2>Introduction REST APIs</h2>
+<section id="introduction-to-rest-apis" class="slide level2">
+<h2>Introduction to REST APIs</h2>
 <ul>
 <li><p>Webscraping is unstructured in nature</p></li>
 <li><p>Not beneficial for companies</p></li>
@@ -210,25 +211,25 @@
 <li><p>Website might change</p></li>
 </ul>
 </section>
-<section id="introduction-rest-apis-1" class="slide level2">
-<h2>Introduction REST APIs</h2>
+<section id="introduction-to-rest-apis-1" class="slide level2">
+<h2>Introduction to REST APIs</h2>
 <p>REST APIs are a natural response to that.</p>
 <ul>
-<li><p>REST APIs are a two party contract</p></li>
+<li><p>REST APIs are a two-party contract</p></li>
 <li><p>Structured way for businesses to give you data</p></li>
 </ul>
 <blockquote>
-<p>Companies decided to create a custom 'portal' where a user, after authenticating and accepting the agreements of using this 'portal', can access much of the data they can see on a companies website (but not necessarily what you're looking for, it is their prerogative).</p>
+<p>Companies decided to create a custom 'portal' where a user, after authenticating and accepting the agreements of using this 'portal', can access much of the data they can see on a company’s website (but not necessarily what you're looking for, it is their prerogative).</p>
 </blockquote>
 </section>
-<section id="introduction-rest-apis-2" class="slide level2">
-<h2>Introduction REST APIs</h2>
+<section id="introduction-to-rest-apis-2" class="slide level2">
+<h2>Introduction to REST APIs</h2>
 <blockquote>
 <p>Users should be careful distinguishing between APIs and REST APIs. APIs are the interface of any program. In contrast, a REST API is a data transfer design for users to share data over the internet. In this chapter we'll be discussing exclusively REST APIs</p>
 </blockquote>
 </section>
-<section id="introduction-rest-apis-3" class="slide level2">
-<h2>Introduction REST APIs</h2>
+<section id="introduction-to-rest-apis-3" class="slide level2">
+<h2>Introduction to REST APIs</h2>
 <p>Hey, but can you show us an API!?</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">library</span>(scrapex)</span>
@@ -243,24 +244,24 @@
 <li><p>For example: <a href="https://developer.spotify.com/documentation/web-api/reference/#/operations/get-track">Spotify API docs</a></p></li>
 </ul>
 </section>
-<section id="introduction-rest-apis-4" class="slide level2">
-<h2>Introduction REST APIs</h2>
+<section id="introduction-to-rest-apis-4" class="slide level2">
+<h2>Introduction to REST APIs</h2>
 
 <img data-src="images/paste-E6F74C31.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="introduction-rest-apis-5" class="slide level2">
-<h2>Introduction REST APIs</h2>
+<section id="introduction-to-rest-apis-5" class="slide level2">
+<h2>Introduction to REST APIs</h2>
 <ul>
-<li><p>APIs have endpoint which return specific data</p></li>
+<li><p>APIs have endpoints which return specific data</p></li>
 <li><p>Each endpoint has documentation on its inputs/outputs</p></li>
 </ul>
 
 <img data-src="images/paste-05E1ADC8.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="introduction-to-rest-apis" class="slide level2">
+<section id="introduction-to-rest-apis-6" class="slide level2 scrollable">
 <h2>Introduction to REST APIs</h2>
 <ol type="1">
 <li><p>No input parameters needed. This endpoint returns all available authors in the Amazon Book Store so it does not need any parameters.</p></li>
 <li><p>It allows you to try out this endpoint with a button that says <code>"Try it out"</code>.</p></li>
-<li><p>This endpoint has two codes: <code>200</code> which means is OK and <code>500</code> which means that something wrong happened.</p></li>
+<li><p>This endpoint has two codes: <code>200</code> which means it is OK and <code>500</code> which means that something wrong happened.</p></li>
 <li><p>Returns a <code>JSON</code> string, a typical format used for sharing data over the web.</p></li>
 </ol>
 </section>
@@ -269,17 +270,17 @@
 <p>Fake API, code: fmcQoAZnnU</p>
 
 <img data-src="images/paste-0F25E436.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="requesting-from-a-rest-apis" class="slide level2">
-<h2>Requesting from a REST APIs</h2>
+<section id="requesting-from-a-rest-api" class="slide level2">
+<h2>Requesting from a REST API</h2>
 <p>Requesting data from <code>/api/v1/amazon/authors</code></p>
 
 <img data-src="images/paste-26809E14.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="requesting-from-a-rest-apis-1" class="slide level2">
-<h2>Requesting from a REST APIs</h2>
+<section id="requesting-from-a-rest-api-1" class="slide level2">
+<h2>Requesting from a REST API</h2>
 
 <img data-src="images/paste-46A430C6.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="requesting-from-a-rest-apis-2" class="slide level2">
-<h2>Requesting from a REST APIs</h2>
+<section id="requesting-from-a-rest-api-2" class="slide level2">
+<h2>Requesting from a REST API</h2>
 <p>Things to pay attention to:</p>
 <ul>
 <li><p>Status code. In this case 200.</p></li>
@@ -305,10 +306,10 @@
 <ul>
 <li><p>REST APIs have a base path.</p></li>
 <li><p>REST APIs are structured around endpoints. For example <code>https://api.spotify.com/v1/artists</code></p></li>
-<li><p>Endpoints might not or might have parameters to filter data.</p></li>
-<li><p>The docs of the REST API documents parameters of each endpoint.</p></li>
+<li><p>Endpoints may or may not have parameters to filter data.</p></li>
+<li><p>The docs of the REST API document parameters of each endpoint.</p></li>
 <li><p>Many REST APIs need authentication tokens for making requests.</p></li>
-<li><p>REST APIs response return status codes and headers</p></li>
+<li><p>REST API responses return status codes and headers</p></li>
 </ul>
 
 </section>

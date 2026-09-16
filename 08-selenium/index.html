@@ -8,7 +8,7 @@
 
 <meta name="description" content="This is a book about webscraping and talking to APIs with R.">
 
-<title>8&nbsp; Scraping JavaScript based website – Data Harvesting with R</title>
+<title>8&nbsp; Scraping JavaScript-based websites – Data Harvesting with R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -78,7 +78,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-1d495bf0b3d7decfc3a5ab2c9f414beb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-eb96c05b7f203a23b18f87ac89c0dd72.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -120,7 +120,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../02-primer_webscraping/index.html">Webscraping</a></li><li class="breadcrumb-item"><a href="../08-selenium/index.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Scraping JavaScript based website</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../02-primer_webscraping/index.html">Webscraping</a></li><li class="breadcrumb-item"><a href="../08-selenium/index.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Scraping JavaScript-based websites</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -201,7 +201,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../08-selenium/index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Scraping JavaScript based website</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Scraping JavaScript-based websites</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -282,9 +282,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../02-primer_webscraping/index.html">Webscraping</a></li><li class="breadcrumb-item"><a href="../08-selenium/index.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Scraping JavaScript based website</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../02-primer_webscraping/index.html">Webscraping</a></li><li class="breadcrumb-item"><a href="../08-selenium/index.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Scraping JavaScript-based websites</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Scraping JavaScript based website</span></h1>
+<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Scraping JavaScript-based websites</span></h1>
 </div>
 
 
@@ -301,8 +301,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Even with all the techniques we’ve covered in this book, some websites can’t be scraped in the traditional way. What does this mean? Some websites have their content hidden behind JavaScript code that can’t be seen by simply reading the HTML code. These website are built for interactivity, meaning that some parts will <em>only</em> be revealed when you interact with it. When you read the HTML of that website, you won’t be able to see the data that you want. As usual, let’s motivate this chapter with an example.</p>
-<p>The European Social Survey (ESS) is an academically driven cross-national survey that has been conducted across Europe since its establishment in 2001. Every two years, face-to-face interviews are conducted with newly selected, cross-sectional samples. The survey measures the attitudes, beliefs and behavior patterns of diverse populations in more than thirty nations. In their website they have a ‘Data Portal’ that allows you to pick variables they asked in their questionnaire, pick the country/years of data you want and download that custom data set for yourself. You can find the data portal <a href="https://ess-search.nsd.no/CDW/ConceptVariables">here</a>. This is how it looks like:</p>
+<p>Even with all the techniques we’ve covered in this book, some websites can’t be scraped in the traditional way. What does this mean? Some websites have their content hidden behind JavaScript code that can’t be seen by simply reading the HTML code. These websites are built for interactivity, meaning that some parts will <em>only</em> be revealed when you interact with them. When you read the HTML of that website, you won’t be able to see the data that you want. As usual, let’s motivate this chapter with an example.</p>
+<p>The European Social Survey (ESS) is an academically driven cross-national survey that has been conducted across Europe since its establishment in 2001. Every two years, face-to-face interviews are conducted with newly selected, cross-sectional samples. The survey measures the attitudes, beliefs and behavior patterns of diverse populations in more than thirty nations. On their website they have a ‘Data Portal’ that allows you to pick variables they asked in their questionnaire, pick the country/years of data you want and download that custom data set for yourself. You can find the data portal <a href="https://ess-search.nsd.no/CDW/ConceptVariables">here</a>. This is what it looks like:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -312,7 +312,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>With the developer’s tools (CTRL-SHIT-C), we can see the HTML code behind the website. Let’s say that you want to extract all variable names associated with a category of questions. Under ‘Media use and trust’ there are several question names and labels that belong to that category:</p>
+<p>With the developer tools (CTRL-SHIFT-C), we can see the HTML code behind the website. Let’s say that you want to extract all variable names associated with a category of questions. Under ‘Media use and trust’ there are several question names and labels that belong to that category:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -322,7 +322,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>However, unless you <em>click</em> on the drop down menu, those questions won’t be displayed on the source code of the website. That is, if right now you spent 10 minutes searching the source code from the developer’s tools on the right, you won’t find the names of those variables anywhere:</p>
+<p>However, unless you <em>click</em> on the drop-down menu, those questions won’t be displayed on the source code of the website. That is, if right now you spent 10 minutes searching the source code from the developer tools on the right, you won’t find the names of those variables anywhere:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -332,7 +332,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Those variable names won’t be found anywhere. You might think, well that’s easy to solve: I’ll click on the drop down menu and use the new generated link (with all data displayed) to read it with <code>read_html</code>. The issue is that the URL of the website will be the same whether you click or not the drop down menu:</p>
+<p>Those variable names won’t be found anywhere. You might think, well that’s easy to solve: I’ll click on the drop-down menu and use the newly generated link (with all data displayed) to read it with <code>read_html</code>. The issue is that the URL of the website will be the same whether you click the drop-down menu or not:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -342,15 +342,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Same URL, despite that I clicked on ‘Media use and trust’ and all variable names are displayed. This means that whenever you use <code>read_html</code> on that link, the variable labels won’t be displayed and you won’t be able to gather that data. That’s the motivation behind Selenium. It’s objective is to be able to scrape websites that are dynamic and interactive and are impossible to do so using traditional URLs and the source.</p>
+<p>Same URL, despite the fact that I clicked on ‘Media use and trust’ and all variable names are displayed. This means that whenever you use <code>read_html</code> on that link, the variable labels won’t be displayed and you won’t be able to gather that data. That’s the motivation behind Selenium. Its objective is to be able to scrape websites that are dynamic and interactive and where it is impossible to do so using traditional URLs and the source code.</p>
 <section id="introduction-to-rselenium" class="level2" data-number="8.1">
 <h2 data-number="8.1" class="anchored" data-anchor-id="introduction-to-rselenium"><span class="header-section-number">8.1</span> Introduction to RSelenium</h2>
-<p>Selenium is a software program that you use to ‘mimic’ a human. Yes, that’s right. All Selenium does is literally open a browser and click on parts of the page as if you were a human. Once you’ve clicked on certain parts of the website, you can use your knowledge on XPath, HTML and <code>xml2</code> to extract the data you need.</p>
+<p>Selenium is a software program that you use to ‘mimic’ a human. Yes, that’s right. All Selenium does is literally open a browser and click on parts of the page as if you were a human. Once you’ve clicked on certain parts of the website, you can use your knowledge of XPath, HTML and <code>xml2</code> to extract the data you need.</p>
 <p>The example we’ll use for this chapter is the blog of the statistician <a href="https://statmodeling.stat.columbia.edu/">Andrew Gelman</a>. According to <a href="https://rohanalexander.com/posts/2021-09-17-andrew-gelman-dsi-intro/">Rohan Alexander</a>:</p>
 <blockquote class="blockquote">
 <p>Gelman’s blog—Statistical Modeling, Causal Inference, and Social Science—launched in 2004—is the go-to place for a fun mix of somewhat-nerdy statistics-focused content. The very first post promised to ‘…report on recent research and ongoing half-baked ideas, including … Bayesian statistics, multilevel modeling, causal inference, and political science.’ 17 years on, the site has very much kept its promise.</p>
 </blockquote>
-<p>We’ll use this blog to explore the topics that have been discussed in the world of statistics over the last 17 years. This website <strong>does not</strong> need to be scraped using Selenium and can be scraped by just reading the HTML code. However, websites which <strong>do</strong> need to use Selenium can’t be saved locally and are doomed to change over time, which entails a risk of making this chapter unusable in the future. For that reason we are going to perform all our scraping using a traditional example but highlighting it as if it were a JavaScript based website.</p>
+<p>We’ll use this blog to explore the topics that have been discussed in the world of statistics over the last 17 years. This website <strong>does not</strong> need to be scraped using Selenium and can be scraped by just reading the HTML code. However, websites which <strong>do</strong> need to use Selenium can’t be saved locally and are doomed to change over time, which entails a risk of making this chapter unusable in the future. For that reason we are going to perform all our scraping using a traditional example but highlighting it as if it were a JavaScript-based website.</p>
 <p>Let’s load the packages we’ll use and our example:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RSelenium)</span>
@@ -460,7 +460,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 ## $id
 ## [1] "a3585bf8-9c4a-462e-a74d-b9d6b35daff7"</code></pre>
-<p>After the last line that starts with<code>BEGIN</code> we’ll see all the options from our browser. For example, the <code>browserName</code> and the <code>browserVersion</code>. The important thing here is that, aside from this output, you should see a browser that opened in your computer completely empty:</p>
+<p>After the last line that starts with <code>BEGIN</code> we’ll see all the options from our browser. For example, the <code>browserName</code> and the <code>browserVersion</code>. The important thing here is that, aside from this output, you should see a browser that opened on your computer completely empty:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -484,7 +484,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>The most effective way to navigate in <code>RSelenium</code> is to use XPath to find parts of the website that you want perform an action and then use some of the methods to click, send or submit something on the website. For example, suppose we wanted to perform some natural language processing on all posts over the last 17 years of blog posts. The first we’d like to do is to click on the blog post name and extract all the text.</p>
+<p>The most effective way to navigate in <code>RSelenium</code> is to use XPath to find parts of the website that you want to perform an action on and then use some of the methods to click, send or submit something on the website. For example, suppose we wanted to perform some natural language processing on all posts over the last 17 years of blog posts. The first thing we’d like to do is to click on the blog post name and extract all the text.</p>
 </section>
 <section id="navigating-a-website-in-rselenium" class="level2" data-number="8.2">
 <h2 data-number="8.2" class="anchored" data-anchor-id="navigating-a-website-in-rselenium"><span class="header-section-number">8.2</span> Navigating a website in RSelenium</h2>
@@ -498,7 +498,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>To validate our XPath nothing prevents us from reading the source code and trying it out. At this point I read it with <code>read_html</code> and tried several XPath until I managed to land on the one we’re interested in:</p>
+<p>To validate our XPath nothing prevents us from reading the source code and trying it out. At this point I read it with <code>read_html</code> and tried several XPaths until I managed to land on the one we’re interested in:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>blog_link <span class="sc">%&gt;%</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_html</span>() <span class="sc">%&gt;%</span></span>
@@ -516,7 +516,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Wrap everything in <code>()</code> to collect the result</li>
 <li>Keep only the first result <code>[1]</code></li>
 </ul>
-<p>We now know this XPath is validated so we need to locate it in <code>RSelenium</code> and click on it. Everything you do on <code>RSelenium</code> is done using the property <code>client</code>, which has many methods associated with the browser. The main methods we’ll be using is <code>findElement</code> and <code>clickElement</code>. <code>findElement</code> is used to position the pointer of the browser exactly where you want and <code>clickElement</code> will click on it. Let’s use our XPath to move the pointer to the blog post and click on it:</p>
+<p>We now know this XPath is validated so we need to locate it in <code>RSelenium</code> and click on it. Everything you do on <code>RSelenium</code> is done using the property <code>client</code>, which has many methods associated with the browser. The main methods we’ll be using are <code>findElement</code> and <code>clickElement</code>. <code>findElement</code> is used to position the pointer of the browser exactly where you want and <code>clickElement</code> will click on it. Let’s use our XPath to move the pointer to the blog post and click on it:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Since we'll use the client a lot let's save it on a separate object</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>driver <span class="ot">&lt;-</span> remDr<span class="sc">$</span>client</span>
@@ -542,13 +542,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>We clicked on the first entry and the browser entered that post. Great! This simple strategy of <code>findElement</code> and <code>clickElement</code> can be reused for most of you needs. The strategy is simple:</p>
+<p>We clicked on the first entry and the browser entered that post. Great! This simple strategy of <code>findElement</code> and <code>clickElement</code> can be reused for most of your needs. The strategy is simple:</p>
 <ol type="1">
 <li>Find the XPath where you want to click</li>
 <li>Use the XPath in <code>findElement</code></li>
 <li>Use <code>clickElement</code> to click it</li>
 </ol>
-<p>One natural follow up question is how do we actually extract the HTML code to extract stuff for us to analyze. After all, we’ve only opened a browser and clicked on something. The actual fun is to extract data to do stuff with it. <code>RSelenium</code> has the property <code>getPageSource()</code>. This property returns a list so we need to extract the first slot:</p>
+<p>One natural follow-up question is how do we actually extract the HTML code to extract stuff for us to analyze. After all, we’ve only opened a browser and clicked on something. The actual fun is to extract data to do stuff with it. <code>RSelenium</code> has the property <code>getPageSource()</code>. This property returns a list so we need to extract the first slot:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>page_source <span class="ot">&lt;-</span> driver<span class="sc">$</span><span class="fu">getPageSource</span>()[[<span class="dv">1</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -600,7 +600,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>entry_date</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <pre><code>## [1] "2022-10-16 09:31:00"</code></pre>
-<p>Note of the use of <code>parse_date_time</code> and the time format (all the <code>%</code> symbols) to convert the string of date/time into R. With that information we can create a clean data frame of entry dates with their respective categories in a list column:</p>
+<p>Note the use of <code>parse_date_time</code> and the time format (all the <code>%</code> symbols) to convert the string of date/time into R. With that information we can create a clean data frame of entry dates with their respective categories in a list column:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>final_res <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">entry_date =</span> entry_date, <span class="at">categories =</span> <span class="fu">list</span>(categories_first_post))</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>final_res</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -626,7 +626,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="scaling-rselenium-to-many-websites" class="level2" data-number="8.4">
 <h2 data-number="8.4" class="anchored" data-anchor-id="scaling-rselenium-to-many-websites"><span class="header-section-number">8.4</span> Scaling RSelenium to many websites</h2>
-<p>With that ready, we can move all our code into a function and loop it over all blog posts in this page:</p>
+<p>With that ready, we can move all our code into a function and loop it over all blog posts on this page:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>collect_categories <span class="ot">&lt;-</span> <span class="cf">function</span>(page_source) {</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Read source code of blog post</span></span>
@@ -679,7 +679,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb17-49"><a href="#cb17-49" aria-hidden="true" tabindex="-1"></a>  driver<span class="sc">$</span><span class="fu">goBack</span>()</span>
 <span id="cb17-50"><a href="#cb17-50" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>While your code runs, open the browser and enjoy the show. Your browser will start working it self as if a ghost were scrolling down and clicking on each blog post. When it finishes, we’ll have a list of all categories in the last 20 blog posts. Let’s combine those and get a count of the most used categories:</p>
+<p>While your code runs, open the browser and enjoy the show. Your browser will start working itself as if a ghost were scrolling down and clicking on each blog post. When it finishes, we’ll have a list of all categories in the last 20 blog posts. Let’s combine those and get a count of the most used categories:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>combined_df <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(blog_posts)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -727,13 +727,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>driver<span class="sc">$</span><span class="fu">getCurrentWindowHandle</span>()</span>
 <span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>driver<span class="sc">$</span><span class="fu">switchToWindow</span>(<span class="st">"windowId"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>You can do all sorts of things like taking a screenshot of the website, grabbing the URL, delete cookies and so much more. We can’t cover everything that <code>RSelenium</code> can do but we can focus on the most common ones.</p>
-<p>One common thing you’ll also want to do is to learn how to fill out a form. It’s common for a website to ask you information before showing you a website or fill out a search bar (like in any eCommerce website such as Amazon) to obtain results. For these tasks you have to manually type content into a form-like box.</p>
+<p>You can do all sorts of things like taking a screenshot of the website, grabbing the URL, deleting cookies and so much more. We can’t cover everything that <code>RSelenium</code> can do but we can focus on the most common ones.</p>
+<p>One common thing you’ll also want to do is to learn how to fill out a form. It’s common for a website to ask you for information before showing you a website or fill out a search bar (like in any eCommerce website such as Amazon) to obtain results. For these tasks you have to manually type content into a form-like box.</p>
 <p>Our blog example contains one nice example we can recycle for filling out forms. Whenever you want to post a comment on the blog’s posts you need to fill out a form with the comment text, the author name, email and author’s website before you’re allowed to publish. To see this, we need to go into a blog post and scroll down. Let’s go to the first post:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>driver<span class="sc">$</span><span class="fu">findElement</span>(<span class="at">value =</span> <span class="st">"(//h1[@class='entry-title']//a)[1]"</span>)<span class="sc">$</span><span class="fu">clickElement</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>And scroll down see the comments section:</p>
+<p>And scroll down to see the comments section:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -743,7 +743,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>On the left you’ll see the form. Each of those text areas has a corresponding tag on the right. The one for the author form has been highlighted on the right. You’ll see that the <code>id</code> attribute is <code>author</code>. Similarly, if you see a tiny bit below, the email input has the <code>id</code> set to <code>email</code>. Using our traditional XPath syntax we can probably navigate the browser to that specific tag. However, <code>RSelenium</code> has some nice tricks that can make it even easier for us. <code>findElement</code> assumes that you’ll be using XPath, as we did previously, but it also allows to specify certain attributes without using XPath. If we wanted to go the tag that has an <code>id</code> set to <code>author</code>, we could do it like this:</p>
+<p>On the left you’ll see the form. Each of those text areas has a corresponding tag on the right. The one for the author form has been highlighted on the right. You’ll see that the <code>id</code> attribute is <code>author</code>. Similarly, if you see a tiny bit below, the email input has the <code>id</code> set to <code>email</code>. Using our traditional XPath syntax we can probably navigate the browser to that specific tag. However, <code>RSelenium</code> has some nice tricks that can make it even easier for us. <code>findElement</code> assumes that you’ll be using XPath, as we did previously, but it also allows you to specify certain attributes without using XPath. If we wanted to go to the tag that has an <code>id</code> set to <code>author</code>, we could do it like this:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>driver<span class="sc">$</span><span class="fu">findElement</span>(<span class="at">using =</span> <span class="st">"id"</span>, <span class="st">"author"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -779,7 +779,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>driver<span class="sc">$</span><span class="fu">findElement</span>(<span class="at">using =</span> <span class="st">"id"</span>, <span class="st">"submit"</span>)<span class="sc">$</span><span class="fu">clickElement</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>The post won’t be published, instead you’ll see a pop up saying “Please fill out this field”, saying you need to provide a comment to the post behind publishing it:</p>
+<p>The post won’t be published, instead you’ll see a pop up saying “Please fill out this field”, saying you need to provide a comment to the post before publishing it:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -859,7 +859,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <ol start="2" type="1">
 <li><p>Has the use of images grown over time in the blog? It’s up to you to decide how many posts in the past you want to go back. Hint: count the number of <code>&lt;img&gt;</code> tags for each post.</p></li>
-<li><p>Gelman is a big proponent of using Bayesian methods over Frequentist methods in statistics. Can you plot the frequency usage of the word “Bayesian” over time? Is there a peak moment in the history of the blog?</p></li>
+<li><p>Gelman is a big proponent of using Bayesian methods over Frequentist methods in statistics. Can you plot the frequency of usage of the word “Bayesian” over time? Is there a peak moment in the history of the blog?</p></li>
 </ol>
 
 

@@ -78,7 +78,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-1d495bf0b3d7decfc3a5ab2c9f414beb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-eb96c05b7f203a23b18f87ac89c0dd72.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -201,7 +201,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../08-selenium/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Scraping JavaScript based website</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Scraping JavaScript-based websites</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -282,7 +282,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../02-primer_webscraping/index.html">Webscraping</a></li><li class="breadcrumb-item"><a href="../07-automating_scripts/index.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Automating Web Scraping Scripts</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="automating-scripts" class="quarto-section-identifier"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Automating Web Scraping Scripts</span></span></h1>
+<h1 class="title"><span id="sec-automating-scripts" class="quarto-section-identifier"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Automating Web Scraping Scripts</span></span></h1>
 </div>
 
 
@@ -299,14 +299,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>There are two types of webscraping: one-off scrapings or frequent scrapings. The first one is what we did in chapter @ref(primer-webscraping). You create a program to scrape something only once. This is a very common approach and we’ve done it a few time throughout this book. The second one involves building scrapers that you know will be used more frequently. Many examples come to mind: scrapers to extract news on a frequent basis, scrapers to extract temperature data on a daily basis, scrapers to collect prices of groceries in a supermarket website and so on. These scrapers are designed to be run on frequent intervals to get timely information.</p>
-<p>For one-off scrapers, all of the material of the book until this chapter should be enough. However, for frequent scrapings we need new tools and strategies. Have you asked yourself how can you automate a script? By automating I mean, for example, run that script every Thursday at 08:00 PM. This chapter focuses on scheduling programs to run whenever you want them to. You might need this to collect data on a website that is changing constantly or to request data from an API on frequent intervals (the topic of API’s is the second part of this book) but in any of those two cases you don’t want to be manually running to your house at 3 in the morning to run the program. This chapter will make sure you don’t have to do that.</p>
+<p>There are two types of webscraping: one-off scrapings or frequent scrapings. The first one is what we did in <a href="../02-primer_webscraping/index.html" class="quarto-xref"><span>Chapter 2</span></a>. You create a program to scrape something only once. This is a very common approach and we’ve done it a few times throughout this book. The second one involves building scrapers that you know will be used more frequently. Many examples come to mind: scrapers to extract news on a frequent basis, scrapers to extract temperature data on a daily basis, scrapers to collect prices of groceries in a supermarket website and so on. These scrapers are designed to be run on frequent intervals to get timely information.</p>
+<p>For one-off scrapers, all of the material of the book until this chapter should be enough. However, for frequent scrapings we need new tools and strategies. Have you asked yourself how you can automate a script? By automating I mean, for example, run that script every Thursday at 08:00 PM. This chapter focuses on scheduling programs to run whenever you want them to. You might need this to collect data on a website that is changing constantly or to request data from an API on frequent intervals (the topic of APIs is the second part of this book) but in any of those two cases you don’t want to be manually running to your house at 3 in the morning to run the program. This chapter will make sure you don’t have to do that.</p>
 <div class="rmdnote">
 <p>Scheduling scripts is very different between operating systems. This chapter will focus solely on scheduling scripts for Linux and MacOS. Windows users are recommended to search for ‘Windows Task Scheduler’ online to find out how they can schedule their R programs.</p>
 </div>
 <section id="the-scraping-program" class="level2" data-number="7.1">
 <h2 data-number="7.1" class="anchored" data-anchor-id="the-scraping-program"><span class="header-section-number">7.1</span> The Scraping Program</h2>
-<p>The first thing we need is a scraping program. Let’s recycle one from chapter @ref(xpath-chapter) which loaded an example from the newspaper “El País”. Our scraper will count the number of articles for each of the sections available in the newspaper “El País”. The R script will parse the “El País” website, extract the number of articles per section and collect everything in a data frame. Here’s how it would look like:</p>
+<p>The first thing we need is a scraping program. Let’s recycle one from <a href="../05-xpath/index.html" class="quarto-xref"><span>Chapter 5</span></a> which loaded an example from the newspaper “El País”. Our scraper will count the number of articles for each of the sections available in the newspaper “El País”. The R script will parse the “El País” website, extract the number of articles per section and collect everything in a data frame. Here’s how it would look like:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load all our libraries</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scrapex)</span>
@@ -361,7 +361,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The scraper above does precisely that but it’s missing a step: saving the data. The logic that we want to achieve is something like this:</p>
 <ol type="1">
 <li>If this is the first time the scraper is run, save a csv file with the count of sections</li>
-<li>If the CSV with the count of section exists, open the CSV file and append the newest data with the current time stamp</li>
+<li>If the CSV with the count of sections exists, open the CSV file and append the newest data with the current time stamp</li>
 </ol>
 <p>This approach will add rows with new counts every time the scraper is run. By plotting the time stamp and the count of sections you’ll be able to visualize how these counts change over time. To do that, we should add a new section in the code to save our results on a CSV file with the time stamp of the current date. Let’s add a section to save our data:</p>
 <div class="cell" data-layout-align="center">
@@ -412,7 +412,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="the-terminal" class="level2" data-number="7.2">
 <h2 data-number="7.2" class="anchored" data-anchor-id="the-terminal"><span class="header-section-number">7.2</span> The Terminal</h2>
-<p>To use <code>cron</code>, and in general to executing R scripts, you’ll need to get familiar with the terminal. Let’s open the terminal. On Linux, you can do it by pressing the keys CTRL + ALT + t together. For MacOS click the Launchpad icon in the Dock, type Terminal in the search field and then click Terminal. For both operating systems you should see a window like this (not exactly but similar) one pop up:</p>
+<p>To use <code>cron</code>, and in general to execute R scripts, you’ll need to get familiar with the terminal. Let’s open the terminal. On Linux, you can do it by pressing the keys CTRL + ALT + t together. For MacOS click the Launchpad icon in the Dock, type Terminal in the search field and then click Terminal. For both operating systems you should see a window like this (not exactly but similar) one pop up:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -422,7 +422,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>This is the terminal. It allows you to do things like create directories and files just as you would do in your computer but through code. Let’s create the directory where we’ll save the CSV file and the R script that performs the scraping. To create the directory, we use the command <code>mkdir</code> which stands for <code>m</code>a<code>k</code>e<code>dir</code>ectory. Let’s create it with <code>mkdir ~/newspaper/</code>:</p>
+<p>This is the terminal. It allows you to do things like create directories and files just as you would do on your computer but through code. Let’s create the directory where we’ll save the CSV file and the R script that performs the scraping. To create the directory, we use the command <code>mkdir</code> which stands for <code>m</code>a<code>k</code>e<code>dir</code>ectory. Let’s create it with <code>mkdir ~/newspaper/</code>:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -432,7 +432,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Great, the directory was created. Now you should copy the R script we wrote down above and save it in <code>~/newspaper/</code>. Save it as <code>newspaper_scraper.R</code>. You should have only an R file within <code>~/newspaper/</code> called <code>newspaper_scraper.R</code>. You can confirm this by typing <code>ls ~/newspaper/</code> which will list all files/directories inside <code>~/newspaper</code>/. You should see an output like this one:</p>
+<p>Great, the directory was created. Now you should copy the R script we wrote down above and save it in <code>~/newspaper/</code>. Save it as <code>newspaper_scraper.R</code>. You should have only an R file within <code>~/newspaper/</code> called <code>newspaper_scraper.R</code>. You can confirm this by typing <code>ls ~/newspaper/</code> which will list all files/directories inside <code>~/newspaper/</code>. You should see an output like this one:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> ~/newspaper/</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># newspaper_scraper.R</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -457,7 +457,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>The first few lines show the printing of package loading but we finally see the print statement we added when the file doesn’t exit: <code>File doesn't exist; Creating it</code>. If you opened the CSV in your computer you should see the a sheet like this one:</p>
+<p>The first few lines show the printing of package loading but we finally see the print statement we added when the file doesn’t exist: <code>File doesn't exist; Creating it</code>. If you opened the CSV on your computer you should see a sheet like this one:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -490,7 +490,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>The output means you have no scheduled scripts in your computer. To schedule a script with <code>cron</code> you need two things: the command to execute and the schedule. The command to execute we already know, it’s <code>Rscript ~/newspaper/newspaper_scraper.R</code>. For specifying schedules, <code>cron</code> has a particular syntax. How does it work? Let’s take a look:</p>
+<p>The output means you have no scheduled scripts on your computer. To schedule a script with <code>cron</code> you need two things: the command to execute and the schedule. The command to execute we already know, it’s <code>Rscript ~/newspaper/newspaper_scraper.R</code>. For specifying schedules, <code>cron</code> has a particular syntax. How does it work? Let’s take a look:</p>
 <pre><code>  * * * * * &lt;command to execute&gt;
 # | | | | |
 # | | | | day of the week (0–6) (Sunday to Saturday)
@@ -498,9 +498,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # | | day of the month (1–31)
 # | hour (0–23)
 # minute (0–59)</code></pre>
-<p>At the bottom of the image we see 5 <code>*</code>. The text above it tells what each of these <code>*</code> stands for. In this order, they represent minutes, hours, day of month, month and day of week.<code>*</code> is in fact a placeholder to signal that whenever there is a <code>*</code> it means the command will be repeated at each instance of the place holder. Complicated? Look at this example:</p>
+<p>At the bottom of the image we see 5 <code>*</code>. The text above it tells what each of these <code>*</code> stands for. In this order, they represent minutes, hours, day of month, month and day of week. <code>*</code> is in fact a placeholder to signal that whenever there is a <code>*</code> it means the command will be repeated at each instance of the placeholder. Complicated? Look at this example:</p>
 <pre><code>* * * * *</code></pre>
-<p>By writing <code>* * * * *</code>, we’re scheduling the program to run at every minute, of every hour, of every day of the month, for every month for every day of the week. Say we changed the schedule to run every 30 minutes for each hour of each day of each month for each day of week. That sounds awfully complicated to say. A simpler way is to say that the script will run every 30 minutes <em>because</em> all other date parameters are <code>*</code>, which means on every unit of each of the parameters. How would such a schedule look like? We know the first slot is for minutes so we can write <code>30</code> in the first slot:</p>
+<p>By writing <code>* * * * *</code>, we’re scheduling the program to run at every minute, of every hour, of every day of the month, for every month for every day of the week. Say we changed the schedule to run every 30 minutes for each hour of each day of each month for each day of week. That sounds awfully complicated to say. A simpler way is to say that the script will run every 30 minutes <em>because</em> all other date parameters are <code>*</code>, which means on every unit of each of the parameters. How would such a schedule look? We know the first slot is for minutes so we can write <code>30</code> in the first slot:</p>
 <pre><code>30 * * * *</code></pre>
 <p>We’re effectively scheduling something to run at minute 30 of each hour, each day, each month, each day of the week (if day of week, the last slot, clashes in a schedule with the third slot which is day of month then any day matching either the day of month, or the day of week, shall be matched).</p>
 <p>Now that we know that each <code>*</code> represents a date parameter we can start to develop more interesting schedules. For example, Wednesdays are the third day of the week (if we start counting on Monday), so we can run a schedule every 30 minutes but <em>only</em> on Wednesdays:</p>
@@ -508,12 +508,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Or you might want to run your scraper at 05:30 AM only on Saturday and Sunday:</p>
 <pre><code>30 5 * * 6,7</code></pre>
 <p>The expression reads like this: run on the 30th minute of the 5th hour every month but on Saturday and Sunday (6th and 7th day of the week). These simple rules can take you a long way when building your scraper.</p>
-<p>Let’s say we wanted to run our newspaper scraper every 4 hours, every day, how would it look like? That sounds a bit different to what we’ve done until now. The syntax we’ve discussed specifically writes down the day / hour / minute we want to the scraper to do. We have no way of saying, regardless of the day / hour / minute, run the scraper every X hours. For that <code>cron</code> has additional tricks. If we wanted to run a scraper every every 4 hours we would write it like this:</p>
+<p>Let’s say we wanted to run our newspaper scraper every 4 hours, every day, how would it look? That sounds a bit different to what we’ve done until now. The syntax we’ve discussed specifically writes down the day / hour / minute we want the scraper to run on. We have no way of saying, regardless of the day / hour / minute, run the scraper every X hours. For that <code>cron</code> has additional tricks. If we wanted to run a scraper every 4 hours we would write it like this:</p>
 <pre><code>1 */4 * * *</code></pre>
 <p>For the date parameter you want to make recurrent, add <code>/</code> by the frequency you want. If instead you wanted to run the scraper every 4 hours, every 2 days, you would write something like this:</p>
 <pre><code>1 */4 * * */2</code></pre>
 <p>So there it is. That’s the basics of <code>cron</code>. These simple rules will allow you to go very far in scheduling scripts for your scrapers or APIs. These details are enough to get our example running.</p>
-<p>Let’s schedule our newspaper scraper to run every minute, just to make sure it works. This will get messy because it’ll append the same results in the CSV file continuously, filling out with CSV with repeated data. However, it will give you proof that your script is running on a schedule. If we want this to run every minute, our cron expression should be this <code>* * * * *</code>, the simplest expression.</p>
+<p>Let’s schedule our newspaper scraper to run every minute, just to make sure it works. This will get messy because it’ll append the same results in the CSV file continuously, filling the CSV with repeated data. However, it will give you proof that your script is running on a schedule. If we want this to run every minute, our cron expression should be this <code>* * * * *</code>, the simplest expression.</p>
 <p>To save the cron expression type <code>crontab -e</code> in your terminal. If this is your first time using <code>crontab</code> you should see something like this:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -551,10 +551,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>To exit the <code>cron</code> interface, <strong>follow these steps</strong>:</p>
 <ul>
 <li>Hit <code>CTRL</code> and <code>X</code> (this is for exiting the <code>cron</code> interface)</li>
-<li>It will prompt you to save the file. <strong>Press<code>Y</code> to save it</strong>.</li>
+<li>It will prompt you to save the file. <strong>Press <code>Y</code> to save it</strong>.</li>
 <li>Press <code>enter</code> to save the <code>cron</code> schedule file with the same name it has.</li>
 </ul>
-<p>After you do this, you should be back at the terminal and you cron job should be saved. Nothing special should be happening at the moment. Wait two or three minutes and open your the CSV file again. You should find the same records duplicated but with a different time stamp:</p>
+<p>After you do this, you should be back at the terminal and your cron job should be saved. Nothing special should be happening at the moment. Wait two or three minutes and open the CSV file again. You should find the same records duplicated but with a different time stamp:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -568,7 +568,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="conclusion" class="level2" data-number="7.4">
 <h2 data-number="7.4" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">7.4</span> Conclusion</h2>
-<p>This framework of building a scraper, testing it and then scheduling it to run on frequent intervals is very powerful. With these commands you can automate any program (in fact, not only R but any programming language or program). However, this approach has limitations. Your computer needs to be turned on all the time in order for your <code>cron</code> schedule to run. If you’re doing a school project and it’s possible, you might get around with only using your computer. However, for more demanding scrapings (lots of data, frequent intervals) it’s almost always a better idea to run your scraper on a server.</p>
+<p>This framework of building a scraper, testing it and then scheduling it to run on frequent intervals is very powerful. With these commands you can automate any program (in fact, not only R but any programming language or program). However, this approach has limitations. Your computer needs to be turned on all the time in order for your <code>cron</code> schedule to run. If you’re doing a school project and it’s possible, you might get by with only using your computer. However, for more demanding scrapings (lots of data, frequent intervals) it’s almost always a better idea to run your scraper on a server.</p>
 <p>Launching a server and running a scraper is out of the scope of this chapter but keep that in mind when building scrapers for your work. There are many tutorials to do that over the internet.</p>
 <p><code>cron</code> can also become complex if your schedule patterns are difficult. There’s a bunch of resources that can help you on the internet. Here are some that worked for me:</p>
 <ul>
@@ -579,10 +579,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="exercises" class="level2" data-number="7.5">
 <h2 data-number="7.5" class="anchored" data-anchor-id="exercises"><span class="header-section-number">7.5</span> Exercises</h2>
 <ol type="1">
-<li>What is the <code>cron</code> expression to run every 15 minutes on Monday, Wednesday and Friday but only on February?</li>
+<li>What is the <code>cron</code> expression to run every 15 minutes on Monday, Wednesday and Friday but only in February?</li>
 </ol>
 <ol start="2" type="1">
-<li><p>An R packaged called <code>cronR</code> allows you to setup <code>cron</code> schedules within R. Can you replicate what we did in this chapter using the <code>cronR</code> package? The package documentation can be found <a href="https://github.com/bnosac/cronR">here</a>.</p></li>
+<li><p>An R package called <code>cronR</code> allows you to setup <code>cron</code> schedules within R. Can you replicate what we did in this chapter using the <code>cronR</code> package? The package documentation can be found <a href="https://github.com/bnosac/cronR">here</a>.</p></li>
 <li><p>Can you write down a script that empties the trash folder on your personal computer every Monday at 11AM? Write down both the scraper as well as the <code>cron</code> expression. <strong>Remember to remove this <code>cron</code> after deploying it to avoid unexpected files being deleted</strong>.</p></li>
 </ol>
 
@@ -997,8 +997,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../08-selenium/index.html" class="pagination-link" aria-label="Scraping JavaScript based website">
-        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Scraping JavaScript based website</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../08-selenium/index.html" class="pagination-link" aria-label="Scraping JavaScript-based websites">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Scraping JavaScript-based websites</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

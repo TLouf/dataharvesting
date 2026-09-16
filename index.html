@@ -8,7 +8,7 @@
 
 <meta name="author" content="Thomas Louf">
 <meta name="author" content="Jorge Cimentada">
-<meta name="dcterms.date" content="2026-09-15">
+<meta name="dcterms.date" content="2026-09-16">
 <meta name="description" content="This is a book about webscraping and talking to APIs with R.">
 
 <title>Data Harvesting with R</title>
@@ -80,7 +80,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-1d495bf0b3d7decfc3a5ab2c9f414beb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-eb96c05b7f203a23b18f87ac89c0dd72.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -203,7 +203,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./08-selenium/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Scraping JavaScript based website</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Scraping JavaScript-based websites</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -273,7 +273,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome"><span class="header-section-number">1</span> Welcome</a>
   <ul class="collapse">
-  <li><a href="#packages-used" id="toc-packages-used" class="nav-link" data-scroll-target="#packages-used"><span class="header-section-number">1.1</span> Packages we’ll use</a></li>
+  <li><a href="#sec-packages-used" id="toc-sec-packages-used" class="nav-link" data-scroll-target="#sec-packages-used"><span class="header-section-number">1.1</span> Packages we’ll use</a></li>
   <li><a href="#what-to-expect" id="toc-what-to-expect" class="nav-link" data-scroll-target="#what-to-expect"><span class="header-section-number">1.2</span> What to expect</a></li>
   </ul></li>
   </ul>
@@ -307,7 +307,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 15, 2026</p>
+      <p class="date">September 16, 2026</p>
     </div>
   </div>
   
@@ -331,8 +331,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="rmdnote">
 <p>The course assumes students will be familiar with the R programming language, transforming and manipulating datasets as well as saving their work with Git and Github. No prior knowledge on software development nor data acquisition techniques is needed.</p>
 </div>
-<section id="packages-used" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="packages-used"><span class="header-section-number">1.1</span> Packages we’ll use</h2>
+<section id="sec-packages-used" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="sec-packages-used"><span class="header-section-number">1.1</span> Packages we’ll use</h2>
 <p>Webscraping and APIs are inherently online resources. You cannot access a website without internet and you cannot access an API without internet. Although many tutorials on data harvesting use websites as examples, this has a major problem. Websites and APIs change. This means that one example that works today for grabbing some data from the web, might not work in six months because the developers changed the website. This book looks to break with that pattern by using <em>local copies</em> of websites that I saved. This means that all of the examples in this book will work just as well one, two or three years from now. Similarly, I’ve created local copies of APIs that will also persist over time, making this book reproducible in the long term.</p>
 <p>You might ask: but where are these examples saved? This book was written with a companion package, <code>scrapex</code>. <code>scrapex</code> contains complete websites saved as examples for us to use in this package. Moreover, it contains several APIs that can be launched just as you would access an online API. You can install <code>scrapex</code> with the code below:</p>
 <div class="cell">

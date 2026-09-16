@@ -112,6 +112,7 @@
     }
     .reveal .slide:not(.center) {
       height: 100%;
+      overflow-y: auto;
     }
     .reveal .slide.scrollable {
       overflow-y: auto;
@@ -207,12 +208,12 @@
 <li><p>Format designed to share data over the internet</p></li>
 <li><p>JSON is text-based: can be opened with any code editor</p></li>
 <li><p>It supports the usual numeric/string values + arrays</p></li>
-<li><p>Important: allows to build complex hierarchical structures</p></li>
+<li><p>Important: allows you to build complex hierarchical structures</p></li>
 </ul>
 </section>
-<section id="introduction-to-json-1" class="slide level2">
+<section id="introduction-to-json-1" class="slide level2 scrollable">
 <h2>Introduction to JSON</h2>
-<p>Why is JSON important? Why not use a CSV, for example? or XML? I’ll skip the boring stuff and leave you with three:</p>
+<p>Why is JSON important? Why not use a CSV, for example, or XML? I’ll skip the boring stuff and leave you with three:</p>
 <ol type="1">
 <li>It’s lightweight and easy to share</li>
 <li>It has support in nearly all programming languages</li>
@@ -235,7 +236,7 @@
 <ul>
 <li><p>Starts with <code>{}</code></p></li>
 <li><p>It’s based around <code>key:value</code> pairs</p></li>
-<li><p>Each <code>key:value</code> can contain numbers od strings (for now)</p></li>
+<li><p>Each <code>key:value</code> can contain numbers or strings (for now)</p></li>
 <li><p>That’s it. That’s a JSON file.</p></li>
 </ul>
 </section>
@@ -381,7 +382,7 @@ $opposition
 1    Pitaso Everyone United  45</code></pre>
 </div>
 </div>
-<p>JSON’s are <code>key:value</code> pairs and the value it self can be an array with other key/value pairs.</p>
+<p>JSONs are <code>key:value</code> pairs and the value itself can be an array with other key/value pairs.</p>
 </section>
 <section id="real-json-example-5" class="slide level2">
 <h2>Real JSON example</h2>
@@ -466,7 +467,7 @@ $opposition$age
 </div>
 </div>
 </section>
-<section id="real-json-example-9" class="slide level2">
+<section id="real-json-example-9" class="slide level2 scrollable">
 <h2>Real JSON example</h2>
 <ol type="1">
 <li><p>A data frame for the first slot. That’s correct because the JSON contained an array with two sets of <code>key:value</code> pairs. That’s translatable to a data frame with two rows even though one of the two sets did not have a field for <code>age</code>.</p></li>
@@ -495,7 +496,7 @@ $opposition
 </div>
 </div>
 <ul>
-<li><p>They most important tool for working with JSONs is subsetting</p></li>
+<li><p>The most important tool for working with JSONs is subsetting</p></li>
 <li><p>The dirtiest part of JSON is complex nesting</p></li>
 </ul>
 </section>
@@ -537,7 +538,7 @@ $opposition
 </ul></li>
 </ul>
 </section>
-<section id="the-enframe-unnest-strategy-3" class="slide level2">
+<section id="the-enframe-unnest-strategy-3" class="slide level2 scrollable">
 <h2>The <code>enframe</code> + <code>unnest</code> strategy</h2>
 <p>Let’s take it for a spin:</p>
 <div class="cell" data-layout-align="center">
@@ -554,7 +555,7 @@ $opposition
 </div>
 <ol type="1">
 <li>First column contains the names of the named list and the second column contains the list-column.</li>
-<li>List column has two data frame and an empty slot</li>
+<li>List column has two data frames and an empty slot</li>
 <li>This structure is useful for reading nested stuff</li>
 </ol>
 </section>
@@ -563,8 +564,8 @@ $opposition
 <p>How do we transform it?</p>
 <ul>
 <li><p><code>unnest</code> takes list-columns and ‘unpacks’ them into the common class of the list.</p></li>
-<li><p>If the all objects are of different classes (<code>data.frame</code>, <code>vectors</code>, etc..), then <code>unnest</code> will fail.</p></li>
-<li><p>If all objects within the list are of the same class, it will combine all of them into a proper column or ‘unpack’ it’s values.</p></li>
+<li><p>If all objects are of different classes (<code>data.frame</code>, <code>vectors</code>, etc..), then <code>unnest</code> will fail.</p></li>
+<li><p>If all objects within the list are of the same class, it will combine all of them into a proper column or ‘unpack’ its values.</p></li>
 </ul>
 <p>All of this sounds convoluted right? Let’s see some applied examples.</p>
 </section>
@@ -625,12 +626,12 @@ $opposition
 <span id="cb21-2"><a href=""></a>  <span class="fu">enframe</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb21-3"><a href=""></a>  <span class="fu">unnest</span>(<span class="at">cols =</span> value)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-error">
-<pre><code>Error in `unnest()` at magrittr/R/pipe.R:136:3:
+<pre><code>Error in `unnest()`:
 ! Can't combine `value[[1]]` &lt;data.frame&gt; and `value[[3]]` &lt;list&gt;.</code></pre>
 </div>
 </div>
 <p><br></p>
-<p>The main problem you’ll encounter with JSON’s is that you’re trying to parse some JSON that has many <strong>nested arrays</strong> and some of these arrays are not <strong>compatible for unnesting</strong> so you’ll have to submerge yourself into these nested arrays and fix whatever data you want to extract.</p>
+<p>The main problem you’ll encounter with JSONs is that you’re trying to parse some JSON that has many <strong>nested arrays</strong> and some of these arrays are not <strong>compatible for unnesting</strong> so you’ll have to submerge yourself into these nested arrays and fix whatever data you want to extract.</p>
 </section>
 <section id="accessing-deeply-nested-jsons" class="slide level2">
 <h2>Accessing deeply nested JSONs</h2>
@@ -678,7 +679,7 @@ $opposition
 </section>
 <section id="accessing-deeply-nested-jsons-2" class="slide level2">
 <h2>Accessing deeply nested JSONs</h2>
-<p>Before understand in-depth a JSON, it’s not a terrible idea to try to read it:</p>
+<p>Before understanding a JSON in depth, it’s not a bad idea to try to read it:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href=""></a>json_str <span class="ot">&lt;-</span> <span class="st">'</span></span>
 <span id="cb24-2"><a href=""></a><span class="st">{</span></span>
@@ -786,7 +787,7 @@ $location
 </div>
 </div>
 <ul>
-<li>General pattern: nested structured</li>
+<li>General pattern: nested structures</li>
 </ul>
 </section>
 <section id="accessing-deeply-nested-jsons-6" class="slide level2">
@@ -883,7 +884,7 @@ $location
 <ul>
 <li><p>Chapter 14 – read + exercises</p></li>
 <li><p>Everyone should have a project + a group <a href="https://docs.google.com/spreadsheets/d/11QmdgRXvbwtN9hSOwVyw9-iVjrN-yeRq_BOudidAnX8/edit#gid=73208201">here</a>.</p></li>
-<li><p>Work on project should begin now. Submissions can be done from now on. Final deadline for the project is in two weeks.</p></li>
+<li><p>Work on the project should begin now. Submissions can be done from now on. Final deadline for the project is in two weeks.</p></li>
 </ul>
 
 </section>

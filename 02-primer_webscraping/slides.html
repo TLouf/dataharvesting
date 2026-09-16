@@ -112,6 +112,7 @@
     }
     .reveal .slide:not(.center) {
       height: 100%;
+      overflow-y: auto;
     }
     .reveal .slide.scrollable {
       overflow-y: auto;
@@ -213,7 +214,7 @@
 <li><p>Chapter 2 of the book</p></li>
 </ul>
 </section>
-<section id="scrapex" class="slide level2">
+<section id="scrapex" class="slide level2 scrollable">
 <h2>Scrapex</h2>
 <ol type="1">
 <li><p>Webscraping tutorials are doomed to change</p>
@@ -242,7 +243,7 @@
 <span id="cb1-9"><a href=""></a>link <span class="ot">&lt;-</span> <span class="fu">history_elections_spain_ex</span>()</span>
 <span id="cb1-10"><a href=""></a>link</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "/home/thomas/.cache/R/renv/cache/v5/linux-endeavouros-2025.03.19/R-4.6/x86_64-pc-linux-gnu/scrapex/0.0.1.9999/9aa78cbb3eccaaa811756b4bf07fdd1a/scrapex/extdata/history_elections_spain//Elections_Spain.html"</code></pre>
+<pre><code>[1] "/home/runner/work/_temp/renv/cache/v5/linux-ubuntu-noble/R-4.6/x86_64-pc-linux-gnu/scrapex/0.0.1.9999/ef820a8572c592077efb4c89177e86bd/scrapex/extdata/history_elections_spain//Elections_Spain.html"</code></pre>
 </div>
 </div>
 </section>
@@ -272,7 +273,7 @@
 <div class="cell-output cell-output-stdout">
 <pre><code>{html_document}
 &lt;html class="client-nojs" lang="en" dir="ltr"&gt;
-[1] &lt;head&gt;\n&lt;meta charset="UTF-8"&gt;\n&lt;title&gt;Elections in Spain - Wikipedia&lt;/ti ...
+[1] &lt;head&gt;\n&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8 ...
 [2] &lt;body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject  ...</code></pre>
 </div>
 </div>
@@ -336,7 +337,7 @@
 </div>
 </div>
 </section>
-<section id="data-cleaning" class="slide level2">
+<section id="data-cleaning" class="slide level2 scrollable">
 <h2>Data cleaning</h2>
 <ol type="1">
 <li>The first row is empty</li>

@@ -112,6 +112,7 @@
     }
     .reveal .slide:not(.center) {
       height: 100%;
+      overflow-y: auto;
     }
     .reveal .slide.scrollable {
       overflow-y: auto;
@@ -209,10 +210,10 @@
 <section id="automating-web-scraping-1" class="slide level2">
 <h2>Automating Web Scraping</h2>
 <ul>
-<li><p>One off scraping is <em>just as good</em></p></li>
-<li><p>One off scraping will solve many problems as is usually the first starting point</p></li>
+<li><p>One-off scraping is <em>just as good</em></p></li>
+<li><p>One-off scraping will solve many problems and is usually the first starting point</p></li>
 <li><p>However, you might need this to collect data that is changing constantly</p></li>
-<li><p>Sometimes you want to gather info the dissappears</p></li>
+<li><p>Sometimes you want to gather info that disappears</p></li>
 <li><p>Ex: weather data, financial data, sports data, political data</p></li>
 </ul>
 </section>
@@ -284,7 +285,7 @@
 </div>
 </div>
 </section>
-<section id="automating-web-scraping-5" class="slide level2">
+<section id="automating-web-scraping-5" class="slide level2 scrollable">
 <h2>Automating Web Scraping</h2>
 <p>The scraper is missing one step: saving the data to CSV.</p>
 <p><strong>Logic</strong>:</p>
@@ -364,7 +365,7 @@
 <img data-src="images/create_newspaper_dir.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="automating-web-scraping-10" class="slide level2">
 <h2>Automating Web Scraping</h2>
-<p>With the directory created, we copy the R script and check that is there <code>ls</code></p>
+<p>With the directory created, we copy the R script and check that it is there with <code>ls</code></p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href=""></a><span class="fu">ls</span> ~/newspaper/</span>
 <span id="cb5-2"><a href=""></a><span class="co"># newspaper_scraper.R</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -402,7 +403,7 @@
 <li><p>All infrastructure is ready (directories, excel file)</p></li>
 <li><p>How do we automate it?</p></li>
 </ul>
-<p>Here’s we <code>cron</code> comes in</p>
+<p>Here’s where <code>cron</code> comes in</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href=""></a><span class="co"># Linux</span></span>
 <span id="cb6-2"><a href=""></a><span class="fu">sudo</span> apt-get update</span>
@@ -416,9 +417,9 @@
 <h2>cron, your scheduling friend</h2>
 <p>Confirm it works:</p>
 
-<img data-src="images/crontab_list.png" class="quarto-figure quarto-figure-center r-stretch"><p>The output means you have no scheduled scripts in your computer.</p>
+<img data-src="images/crontab_list.png" class="quarto-figure quarto-figure-center r-stretch"><p>The output means you have no scheduled scripts on your computer.</p>
 </section>
-<section id="anatomy-of-a-schedule" class="slide level2">
+<section id="anatomy-of-a-schedule" class="slide level2 scrollable">
 <h2>Anatomy of a schedule</h2>
 <pre><code>  * * * * * &lt;command to execute&gt;
 # | | | | |
@@ -456,7 +457,7 @@
 <h2>Scheduling our scraper</h2>
 <ul>
 <li><p>Schedule our newspaper scraper to run every minute, just to make sure it works.</p></li>
-<li><p>Will get messy because it’ll append the same resultsin the CSV file continuously.</p></li>
+<li><p>Will get messy because it’ll append the same results in the CSV file continuously.</p></li>
 <li><p>However, it will give proof that the script is running on a schedule.</p></li>
 <li><p>If we want this to run every minute, our cron expression should be this <code>* * * * *</code></p></li>
 </ul>
@@ -481,7 +482,7 @@
 <p>To exit the <code>cron</code> interface, <strong>follow these steps</strong>:</p>
 <ul>
 <li><p>Hit <code>CTRL</code> and <code>X</code> (this is for exiting the <code>cron</code> interface)</p></li>
-<li><p>It will prompt you to save the file. <strong>Press<code>Y</code> to save it</strong>.</p></li>
+<li><p>It will prompt you to save the file. <strong>Press <code>Y</code> to save it</strong>.</p></li>
 <li><p>Press <code>enter</code> to save the <code>cron</code> schedule file with the same name it has.</p></li>
 </ul>
 <p>Nothing special should be happening at the moment. Wait two or three minutes</p>
@@ -501,7 +502,7 @@
 <li><p>Computer needs to be on all the time; this is why servers are used</p></li>
 <li><p><code>cron</code> can also become complex if your schedule patterns are difficult.</p></li>
 <li><p>Backtracking a failed <code>cron</code> job is tricky because it’s not interactive</p></li>
-<li><p>Setting up production ready scrapers are difficult: databases, interactivity, persistence, avoid bans, saving data real time, etc..</p></li>
+<li><p>Setting up production-ready scrapers is difficult: databases, interactivity, persistence, avoid bans, saving data real time, etc..</p></li>
 </ul>
 
 </section>

@@ -112,6 +112,7 @@
     }
     .reveal .slide:not(.center) {
       height: 100%;
+      overflow-y: auto;
     }
     .reveal .slide.scrollable {
       overflow-y: auto;
@@ -365,7 +366,7 @@
 <section id="xpath-tricks-subsetting-nodes-by-number" class="slide level2">
 <h2>XPath tricks: subsetting nodes by number</h2>
 <ul>
-<li>XPath also allows to pick by order of appearance</li>
+<li>XPath also allows you to pick by order of appearance</li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href=""></a>book_xml <span class="sc">%&gt;%</span></span>
@@ -385,7 +386,7 @@
 </section>
 <section id="xpath-tricks-4" class="slide level2">
 <h2>XPath tricks: <code>*</code></h2>
-<p>In reality, we won’t know the exact address of what we’re looking for but rather some vague intutions of the node. For that we use <code>*</code>:</p>
+<p>In reality, we won’t know the exact address of what we’re looking for but rather some vague intuitions about the node. For that we use <code>*</code>:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a>book_xml <span class="sc">%&gt;%</span></span>
 <span id="cb21-2"><a href=""></a>  <span class="fu">xml_find_all</span>(<span class="st">"//dansimmons/*"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -395,7 +396,7 @@
 [2] &lt;book&gt;&lt;release_year&gt;\n         1996\n        &lt;/release_year&gt;\n        End ...</code></pre>
 </div>
 </div>
-<p>The result is not the <code>dansimmons</code> tag but all it’s children, regardless of whether they are <code>&lt;book&gt;</code> tags or any other tag</p>
+<p>The result is not the <code>dansimmons</code> tag but all its children, regardless of whether they are <code>&lt;book&gt;</code> tags or any other tag</p>
 </section>
 <section id="xpath-tricks-5" class="slide level2">
 <h2>XPath tricks: <code>*</code></h2>
@@ -418,7 +419,7 @@
 <li><p><code>/</code> links between two tags that have direct parent-child relationship</p></li>
 <li><p><code>//</code> finds all tags in the HTML/XML tree regardless of depth</p></li>
 <li><p>Use <code>[number]</code> to subset the position of a node. For example: <code>//a[8]</code> will return the 8th <code>&lt;a&gt;</code> tag.</p></li>
-<li><p><code>*</code> is a wildcard that allows to signal nodes without specifying which nodes.</p></li>
+<li><p><code>*</code> is a wildcard that allows you to signal nodes without specifying which nodes.</p></li>
 </ul>
 </section>
 <section id="filter-by-attributes" class="slide level2">
@@ -453,7 +454,7 @@
 <span id="cb25-24"><a href=""></a>book_xml <span class="ot">&lt;-</span> raw_xml <span class="sc">%&gt;%</span> <span class="fu">read_xml</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="filter-by-attributes-1" class="slide level2">
+<section id="filter-by-attributes-1" class="slide level2 scrollable">
 <h2>Filter by attributes</h2>
 <p>Power of XPath is filtering:</p>
 <div class="cell" data-layout-align="center">
@@ -594,7 +595,7 @@
 <li><p><code>//section/*/*</code> means to search for two <em>direct</em> children of <code>&lt;section&gt;</code></p></li>
 <li><p><code>a[contains(@href, 'science')]</code> finds the <code>&lt;a&gt;</code> tags for which the <code>@href</code> attribute contains the text ‘science’.</p></li>
 </ul>
-<p><strong>Overall: Find all <code>&lt;a&gt;</code> tags for which the <code>@href</code> attribute contains the text ‘science’ which are descendant of the <code>&lt;section&gt;</code> tag with two tags in between.</strong></p>
+<p><strong>Overall: Find all <code>&lt;a&gt;</code> tags for which the <code>@href</code> attribute contains the text ‘science’ which are descendants of the <code>&lt;section&gt;</code> tag with two tags in between.</strong></p>
 </section>
 <section id="case-study-web-scraping-el-país-7" class="slide level2">
 <h2>Case study: Web scraping El País</h2>
@@ -682,22 +683,22 @@
 [5] "portada_tematicos_our-selection"           </code></pre>
 </div>
 </div>
-<p>Five sections, mostly entertainment related except for the first one which is the front page (‘aperatura’ is something like ‘opening’)</p>
+<p>Five sections, mostly entertainment related except for the first one which is the front page (‘apertura’ is something like ‘opening’)</p>
 </section>
 <section id="conclusion" class="slide level2">
 <h2>Conclusion</h2>
 <p>XPath is a very rich language with over 20 years of development. I’ve covered some basics as well as intermediate parts of the language but there’s much more to be learned:</p>
 <ul>
-<li><a href="https://cimentadaj.github.io/dataharvesting/xpath-chapter.html#xpath-cookbook">The course’s cookbook</a></li>
-<li><a href="https://devhints.io/xpath">XPath Cheetsheet</a></li>
-<li><a href="https://www.lambdatest.com/blog/most-exhaustive-xpath-locators-cheat-sheet/">Extensive XPath Cheetsheet</a></li>
+<li><a href="05-xpath#xpath-cookbook">The course’s cookbook</a></li>
+<li><a href="https://devhints.io/xpath">XPath Cheatsheet</a></li>
+<li><a href="https://www.lambdatest.com/blog/most-exhaustive-xpath-locators-cheat-sheet/">Extensive XPath Cheatsheet</a></li>
 <li><a href="https://www.w3schools.com/xml/xpath_intro.asp">XPath tutorial</a></li>
 </ul>
 </section>
 <section id="homework" class="slide level2">
 <h2>Homework</h2>
 <ul>
-<li><p>Read and complete exercises of chapter 6</p></li>
+<li><p>Read and complete the exercises of chapter 6</p></li>
 <li><p>Deadline for group definitions is next week. How is it going? <a href="https://docs.google.com/spreadsheets/d/11QmdgRXvbwtN9hSOwVyw9-iVjrN-yeRq_BOudidAnX8/edit#gid=73208201">Here</a>.</p></li>
 <li><p>Start thinking about projects.</p></li>
 </ul>

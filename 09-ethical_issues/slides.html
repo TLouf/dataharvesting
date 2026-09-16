@@ -112,6 +112,7 @@
     }
     .reveal .slide:not(.center) {
       height: 100%;
+      overflow-y: auto;
     }
     .reveal .slide.scrollable {
       overflow-y: auto;
@@ -200,17 +201,17 @@
 </div>
 
 </section>
-<section id="ethical-issues-in-webscraping" class="slide level2">
-<h2>Ethical Issues in Webscraping</h2>
+<section id="ethical-issues-in-web-scraping" class="slide level2">
+<h2>Ethical Issues in Web Scraping</h2>
 <ul>
 <li><p>Ethical issues in web scraping are <strong>very</strong> important</p></li>
 <li><p>It involves grabbing information that is not yours and using it for your own purposes.</p></li>
-<li><p>It might be even contrary to the terms of services of the website.</p></li>
+<li><p>It might even be contrary to the terms of service of the website.</p></li>
 <li><p>It also involves <em>cluttering</em> the servers of the website with potentially many requests</p></li>
 </ul>
 </section>
-<section id="ethical-issues-in-webscraping-1" class="slide level2">
-<h2>Ethical Issues in Webscraping</h2>
+<section id="ethical-issues-in-web-scraping-1" class="slide level2">
+<h2>Ethical Issues in Web Scraping</h2>
 <p>How do you affect a website when you webscrape?</p>
 
 <img data-src="images/paste-968005F8.png" class="r-stretch"></section>
@@ -228,7 +229,7 @@
 <ul>
 <li><p>Big websites such as Google or Amazon have enough servers</p></li>
 <li><p>However, most do not.</p></li>
-<li><p>If you’re scraping a website only making a <em>single</em> request, it shouldn’t matter.</p></li>
+<li><p>If you’re scraping a website and making only a <em>single</em> request, it shouldn’t matter.</p></li>
 <li><p>So how to avoid spamming requests?</p></li>
 </ul>
 </section>
@@ -261,8 +262,8 @@
 <h2>Make your scraper sleep</h2>
 <ul>
 <li><p>How many seconds should you wait?</p></li>
-<li><p>Sometimes <code>robots.txt</code> file will tell you</p></li>
-<li><p>Multiplying the total number of websites you’ll scrape by the number of seconds you’ll sleep will give you a rough estimate of how much time your program will last.</p></li>
+<li><p>Sometimes the <code>robots.txt</code> file will tell you</p></li>
+<li><p>Multiplying the total number of websites you’ll scrape by the number of seconds you’ll sleep will give you a rough estimate of how much time your program will take.</p></li>
 <li><p>It’s always a good idea to limit your scraping to non-working hours such as over the evening</p></li>
 </ul>
 </section>
@@ -270,9 +271,9 @@
 <h2>Terms of services</h2>
 <ul>
 <li><p>Since GDPR, TOS have become very important</p></li>
-<li><p>These terms of services are lengthy and contain a lot of information for what the website can do with your data</p></li>
+<li><p>These terms of service are lengthy and contain a lot of information on what the website can do with your data</p></li>
 <li><p>If you’re building a scraping program, however, this is <a href="https://12ft.io/proxy?q=http://fortune.com/2016/05/18/okcupid-data-research">important</a>.</p></li>
-<li><p>Whenever you intend to scrape a website, make sure to read the terms of services.</p></li>
+<li><p>Whenever you intend to scrape a website, make sure to read the terms of service.</p></li>
 </ul>
 </section>
 <section id="terms-of-services-1" class="slide level2">
@@ -286,21 +287,21 @@
 <h2>Terms of services</h2>
 <p><br></p>
 <p><br></p>
-<p>If a website explicitly prohibits you from scraping, you should not do it. <strong>Let me make that clear again: if the terms of services forbids you from scraping their website, you should not do it. It can have legal consequences.</strong></p>
-<p>If it’s not clear from the terms of services, contact the website and receive written confirmation from the website.</p>
+<p>If a website explicitly prohibits you from scraping, you should not do it. <strong>Let me make that clear again: if the terms of service forbid you from scraping their website, you should not do it. It can have legal consequences.</strong></p>
+<p>If it’s not clear from the terms of service, contact the website and receive written confirmation from the website.</p>
 </section>
 <section id="copying-information" class="slide level2">
 <h2>Copying information</h2>
 <ul>
 <li><p>Even if allowed, a website might have some preferences on <em>which</em> sections of the website you can scrape</p></li>
-<li><p>Standard file called <code>robots.txt</code> on nearly all website on the internet which tells you want parts of the website can be scraped.</p></li>
+<li><p>Standard file called <code>robots.txt</code> on nearly all websites on the internet which tells you what parts of the website can be scraped.</p></li>
 <li><p><code>robots.txt</code> is just a convenient form for a website to tell you which URLs you can scrape; it will not enforce anything nor block you in any way.</p></li>
 <li><p><strong>In all cases, you should follow the guidelines of the <code>robots.txt</code></strong>.</p></li>
 </ul>
 </section>
 <section id="copying-information-1" class="slide level2">
 <h2>Copying information</h2>
-<p>The <code>robots.txt</code> file of most websites is located in the main URL</p>
+<p>The <code>robots.txt</code> file of most websites is located at the main URL</p>
 <ul>
 <li><a href="https://facebook.com/robots.txt" class="uri">https://facebook.com/robots.txt</a></li>
 <li><a href="https://google.com/robots.txt" class="uri">https://google.com/robots.txt</a></li>

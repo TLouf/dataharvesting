@@ -112,6 +112,7 @@
     }
     .reveal .slide:not(.center) {
       height: 100%;
+      overflow-y: auto;
     }
     .reveal .slide.scrollable {
       overflow-y: auto;
@@ -212,26 +213,27 @@
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">library</span>(scrapex)</span>
 <span id="cb1-2"><a href=""></a><span class="fu">head</span>(<span class="fu">spanish_schools_ex</span>(), <span class="at">n =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "/home/thomas/.cache/R/renv/cache/v5/linux-endeavouros-2025.03.19/R-4.6/x86_64-pc-linux-gnu/scrapex/0.0.1.9999/9aa78cbb3eccaaa811756b4bf07fdd1a/scrapex/extdata/spanish_schools_ex/school_15012626.html"
-[2] "/home/thomas/.cache/R/renv/cache/v5/linux-endeavouros-2025.03.19/R-4.6/x86_64-pc-linux-gnu/scrapex/0.0.1.9999/9aa78cbb3eccaaa811756b4bf07fdd1a/scrapex/extdata/spanish_schools_ex/school_15013308.html"
-[3] "/home/thomas/.cache/R/renv/cache/v5/linux-endeavouros-2025.03.19/R-4.6/x86_64-pc-linux-gnu/scrapex/0.0.1.9999/9aa78cbb3eccaaa811756b4bf07fdd1a/scrapex/extdata/spanish_schools_ex/school_2009122.html" </code></pre>
+<pre><code>[1] "/home/runner/work/_temp/renv/cache/v5/linux-ubuntu-noble/R-4.6/x86_64-pc-linux-gnu/scrapex/0.0.1.9999/ef820a8572c592077efb4c89177e86bd/scrapex/extdata/spanish_schools_ex/school_15012626.html"
+[2] "/home/runner/work/_temp/renv/cache/v5/linux-ubuntu-noble/R-4.6/x86_64-pc-linux-gnu/scrapex/0.0.1.9999/ef820a8572c592077efb4c89177e86bd/scrapex/extdata/spanish_schools_ex/school_15013308.html"
+[3] "/home/runner/work/_temp/renv/cache/v5/linux-ubuntu-noble/R-4.6/x86_64-pc-linux-gnu/scrapex/0.0.1.9999/ef820a8572c592077efb4c89177e86bd/scrapex/extdata/spanish_schools_ex/school_2009122.html" </code></pre>
 </div>
 </div>
 <p>These are the links to the landing page of each school inside the website. There are 27 schools saved locally.</p>
 </section>
 <section id="scraping-spanish-school-locations-1" class="slide level2">
 <h2>Scraping Spanish school locations</h2>
-<p>Let’s see how one school website looks like:</p>
+<p>Let’s see what one school website looks like:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a><span class="fu">library</span>(xml2)</span>
 <span id="cb3-2"><a href=""></a><span class="fu">library</span>(httr)</span>
 <span id="cb3-3"><a href=""></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb3-4"><a href=""></a><span class="fu">library</span>(sf)</span>
 <span id="cb3-5"><a href=""></a><span class="fu">library</span>(rnaturalearth)</span>
-<span id="cb3-6"><a href=""></a><span class="fu">library</span>(scrapex)</span>
-<span id="cb3-7"><a href=""></a></span>
-<span id="cb3-8"><a href=""></a>school_links <span class="ot">&lt;-</span> <span class="fu">spanish_schools_ex</span>()</span>
-<span id="cb3-9"><a href=""></a>school_url <span class="ot">&lt;-</span> school_links[<span class="dv">13</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-6"><a href=""></a><span class="fu">library</span>(rnaturalearthhires)</span>
+<span id="cb3-7"><a href=""></a><span class="fu">library</span>(scrapex)</span>
+<span id="cb3-8"><a href=""></a></span>
+<span id="cb3-9"><a href=""></a>school_links <span class="ot">&lt;-</span> <span class="fu">spanish_schools_ex</span>()</span>
+<span id="cb3-10"><a href=""></a>school_url <span class="ot">&lt;-</span> school_links[<span class="dv">13</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="fu">browseURL</span>(<span class="fu">prep_browser</span>(school_url))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -251,7 +253,7 @@
 <pre><code>{html_node}
 &lt;head&gt;
  [1] &lt;title&gt;Aquí encontrarás toda la información necesaria sobre CEIP SANCHIS ...
- [2] &lt;meta charset="UTF-8"&gt;\n
+ [2] &lt;meta charset="utf-8"&gt;\n
  [3] &lt;meta name="viewport" content="width=device-width, initial-scale=1, shri ...
  [4] &lt;meta http-equiv="x-ua-compatible" content="ie=edge"&gt;\n
  [5] &lt;meta name="author" content="BuscoColegio"&gt;\n
@@ -313,9 +315,9 @@
 <p>In case you didn’t know, the coordinates are hidden in a string inside the <code>href</code> tag:</p>
 
 <img data-src="images/location_tag_zoomed.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="build-a-scraper-for-one-school-8" class="slide level2">
+<section id="build-a-scraper-for-one-school-8" class="slide level2 scrollable">
 <h2>Build a scraper for one school</h2>
-<p>Typical brain storming:</p>
+<p>Typical brainstorming:</p>
 <ol type="1">
 <li>Extract a unique tag?</li>
 <li>Extract a common tag but with a unique attribute?</li>
@@ -342,7 +344,7 @@
 <span id="cb7-3"><a href=""></a>  <span class="fu">xml_find_all</span>(<span class="st">"//p[@class='d-flex align-items-baseline g-mt-5']"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>{xml_nodeset (1)}
-[1] &lt;p class="d-flex align-items-baseline g-mt-5"&gt;\n\t                    &lt;i  ...</code></pre>
+[1] &lt;p class="d-flex align-items-baseline g-mt-5"&gt;\r\n\t                    &lt; ...</code></pre>
 </div>
 </div>
 </section>
@@ -367,23 +369,22 @@
 <h2>Build a scraper for one school</h2>
 <ul>
 <li><p>Extract <code>href</code> attribute with <code>xml_attr</code>:</p>
-<div class="cell" data-layout-align="center">
+<p>::: {.cell layout-align=“center”}</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a>location_str <span class="ot">&lt;-</span></span>
 <span id="cb11-2"><a href=""></a>  school_raw <span class="sc">%&gt;%</span></span>
 <span id="cb11-3"><a href=""></a>  <span class="fu">xml_find_all</span>(<span class="st">"//p[@class='d-flex align-items-baseline g-mt-5']//a"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb11-4"><a href=""></a>  <span class="fu">xml_attr</span>(<span class="at">attr =</span> <span class="st">"href"</span>)</span>
 <span id="cb11-5"><a href=""></a></span>
 <span id="cb11-6"><a href=""></a>location_str</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
+<p>::: {.cell-output .cell-output-stdout}</p>
 <pre><code>[1] "/Colegio/buscar-colegios-cercanos.action?colegio.latitud=38.8274492&amp;colegio.longitud=0.0221681"</code></pre>
-</div>
-</div></li>
+<p>::: :::</p></li>
 </ul>
 <p>Awesome, but now we need some ninja string skills to extract the coordinates.</p>
 </section>
-<section id="data-cleaning" class="slide level2">
+<section id="data-cleaning" class="slide level2 scrollable">
 <h2>Data Cleaning</h2>
-<p>We need some regex skills to extract this. Let’s brain storming:</p>
+<p>We need some regex skills to extract this. Let’s brainstorm:</p>
 <ol type="1">
 <li>First coordinate appears after the first <code>=</code></li>
 <li>There’s a few words like ‘colegio’ (this is just Spanish for school) and ‘longitud’ that are in the middle of the two coordinates.</li>
@@ -438,7 +439,7 @@
 <pre><code>[1] "38.8274492" "0.0221681" </code></pre>
 </div>
 </div>
-<p>Great, that’s it, this is data we’ve looking for in the entire chapter. Let’s summarize the work so far:</p>
+<p>Great, that’s it, this is the data we’ve been looking for in the entire chapter. Let’s summarize the work so far:</p>
 <ul>
 <li><p>Using XPath to extract tags that match our data</p></li>
 <li><p>Clean up the data with some regex</p></li>
@@ -564,7 +565,7 @@
 <ul>
 <li><p>Private/public school info can help understand inequality.</p></li>
 <li><p>Mapping school location to average income at the neighborhood level</p></li>
-<li><p>Correlating private/public school quotas with income can understand inequality patterns</p></li>
+<li><p>Correlating private/public school quotas with income can help understand inequality patterns</p></li>
 <li><p>Luckily, the website has the info for us</p></li>
 </ul>
 </section>
@@ -754,7 +755,7 @@
 <li><p>This is the exact same code as before?</p></li>
 <li><p>Can we recycle at least until extracting the <code>div</code> XPath?</p></li>
 <li><p>Problem: we can’t know in advance the <em>type</em> of center so we can’t regex to detect it</p></li>
-<li><p>Instead: detect <code>Tipo Centro</code>, genetic for “Type of center”</p></li>
+<li><p>Instead: detect <code>Tipo Centro</code>, generic for “Type of center”</p></li>
 </ul>
 </section>
 <section id="extracting-type-of-school-2" class="slide level2">
@@ -809,7 +810,7 @@
 </div>
 </div>
 </section>
-<section id="extracting-type-of-school-5" class="slide level2">
+<section id="extracting-type-of-school-5" class="slide level2 scrollable">
 <h2>Extracting type of school</h2>
 <p>General strategy:</p>
 <ol type="1">
@@ -917,7 +918,7 @@
 <section id="homework" class="slide level2">
 <h2>Homework</h2>
 <ul>
-<li><p>Chapter 10 and 11 – read + exercises</p></li>
+<li><p>Chapters 10 and 11 – read + exercises</p></li>
 <li><p>Deadline for groups is today. Anyone missing? <a href="https://docs.google.com/spreadsheets/d/11QmdgRXvbwtN9hSOwVyw9-iVjrN-yeRq_BOudidAnX8/edit#gid=73208201">Here</a>.</p></li>
 <li><p>Each group should send me an email with their project idea (other team members as cc) and I will advise on whether it’s a good idea. Deadline is in <strong>two weeks.</strong></p></li>
 </ul>

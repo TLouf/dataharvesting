@@ -78,7 +78,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-1d495bf0b3d7decfc3a5ab2c9f414beb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-eb96c05b7f203a23b18f87ac89c0dd72.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -201,7 +201,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../08-selenium/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Scraping JavaScript based website</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Scraping JavaScript-based websites</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -279,7 +279,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../10-intro_api/index.html">APIs</a></li><li class="breadcrumb-item"><a href="../10-intro_api/index.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Introduction to REST APIs</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="intro-apis" class="quarto-section-identifier"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Introduction to REST APIs</span></span></h1>
+<h1 class="title"><span id="sec-intro-apis" class="quarto-section-identifier"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Introduction to REST APIs</span></span></h1>
 </div>
 
 
@@ -296,15 +296,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>So far in the book we’ve covered the subtle art of web scraping. This art is weird in the sense that it’s not structured. To scrape some stuff you have to come up with unusual tricks to gather data from websites. You also have to be careful not to do it too often because it might impact the latency of the website due too excessive requests. Moreover, when you do gather the data, you need to apply some ninja-style tricks to clean the results. Overall, a complicated process because this data (on the website) is not meant for you to scrape it.</p>
-<p>If it were for websites, they would love to prevent scrapers from scraping their website: in nearly all cases, that will bring negative impact to their website either through excessive requests and a possible slow down of their internal servers to reusing <em>their</em> data for your own economic benefit.</p>
+<p>So far in the book we’ve covered the subtle art of web scraping. This art is weird in the sense that it’s not structured. To scrape some stuff you have to come up with unusual tricks to gather data from websites. You also have to be careful not to do it too often because it might impact the latency of the website due to excessive requests. Moreover, when you do gather the data, you need to apply some ninja-style tricks to clean the results. Overall, a complicated process because this data (on the website) is not meant for you to scrape it.</p>
+<p>If it were up to websites, they would love to prevent scrapers from scraping their website: in nearly all cases, that will bring negative impacts to their website, from excessive requests and a possible slowdown of their internal servers to users reusing <em>their</em> data for their own economic benefit.</p>
 <p>All of these steps start to hint towards a unilateral effort from the web scraper. You as the scrape master are the only one interested in doing this and that’s why the effort of scraping seems more like traveling through a jungle of obstacles rather than a walk in the park.</p>
-<p>This is when REST APIs come in. As web scraping is somewhat like an ambush to a website, REST APIs are more of a two party contract. REST Application Programming Interfaces (API) are just a fancy name for a more structured way for users to gather data from the internal servers of the website (as they would do in web scraping) but in a controlled environment where the user agrees to rules that don’t affect negatively the data or the performance of the servers of the company.</p>
+<p>This is when REST APIs come in. As web scraping is somewhat like an ambush to a website, REST APIs are more of a two-party contract. REST Application Programming Interfaces (API) are just a fancy name for a more structured way for users to gather data from the internal servers of the website (as they would do in web scraping) but in a controlled environment where the user agrees to rules that don’t negatively affect the data or the performance of the servers of the company.</p>
 <div class="rmdnote">
-<p>Users should be careful distinguishing between APIs and REST APIs. APIs are the interface of any program: for example, for the package <code>dplyr</code>, the way decisions where taken on how each function accepts arguments, which functions are exported, how these functions interact with each other so on (the general design of how the package works) is called the API of a package, or the programming <em>interface</em>. In contrast, a REST API is a data transfer design for users to share data over the internet. In this chapter we’ll be discussing exclusively REST APIs.</p>
+<p>Users should be careful distinguishing between APIs and REST APIs. APIs are the interface of any program: for example, for the package <code>dplyr</code>, the way decisions were made on how each function accepts arguments, which functions are exported, how these functions interact with each other and so on (the general design of how the package works) is called the API of a package, or the programming <em>interface</em>. In contrast, a REST API is a data transfer design for users to share data over the internet. In this chapter we’ll be discussing exclusively REST APIs.</p>
 </div>
-<p>REST APIs are a natural answer for companies once they figured out web scraping was affecting their business negatively. Companies decided to create a custom ‘portal’ where a user, after authenticating and accepting the agreements of using this ‘portal’, can access much of the data they can see on a companies website (but not necessarily what you’re looking for, it is their prerogative). However, this ‘portal’ is not a website where you can go in and download the data through drop down menus and clicking buttons: it’s a series of URLs that you will need to consult programmatically.</p>
-<p>So you might ask yourself, well, how do we access a REST API? Can you show me one? Yes! The <code>scrapex</code> package contains several REST APIs designed specifically for educational purposes in the this book. First, let’s launch the REST API locally:</p>
+<p>REST APIs are a natural answer for companies once they figured out web scraping was affecting their business negatively. Companies decided to create a custom ‘portal’ where a user, after authenticating and accepting the agreements of using this ‘portal’, can access much of the data they can see on a company’s website (but not necessarily what you’re looking for, it is their prerogative). However, this ‘portal’ is not a website where you can go in and download the data through drop-down menus and clicking buttons: it’s a series of URLs that you will need to consult programmatically.</p>
+<p>So you might ask yourself, well, how do we access a REST API? Can you show me one? Yes! The <code>scrapex</code> package contains several REST APIs designed specifically for educational purposes in this book. First, let’s launch the REST API locally:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scrapex)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">api_amazon</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -312,11 +312,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>[1] "Visit your REST API at http://localhost:28723"
 [1] "Documentation is at http://localhost:28723/__docs__/"</code></pre>
 <div class="rmdnote">
-<p>Do you see the print out with the local URL to the <code>__docs__</code> of the REST API? This <em>my</em> local URL. This won’t work on your computer, so don’t try to go to that website: you’ll get that the URL doesn’t exit. You need to install the <code>scrapex</code> package and run the <code>api_amazon()</code> function, copy <em>your</em> local API path onto your web browser and then you’ll see the same thing as I do.</p>
+<p>Do you see the print out with the local URL to the <code>__docs__</code> of the REST API? This is <em>my</em> local URL. This won’t work on your computer, so don’t try to go to that website: you’ll get that the URL doesn’t exist. You need to install the <code>scrapex</code> package and run the <code>api_amazon()</code> function, copy <em>your</em> local API path onto your web browser and then you’ll see the same thing as I do.</p>
 </div>
-<p>Since the philosophy of the <code>scrapex</code> package is to create both websites and REST APIs that can be reproduced in the long term, the REST APIs you’ll see in this book are <em>fake</em>. This means they contain made up data and are deployed locally in your computer behind the scenes.</p>
+<p>Since the philosophy of the <code>scrapex</code> package is to create both websites and REST APIs that can be reproduced in the long term, the REST APIs you’ll see in this book are <em>fake</em>. This means they contain made up data and are deployed locally on your computer behind the scenes.</p>
 <p>In the real world, you’ll go to the website of a company and search for their API documentation (for example, google “Spotify Web API” and you’ll be directed to the documentation of Spotify’s REST API). Browsing the documentation or looking at online tutorials you’ll be able to figure out how their API works, what data they share and how to authenticate. Just beware that the previous step of calling <code>api_amazon</code> is something that you won’t need to do when accessing APIs of companies; this is just our way of deploying our locally developed APIs on your computer to make the examples in this book as real as possible.</p>
-<p>The REST API for this example is a fake database of Amazon’s books / users / products database. This means that we can access all sorts of information on the books that Amazon has on their catalogue together with their author’s details, the users that read those books and other products that these users bought on their platform. Let’s go explore it.</p>
+<p>The REST API for this example is a fake database of Amazon’s books / users / products database. This means that we can access all sorts of information on the books that Amazon has on their catalogue together with their authors’ details, the users that read those books and other products that these users bought on their platform. Let’s go explore it.</p>
 <p>I’ll assume that you ran your part of loading <code>scrapex</code> and ran the <code>api_amazon</code> function. That should return your local version of the URL <code>http://localhost:28723/__docs__/</code> with a different number for the part <code>28723</code>. Let’s paste that URL in our browser and you should see this:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -340,13 +340,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Here we can see several things from this endpoint:</p>
 <ol type="1">
-<li><p>It does not need any parameters. Endpoints often need parameters to filter data. For example, say you were requesting all the books from an author. Probably the endpoint would need to specify the author from which to return data from. This endpoint returns all available authors in the Amazon Book Store so it does not need any parameters. In other endpoints in this REST API you’ll see that you will need to specify parameters.</p></li>
+<li><p>It does not need any parameters. Endpoints often need parameters to filter data. For example, say you were requesting all the books from an author. Probably the endpoint would need to specify the author to return data for. This endpoint returns all available authors in the Amazon Book Store so it does not need any parameters. In other endpoints in this REST API you’ll see that you will need to specify parameters.</p></li>
 <li><p>It allows you to try out this endpoint with a button that says <code>"Try it out"</code>.</p></li>
-<li><p>REST APIs have codes that signal the status of your request. Below <code>Responses</code>, it says that this endpoint has two codes: <code>200</code> which means that everything is OK and <code>500</code> which means that something wrong happened when you requested data. Note that <em>whenever</em> you request data, one of these codes will be returned. If everything was alright, <code>200</code> will be return together with the data that you wanted. If something went wrong, the code <code>500</code> will be returned. Note that these are the possible values that it can return, not what is currently being returned: remember that we haven’t made yet a request.</p></li>
-<li><p>Right below <code>Media type</code>, we can figure out the formats that this endpoint returns. It says this endpoint returns a <code>JSON</code> string, a typical format used for sharing data over the web (we’ll talk about the JSON format in chapter @ref(json-chapter)).</p></li>
+<li><p>REST APIs have codes that signal the status of your request. Below <code>Responses</code>, it says that this endpoint has two codes: <code>200</code> which means that everything is OK and <code>500</code> which means that something wrong happened when you requested data. Note that <em>whenever</em> you request data, one of these codes will be returned. If everything was alright, <code>200</code> will be returned together with the data that you wanted. If something went wrong, the code <code>500</code> will be returned. Note that these are the possible values that it can return, not what is currently being returned: remember that we haven’t yet made a request.</p></li>
+<li><p>Right below <code>Media type</code>, we can figure out the formats that this endpoint returns. It says this endpoint returns a <code>JSON</code> string, a typical format used for sharing data over the web (we’ll talk about the JSON format in <a href="../13-intro_json/index.html" class="quarto-xref"><span>Chapter 13</span></a>).</p></li>
 </ol>
 <p>Finally, and this is irrespective of any particular endpoint, many REST APIs require that you authenticate before requesting any data. Normally, you’ll need to follow the instructions for authenticating for the REST API you’re after and in return they’ll give you some sort of token.</p>
-<p>As this is a fake REST API from Amazon, you can use the code CctltpliQk to authenticate. To do this, click on the top right button <code>Authorize</code>, input that <em>token</em>, click on authorize and close the window:</p>
+<p>As this is a fake REST API from Amazon, you can use the code sr2ueYP3lp to authenticate. To do this, click on the top right button <code>Authorize</code>, input that <em>token</em>, click on authorize and close the window:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -376,7 +376,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Behind the scenes, we joined the base path of the REST API (<code>http://localhost:28723</code>) with the <code>authors</code> endpoint (<code>/api/v1/amazon/authors</code>) to get the path <code>http://localhost:28723/api/v1/amazon/authors</code>. You can see this path under <code>Request URL</code> in the image above. That’s the complete URL that returns the data for authors. Try copying <em>your</em> URL of that endpoint (remember that it has a different port number in the website) and pasting it on a website:</p>
+<p>Behind the scenes, we joined the base path of the REST API (<code>http://localhost:28723</code>) with the <code>authors</code> endpoint (<code>/api/v1/amazon/authors</code>) to get the path <code>http://localhost:28723/api/v1/amazon/authors</code>. You can see this path under <code>Request URL</code> in the image above. That’s the complete URL that returns the data for authors. Try copying <em>your</em> URL of that endpoint (remember that it has a different port number in the website) and pasting it into a web browser:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -410,7 +410,7 @@ $headers
 </div>
 </div>
 <p>When you make a request, you have something like the list above. You make a request to that endpoint but you also add somewhat like an <em>attachment</em> that has extra information. This is the headers. Some APIs might require you to specify certain parameters in the headers or they might be optional with default values. For many APIs this header must contain the authentication token that you got from the website for using their REST API.</p>
-<p>In this analogy, you see that that we specify the authorization token in the headers as well as that it must accept only data structured in JSON format. Similarly, when you perform a request to an endpoint, the resulting <em>response</em> will also contain a headers attachment with information. Following on our analogy using an R list, the response might look something like this:</p>
+<p>In this analogy, you see that we specify the authorization token in the headers as well as that it must accept only data structured in JSON format. Similarly, when you perform a request to an endpoint, the resulting <em>response</em> will also contain a headers attachment with information. Following our analogy using an R list, the response might look something like this:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output cell-output-stdout">
 <pre><code>$status_code
@@ -444,8 +444,8 @@ $response_body[[5]]
 "Kobe Effertz"     "Possimus" </code></pre>
 </div>
 </div>
-<p>This list has three slots: <code>status_code</code>, <code>response_headers</code> and <code>response_body</code>. The first two are somewhat like <em>attachments</em> containing information while the third contains the most important part of the request: the data. The response headers (as contrary to the headers you submitted when you did the hypothetical request) has extra information such as the encoding of the response, the date and the transfer encoding. In any case, you won’t be paying too much attention to the response headers. Instead you’ll be submitting headers in the request and look at the <code>status_code</code> to make sure that your request was successfully. If not, then you’ll want to look into which status code was returned and look up on the internet the source of the error.</p>
-<p>Coming back to our <code>authors</code> example, you can see see that all the information we saw in the R list analogy is in the user interface of the example request:</p>
+<p>This list has three slots: <code>status_code</code>, <code>response_headers</code> and <code>response_body</code>. The first two are somewhat like <em>attachments</em> containing information while the third contains the most important part of the request: the data. The response headers (in contrast to the headers you submitted when you did the hypothetical request) have extra information such as the encoding of the response, the date and the transfer encoding. In any case, you won’t be paying too much attention to the response headers. Instead you’ll be submitting headers in the request and look at the <code>status_code</code> to make sure that your request was successful. If not, then you’ll want to look into which status code was returned and look up on the internet the source of the error.</p>
+<p>Coming back to our <code>authors</code> example, you can see that all the information we saw in the R list analogy is in the user interface of the example request:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -461,10 +461,10 @@ $response_body[[5]]
 <ul>
 <li><p>REST APIs have a base path. Normally that’s something like <code>https://api.spotify.com/v1/</code>.</p></li>
 <li><p>REST APIs are structured around endpoints. These are specific URLs that return different types of data. For example <code>https://api.spotify.com/v1/artists</code> is an endpoint related to artist data while <code>https://api.spotify.com/v1/tracks</code> returns data related to tracks.</p></li>
-<li><p>Endpoints might not or might have parameters to filter data.</p></li>
-<li><p>The docs of the REST API documents what each endpoint does and which parameters are needed to use to query data.</p></li>
+<li><p>Endpoints may or may not have parameters to filter data.</p></li>
+<li><p>The docs of the REST API document what each endpoint does and which parameters are needed to query data.</p></li>
 <li><p>Many REST APIs need authentication tokens for making requests.</p></li>
-<li><p>REST APIs response always return status codes and headers describing whether the request was successful or something went bad.</p></li>
+<li><p>REST API responses always return status codes and headers describing whether the request was successful or something went wrong.</p></li>
 </ul>
 </section>
 <section id="exercises" class="level2" data-number="10.2">
@@ -472,8 +472,8 @@ $response_body[[5]]
 <ol type="1">
 <li><p>Using the same interface we used in this chapter for making requests, can you make a request to the <code>countries</code> endpoint and tell me if the country <code>Venezuela</code> is in the Amazon country list?</p></li>
 <li><p>Using the <code>users/</code> endpoint, can you tell me how many Amazon users are in China?</p></li>
-<li><p>Can you breakdown the <code>Request URL</code> that you performed in the previous exercises? That is, what do you see differently in a request that needs parameters in contrast to the requests we did to the <code>authors</code> endpoint?</p></li>
-<li><p>Using the <code>users/</code> endpoint again, make request using both a customer id (use <code>2131</code>) and a country (<code>China</code> is fine). What status code do you get? What does the response body says? Can you do anything to fix it? Look on the web for the status code.</p></li>
+<li><p>Can you break down the <code>Request URL</code> that you performed in the previous exercises? That is, what do you see differently in a request that needs parameters in contrast to the requests we did to the <code>authors</code> endpoint?</p></li>
+<li><p>Using the <code>users/</code> endpoint again, make a request using both a customer id (use <code>2131</code>) and a country (<code>China</code> is fine). What status code do you get? What does the response body say? Can you do anything to fix it? Look on the web for the status code.</p></li>
 </ol>
 
 

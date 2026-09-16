@@ -112,6 +112,7 @@
     }
     .reveal .slide:not(.center) {
       height: 100%;
+      overflow-y: auto;
     }
     .reveal .slide.scrollable {
       overflow-y: auto;
@@ -202,18 +203,18 @@
 </section>
 <section id="a-primer-on-apis" class="slide level2">
 <h2>A Primer on APIs</h2>
-<p>APIs are designed to work programatically not through a user interface.</p>
+<p>APIs are designed to work programmatically, not through a user interface.</p>
 <p><strong>Benefits</strong></p>
 <ul>
 <li><p>Schedule requests</p></li>
 <li><p>Increase intensity of requests no human can do</p></li>
-<li><p>Construct logic in your program: results from an endpoint are used as input to other endpoint and checks are provided a long the way</p></li>
-<li><p>Build application that request data real-time</p></li>
+<li><p>Construct logic in your program: results from an endpoint are used as input to another endpoint and checks are provided along the way</p></li>
+<li><p>Build applications that request data in real time</p></li>
 </ul>
 </section>
 <section id="a-primer-on-apis-1" class="slide level2">
 <h2>A Primer on APIs</h2>
-<p>This chapter is hands-on. We focus on programatically accessing an API.</p>
+<p>This chapter is hands-on. We focus on programmatically accessing an API.</p>
 <p>Let’s load the packages we’ll use in this chapter:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">library</span>(scrapex)</span>
@@ -241,13 +242,13 @@
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a>api_covid <span class="ot">&lt;-</span> <span class="fu">api_coveragedb</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Visit your REST API at http://localhost:2844"
-[1] "Documentation is at http://localhost:2844/__docs__/"</code></pre>
+<pre><code>[1] "Visit your REST API at http://localhost:22718"
+[1] "Documentation is at http://localhost:22718/__docs__/"</code></pre>
 </div>
 </div>
 <ul>
 <li><p>The API is now launched in the background</p></li>
-<li><p>Note that learning about a new API online you <strong>won’t</strong> have to launch any API.</p></li>
+<li><p>Note that when learning about a new API online you <strong>won’t</strong> have to launch any API.</p></li>
 <li><p>APIs are hosted on servers elsewhere and you’ll just need to read how to access the API.</p></li>
 <li><p>First thing you want to do is access docs.</p></li>
 </ul>
@@ -267,13 +268,13 @@
 <li><p>API has no authentication</p></li>
 <li><p>Cases endpoint has two parameters: <code>region</code> and <code>sex</code>, which both are required.</p></li>
 <li><p>We see that it returns two status codes: <code>200</code> and <code>500</code></p></li>
-<li><p>How do make a request with this info?</p></li>
+<li><p>How do we make a request with this info?</p></li>
 </ul>
 </section>
 <section id="a-primer-on-apis-8" class="slide level2">
 <h2>A Primer on APIs</h2>
 <ul>
-<li><p>A base URL. In this case, it’s <a href="http://localhost:2234" class="uri">http://localhost:2234</a>. <strong>Yours will be different because you launched it in your local computer</strong>.</p></li>
+<li><p>A base URL. In this case, it’s <a href="http://localhost:2234" class="uri">http://localhost:2234</a>. <strong>Yours will be different because you launched it on your local computer</strong>.</p></li>
 <li><p>The endpoint URL of this specific endpoint. For the COVID cases, this is <code>/api/v1/covid_cases</code>.</p></li>
 <li><p>The parameters in the endpoint which are specified after a <code>?</code> and each parameter is then concatenated with <code>&amp;</code>.</p></li>
 </ul>
@@ -282,7 +283,7 @@
 <span id="cb4-2"><a href=""></a>cases_endpoint <span class="ot">&lt;-</span> <span class="fu">paste0</span>(api_web, <span class="st">"?region=California&amp;sex=m"</span>)</span>
 <span id="cb4-3"><a href=""></a>cases_endpoint</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "http://localhost:2844/api/v1/covid_cases?region=California&amp;sex=m"</code></pre>
+<pre><code>[1] "http://localhost:22718/api/v1/covid_cases?region=California&amp;sex=m"</code></pre>
 </div>
 </div>
 </section>
@@ -295,7 +296,7 @@
 <span id="cb6-3"><a href=""></a>req</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;httr2_request&gt;
-GET http://localhost:2844/api/v1/covid_cases
+GET http://localhost:22718/api/v1/covid_cases
 Body: empty</code></pre>
 </div>
 </div>
@@ -303,7 +304,7 @@ Body: empty</code></pre>
 </section>
 <section id="making-your-first-request-1" class="slide level2">
 <h2>Making your first request</h2>
-<p>Construct URL query programatically:</p>
+<p>Construct URL query programmatically:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a>req_california_m <span class="ot">&lt;-</span></span>
 <span id="cb8-2"><a href=""></a>  req <span class="sc">%&gt;%</span></span>
@@ -312,7 +313,7 @@ Body: empty</code></pre>
 <span id="cb8-5"><a href=""></a>req_california_m</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;httr2_request&gt;
-GET http://localhost:2844/api/v1/covid_cases?region=California&amp;sex=m
+GET http://localhost:22718/api/v1/covid_cases?region=California&amp;sex=m
 Body: empty</code></pre>
 </div>
 </div>
@@ -326,7 +327,7 @@ Body: empty</code></pre>
 <span id="cb10-3"><a href=""></a>  <span class="fu">req_retry</span>(<span class="at">max_tries =</span> <span class="dv">3</span>, <span class="at">max_seconds =</span> <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;httr2_request&gt;
-GET http://localhost:2844/api/v1/covid_cases?region=California&amp;sex=m
+GET http://localhost:22718/api/v1/covid_cases?region=California&amp;sex=m
 Headers:
 * Authorization: &lt;REDACTED&gt;
 Body: empty
@@ -339,7 +340,7 @@ Policies:
 * retry_realm            : "localhost"</code></pre>
 </div>
 </div>
-<p>See how we can “add” as many things to our “request”? These things might came in the headers or defined in R.</p>
+<p>See how we can “add” as many things to our “request”? These things might come in the headers or defined in R.</p>
 </section>
 <section id="making-your-first-request-3" class="slide level2">
 <h2>Making your first request</h2>
@@ -348,7 +349,7 @@ Policies:
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a>req_california_m</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;httr2_request&gt;
-GET http://localhost:2844/api/v1/covid_cases?region=California&amp;sex=m
+GET http://localhost:22718/api/v1/covid_cases?region=California&amp;sex=m
 Body: empty</code></pre>
 </div>
 </div>
@@ -364,7 +365,7 @@ Body: empty</code></pre>
 <span id="cb14-5"><a href=""></a>resp_california_m</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;httr2_response&gt;
-GET http://localhost:2844/api/v1/covid_cases?region=California&amp;sex=m
+GET http://localhost:22718/api/v1/covid_cases?region=California&amp;sex=m
 Status: 200 OK
 Content-Type: application/json
 Body: In memory (1086936 bytes)</code></pre>
@@ -500,7 +501,7 @@ Body: In memory (1086936 bytes)</code></pre>
 </ul>
 <!-- -->
 <ul>
-<li>How are project ideas coming along? Should confirm with me by email. Deadline to submit project ideas are next week. I advise to start working on project <strong>now</strong>. <a href="https://docs.google.com/spreadsheets/d/11QmdgRXvbwtN9hSOwVyw9-iVjrN-yeRq_BOudidAnX8/edit#gid=73208201">Here</a>.</li>
+<li>How are project ideas coming along? Should confirm with me by email. The deadline to submit project ideas is next week. I advise starting to work on the project <strong>now</strong>. <a href="https://docs.google.com/spreadsheets/d/11QmdgRXvbwtN9hSOwVyw9-iVjrN-yeRq_BOudidAnX8/edit#gid=73208201">Here</a>.</li>
 </ul>
 
 </section>

@@ -78,7 +78,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-1d495bf0b3d7decfc3a5ab2c9f414beb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-eb96c05b7f203a23b18f87ac89c0dd72.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -201,7 +201,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../08-selenium/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Scraping JavaScript based website</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Scraping JavaScript-based websites</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -282,7 +282,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../02-primer_webscraping/index.html">Webscraping</a></li><li class="breadcrumb-item"><a href="../05-xpath/index.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">What you need to know about XPath</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="xpath-chapter" class="quarto-section-identifier"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">What you need to know about XPath</span></span></h1>
+<h1 class="title"><span id="sec-xpath-chapter" class="quarto-section-identifier"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">What you need to know about XPath</span></span></h1>
 </div>
 
 
@@ -313,7 +313,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>The <em>child</em> of bookshelf is <code>&lt;dansimmons&gt;</code> so the XPath becomes <code>/bookshelf/dansimmons/</code></li>
 <li>The <em>child</em> of <code>&lt;dansimmons&gt;</code> is <code>&lt;book&gt;</code> so we just add that to our XPath: <code>/bookshelf/dansimmons/book</code></li>
 </ul>
-<p>That doesn’t look so hard, right? The problem is that for all your web scraping needs, having the exact address, node by node, will not by generalizable.</p>
+<p>That doesn’t look so hard, right? The problem is that for all your web scraping needs, having the exact address, node by node, will not be generalizable.</p>
 <section id="finding-tags-with-xpath" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="finding-tags-with-xpath"><span class="header-section-number">5.1</span> Finding tags with XPath</h2>
 <p>Before we read in that previous XPath let’s load the libraries we’ll need for this chapter.</p>
@@ -374,7 +374,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 [1] &lt;dansimmons&gt;\n  &lt;book&gt;\n        Hyperion Cantos\n      &lt;/book&gt;\n&lt;/dansimm ...</code></pre>
 </div>
 </div>
-<p><code>//</code> is very handy, it means: search the entire document and bring me back all <code>&lt;dansimmons&gt;</code> tags. It doesn’t matter the depth of the <code>&lt;dansimmons&gt;</code> tag, it could be three or twenty times deep, <code>//</code> will return all occurrences of that tag. Let’s extend the example to include another Dan Simmons book and its release date:</p>
+<p><code>//</code> is very handy, it means: search the entire document and bring me back all <code>&lt;dansimmons&gt;</code> tags. No matter the depth of the <code>&lt;dansimmons&gt;</code> tag, it could be three or twenty times deep, <code>//</code> will return all occurrences of that tag. Let’s extend the example to include another Dan Simmons book and its release date:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Note the new `&lt;release_year&gt;` tag below the second (also new) `&lt;book&gt;` tag</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>raw_xml <span class="ot">&lt;-</span> <span class="st">"</span></span>
@@ -415,7 +415,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 [2] &lt;book&gt;&lt;release_year&gt;\n         1996\n        &lt;/release_year&gt;\n        End ...</code></pre>
 </div>
 </div>
-<p>There we go, we get the two book nodes. If <code>book</code> would not be the direct child of <code>&lt;dansimmons&gt;</code>, <code>/</code> wouldn’t work. For example, if instead of <code>book</code> we searched for <code>release_year</code> (the new tag we added as well), it would return an empty node:</p>
+<p>There we go, we get the two book nodes. If <code>book</code> were not the direct child of <code>&lt;dansimmons&gt;</code>, <code>/</code> wouldn’t work. For example, if instead of <code>book</code> we searched for <code>release_year</code> (the new tag we added as well), it would return an empty node:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>book_xml <span class="sc">%&gt;%</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xml_find_all</span>(<span class="st">"//dansimmons/release_year"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -423,7 +423,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>{xml_nodeset (0)}</code></pre>
 </div>
 </div>
-<p>That’s expected: <code>dansimmons</code> doesn’t have a direct child called <code>release_year</code> (it has a <em>grandchild</em> <code>&lt;release_year&gt;</code>. However, we know that <code>//</code> will search for tags in the entire XML tree so we can instead request all <code>release_year</code> tags inside <code>dansimmons</code>:</p>
+<p>That’s expected: <code>dansimmons</code> doesn’t have a direct child called <code>release_year</code> (it has a <em>grandchild</em> <code>&lt;release_year&gt;</code>). However, we know that <code>//</code> will search for tags in the entire XML tree so we can instead request all <code>release_year</code> tags inside <code>dansimmons</code>:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>book_xml <span class="sc">%&gt;%</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xml_find_all</span>(<span class="st">"//dansimmons//release_year"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -441,8 +441,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>[1] "/bookshelf/authors/dansimmons/book[2]/release_year"</code></pre>
 </div>
 </div>
-<p>For some concrete cases, using a literal path such as this one might be much quicker than coming up with a single XPath that makes it more general. If you’re trying to scrape something as a one-off thing, manually navigating a HTML/XML tree (with functions such as <code>xml_child</code> or directly in the web developer tools of your browser) and copying it’s exact XPath location might be the better choice.</p>
-<p>XPath also allows to hand pick nodes by position. Within the <code>dansimmons</code> tag there are two book tags. What would an XPath expression look like to subset only the 2nd <code>&lt;book&gt;</code> tag of <code>dansimmons</code>? We can tell XPath the position of the tag we want using <code>[number]</code>, where number is replaced with the position:</p>
+<p>For some concrete cases, using a literal path such as this one might be much quicker than coming up with a single XPath that makes it more general. If you’re trying to scrape something as a one-off thing, manually navigating a HTML/XML tree (with functions such as <code>xml_child</code> or directly in the web developer tools of your browser) and copying its exact XPath location might be the better choice.</p>
+<p>XPath also allows you to hand-pick nodes by position. Within the <code>dansimmons</code> tag there are two book tags. What would an XPath expression look like to subset only the 2nd <code>&lt;book&gt;</code> tag of <code>dansimmons</code>? We can tell XPath the position of the tag we want using <code>[number]</code>, where number is replaced with the position:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>book_xml <span class="sc">%&gt;%</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xml_find_all</span>(<span class="st">"//dansimmons/book[2]"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -459,7 +459,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>{xml_nodeset (0)}</code></pre>
 </div>
 </div>
-<p>However, throughout all of these examples we had to be very specific in supplying the exact address of some child node with respect to it’s parent. <code>//dansimmons</code> will return all <code>dansimmons</code> tags but we won’t be able to see its children. We would need to know which specific book tags are children of <code>dansimmons</code>, if there are any. XPath introduces the <code>*</code> as a wildcard pattern to return all children of current parent tag. For example:</p>
+<p>However, throughout all of these examples we had to be very specific in supplying the exact address of some child node with respect to its parent. <code>//dansimmons</code> will return all <code>dansimmons</code> tags but we won’t be able to see its children. We would need to know which specific book tags are children of <code>dansimmons</code>, if there are any. XPath introduces the <code>*</code> as a wildcard pattern to return all children of the current parent tag. For example:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>book_xml <span class="sc">%&gt;%</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xml_find_all</span>(<span class="st">"//dansimmons/*"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -469,7 +469,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 [2] &lt;book&gt;&lt;release_year&gt;\n         1996\n        &lt;/release_year&gt;\n        End ...</code></pre>
 </div>
 </div>
-<p>The result is not the <code>dansimmons</code> tag but all it’s children, regardless of whether they are <code>&lt;book&gt;</code> tags or any other tag. This strategy is useful if you’re unsure which nodes are below a certain parent and you want to extract all of them: this is in fact very generalizable because you can extract all children of a tag and then pick the one you’re after with some string manipulation.</p>
+<p>The result is not the <code>dansimmons</code> tag but all its children, regardless of whether they are <code>&lt;book&gt;</code> tags or any other tag. This strategy is useful if you’re unsure which nodes are below a certain parent and you want to extract all of them: this is in fact very generalizable because you can extract all children of a tag and then pick the one you’re after with some string manipulation.</p>
 <p>Similarly, <code>*</code> can be used to fill out a tag which you don’t know the name of. You know that each author has <code>&lt;book&gt;</code> tags but you don’t know the name of all authors. You could extract all book tags like this:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>book_xml <span class="sc">%&gt;%</span></span>
@@ -480,19 +480,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 [2] &lt;book&gt;&lt;release_year&gt;\n         1996\n        &lt;/release_year&gt;\n        End ...</code></pre>
 </div>
 </div>
-<p>In other words, this XPath is saying: extract all book tags which have three tags above it, it doesn’t matter <em>which</em> tags they are. As we’ll see later in this chapter, this is quite a nice trick for more complex HTML/XML structures.</p>
+<p>In other words, this XPath is saying: extract all book tags which have three tags above them, it doesn’t matter <em>which</em> tags they are. As we’ll see later in this chapter, this is quite a nice trick for more complex HTML/XML structures.</p>
 <p>Let’s recap so far:</p>
 <ul>
 <li><code>/</code> links between two tags that have direct parent-child relationship</li>
 <li><code>//</code> finds all tags in the HTML/XML tree regardless of depth</li>
 <li>Use <code>[number]</code> to subset the position of a node. For example: <code>//a[8]</code> will return the 8th <code>&lt;a&gt;</code> tag.</li>
-<li><code>*</code> is a wildcard that allows to signal nodes without specifying which nodes.</li>
+<li><code>*</code> is a wildcard that allows you to signal nodes without specifying which nodes.</li>
 </ul>
-<p>These rules can take you a long way when building XPath expressions but the real flexibility comes when you’re available to filter through attributes of a given node.</p>
+<p>These rules can take you a long way when building XPath expressions but the real flexibility comes when you are able to filter through attributes of a given node.</p>
 </section>
 <section id="filter-by-attributes" class="level2" data-number="5.2">
 <h2 data-number="5.2" class="anchored" data-anchor-id="filter-by-attributes"><span class="header-section-number">5.2</span> Filter by attributes</h2>
-<p>When parsing complicated websites, you’ll need additional flexibility to parse HTML/XML. XPath has a great property that allows to pick tags with specific attributes. Let’s update our XML example to include a new author tag <code>&lt;stephenking&gt;</code>, one of it’s books and some additional attributes for some books:</p>
+<p>When parsing complicated websites, you’ll need additional flexibility to parse HTML/XML. XPath has a great property that allows picking tags with specific attributes. Let’s update our XML example to include a new author tag <code>&lt;stephenking&gt;</code>, one of its books and some additional attributes for some books:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Note the new &lt;stephenking&gt; tag with it's book 'The Stand' and all &lt;book&gt; tags have some attributes</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>raw_xml <span class="ot">&lt;-</span> <span class="st">"</span></span>
@@ -519,7 +519,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a>book_xml <span class="ot">&lt;-</span> raw_xml <span class="sc">%&gt;%</span> <span class="fu">read_xml</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>The power of XPath comes in when we can filter tags by attributes. Perhaps we’d like to extract all book tags that had a price, regardless of author. Or catch all books of a certain topic. Whenever we want our tags to match a specific attribute we can add two brackets at the end of the tag and match the attribute to what we’re after. Say we wanted to know all Dan Simmons book with a price, how would that XPath look like?</p>
+<p>The power of XPath comes in when we can filter tags by attributes. Perhaps we’d like to extract all book tags that had a price, regardless of author. Or catch all books of a certain topic. Whenever we want our tags to match a specific attribute we can add two brackets at the end of the tag and match the attribute to what we’re after. Say we wanted to know all Dan Simmons books with a price, how would that XPath look like?</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>book_xml <span class="sc">%&gt;%</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xml_find_all</span>(<span class="st">"//dansimmons//book[@price='yes']"</span>) <span class="sc">%&gt;%</span></span>
@@ -528,7 +528,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>[1] "\n        Hyperion Cantos\n      "</code></pre>
 </div>
 </div>
-<p>Our new XPath is saying: find all <code>&lt;book&gt;</code> tags that have an attribute of <code>price</code> set to <code>yes</code> that are <em>descendants</em> (but not necessarily direct child, because of the <code>//</code>) of the <code>&lt;dansimmons&gt;</code> tag. Quite interesting eh? This approach allows us to have a much flexible language for parsing HTML/XML documents. Everything inside <code>[]</code> serves to add additional filters/criteria that matches your XPath. With the help of the <code>and</code> keyword, you can alter the previous XPath to get all books with a price from the topic <code>horror</code>:</p>
+<p>Our new XPath is saying: find all <code>&lt;book&gt;</code> tags that have an attribute of <code>price</code> set to <code>yes</code> that are <em>descendants</em> (but not necessarily direct child, because of the <code>//</code>) of the <code>&lt;dansimmons&gt;</code> tag. Quite interesting eh? This approach allows us to have a much more flexible language for parsing HTML/XML documents. Everything inside <code>[]</code> serves to add additional filters/criteria that match your XPath. With the help of the <code>and</code> keyword, you can alter the previous XPath to get all books with a price from the topic <code>horror</code>:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>book_xml <span class="sc">%&gt;%</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xml_find_all</span>(<span class="st">"//book[@price='yes' and @topic='horror']"</span>) <span class="sc">%&gt;%</span></span>
@@ -555,7 +555,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>{xml_nodeset (0)}</code></pre>
 </div>
 </div>
-<p>This is correct because there is not attribute of price set to ‘no’. You can also use the keyword <code>or</code> to match certain properties:</p>
+<p>This is correct because there is no attribute of price set to ‘no’. You can also use the keyword <code>or</code> to match certain properties:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>book_xml <span class="sc">%&gt;%</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xml_find_all</span>(<span class="st">"//book[@price='yes' or @topic='scifi']"</span>) <span class="sc">%&gt;%</span></span>
@@ -574,8 +574,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>not()</code></li>
 <li><code>count()</code></li>
 </ul>
-<p>How do we use them? We always use these functions within the context of filtering (everything used inside <code>[]</code>). With these you can reach a level of fine-grained filtering that can save you hours searching on the source code of an XML/HTML document. Before we go over some of the cases where these functions are useful, let’s load a new example from the <code>scrapex</code> package.</p>
-<p>For the rest of the chapter and the exercises you’ll be working with the main page of the newspaper “El País”. “El País” is an international daily newspaper. It is the among the most circulated newspapers in Spain and has a very rich website that we’ll be scraping. We can load it from the function <code>elpais_newspaper_ex()</code>:</p>
+<p>How do we use them? We always use these functions within the context of filtering (everything used inside <code>[]</code>). With these you can reach a level of fine-grained filtering that can save you hours searching in the source code of an XML/HTML document. Before we go over some of the cases where these functions are useful, let’s load a new example from the <code>scrapex</code> package.</p>
+<p>For the rest of the chapter and the exercises you’ll be working with the main page of the newspaper “El País”. “El País” is an international daily newspaper. It is among the most circulated newspapers in Spain and has a very rich website that we’ll be scraping. We can load it from the function <code>elpais_newspaper_ex()</code>:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>newspaper_link <span class="ot">&lt;-</span> <span class="fu">elpais_newspaper_ex</span>()</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>newspaper <span class="ot">&lt;-</span> <span class="fu">read_html</span>(newspaper_link)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -593,7 +593,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>The website has news organized along the left, right and center of the website. If you scroll down you’ll see there are dozens more news snippets scattered throughout the website. These news are organized through sections such as ‘Culture’, ‘Sports’ and ‘Business’.</p>
+<p>The website has news organized along the left, right and center of the website. If you scroll down you’ll see there are dozens more news snippets scattered throughout the website. These news stories are organized through sections such as ‘Culture’, ‘Sports’ and ‘Business’.</p>
 <p>Let’s say we’re interested in figuring out the links to all sections of the newspaper to be able to scrape all news separately by area. To avoid complexity, we’ll start by first grabbing the ‘Science’ section link as a first step. The section you want to explore is here:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -615,7 +615,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Ok, with this information we can be creative and build an XPath expressions that says: find all the <code>&lt;a&gt;</code> tags that have an <code>href</code> attribute containing the word ‘Science’ and also inherits from a <code>&lt;section&gt;</code> tag:</p>
+<p>Ok, with this information we can be creative and build an XPath expression that says: find all the <code>&lt;a&gt;</code> tags that have an <code>href</code> attribute containing the word ‘Science’ and also inherit from a <code>&lt;section&gt;</code> tag:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>newspaper <span class="sc">%&gt;%</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xml_find_all</span>(<span class="st">"//section//a[contains(@href, 'science')]"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -653,7 +653,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>These two exact tags might not be the same for all other sections but we can try specifying two wild cards tags in between <code>&lt;section&gt;</code> and <code>&lt;a&gt;</code>. For example:</p>
+<p>These two exact tags might not be the same for all other sections but we can try specifying two wildcard tags in between <code>&lt;section&gt;</code> and <code>&lt;a&gt;</code>. For example:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>newspaper <span class="sc">%&gt;%</span></span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xml_find_all</span>(<span class="st">"//section/*/*/a[contains(@href, 'science')]"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -668,7 +668,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>//section</code> means to search for all sections throughout the HTML tree</li>
 <li><code>//section/*/*</code> means to search for two <em>direct</em> children of <code>&lt;section&gt;</code> (regardless of what these tags are)</li>
 <li><code>a[contains(@href, 'science')]</code> finds the <code>&lt;a&gt;</code> tags for which the <code>@href</code> attribute contains the text ‘science’.</li>
-<li>The final expression says: finds all <code>&lt;a&gt;</code> tags for which the <code>@href</code> attribute contains the text ‘science’ which are descendant of the <code>&lt;section&gt;</code> tag with two tags in between.</li>
+<li>The final expression says: finds all <code>&lt;a&gt;</code> tags for which the <code>@href</code> attribute contains the text ‘science’ which are descendants of the <code>&lt;section&gt;</code> tag with two tags in between.</li>
 </ul>
 <p>As it might become evident, the function <code>contains</code> searches for text in an attribute. It matches that the supplied text is contained in the attribute that you want. Kinda like in regular expressions. However you can also use it with the function <code>text()</code> which points to the actual text of the tag. We could rewrite the previous XPath to make it even more precise:</p>
 <div class="cell" data-layout-align="center">
@@ -689,7 +689,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>This final expression asks for all <code>&lt;a&gt;</code> tags which are descendants of the <code>&lt;section&gt;</code> tags that contains the specific science text. These functions (<code>text</code>, <code>contains</code>) make the filtering much more precise and easy to understand. Other functions such as <code>start-with()</code> perform the same job as <code>contains()</code> but matching whether an attribute/text starts with some provided text.</p>
-<p>The function <code>not()</code> is also useful for filtering. It negates everything inside a filter expression. With out previous example, using <code>not()</code> will return all sections which are not the ones containing the text ‘Science, Tech &amp; Health’:</p>
+<p>The function <code>not()</code> is also useful for filtering. It negates everything inside a filter expression. With our previous example, using <code>not()</code> will return all sections which are not the ones containing the text ‘Science, Tech &amp; Health’:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>newspaper <span class="sc">%&gt;%</span></span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xml_find_all</span>(<span class="st">"//section/*/*/a[not(contains(text(), 'Science, Tech &amp; Health'))]"</span>) <span class="sc">%&gt;%</span></span>
@@ -734,7 +734,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 [5] "portada_tematicos_our-selection"           </code></pre>
 </div>
 </div>
-<p>Five sections, mostly entertainment related except for the first one which is the front page (‘aperatura’ is something like ‘opening’). Although that XPath was very short, it contains things you might not now. Let’s explain it:</p>
+<p>Five sections, mostly entertainment related except for the first one which is the front page (‘apertura’ is something like ‘opening’). Although that XPath was very short, it contains things you might not know. Let’s explain it:</p>
 <ul>
 <li><code>//section</code> find all section tags in the XML document</li>
 <li><code>[count(.//article])]</code> counts all articles <em>but</em> all articles below the current tag. That’s why we write <code>.//article</code> because the dot (<code>.</code>) signals that we will search for all articles below the current position. If instead we wrote <code>//article</code> it would search for <em>all</em> articles in the entire HTML tree.</li>
@@ -816,15 +816,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="5.4" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">5.4</span> Conclusion</h2>
 <p>XPath is a very rich language with over 20 years of development. I’ve covered some basics as well as intermediate parts of the language but there’s much more to be learned. I encourage you to look at examples online and to check out additional resources. Below I leave you with some of the best resources that have worked for me:</p>
 <ul>
-<li><a href="https://devhints.io/xpath">XPath Cheetsheet</a></li>
-<li><a href="https://www.lambdatest.com/blog/most-exhaustive-xpath-locators-cheat-sheet/">Extensive XPath Cheetsheet</a></li>
+<li><a href="https://devhints.io/xpath">XPath Cheatsheet</a></li>
+<li><a href="https://www.lambdatest.com/blog/most-exhaustive-xpath-locators-cheat-sheet/">Extensive XPath Cheatsheet</a></li>
 <li><a href="https://www.w3schools.com/xml/xpath_intro.asp">XPath tutorial</a></li>
 </ul>
 </section>
 <section id="exercises" class="level2" data-number="5.5">
 <h2 data-number="5.5" class="anchored" data-anchor-id="exercises"><span class="header-section-number">5.5</span> Exercises</h2>
 <ol type="1">
-<li>How many <code>jpg</code> and <code>png</code> images are there in the website? (Hint: look at the source code and figure out which tag and <em>attribute</em> contains the links to the images).</li>
+<li>How many <code>jpg</code> and <code>png</code> images are there on the website? (Hint: look at the source code and figure out which tag and <em>attribute</em> contains the links to the images).</li>
 </ol>
 <ol start="2" type="1">
 <li>How many articles are there in the entire website?</li>
@@ -833,10 +833,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Out of all the headlines (by headlines I mean the bold text that each article begins with), how many contain the word ‘climate’?</li>
 </ol>
 <ol start="4" type="1">
-<li>What is the city with more reporters?</li>
+<li>What is the city with the most reporters?</li>
 </ol>
 <ol start="5" type="1">
-<li>What is the headline of the article with the most words in the description? (Hint: remember that <code>.//</code> searcher for all tags but <em>only below</em> the current tag. <code>//</code> will search for all tags in the document, regardless of whether it’s above the current selected node) The text you’ll want to measure the amount of letters is below the bold headline of each news article:</li>
+<li>What is the headline of the article with the most words in the description? (Hint: remember that <code>.//</code> searches for all tags but <em>only below</em> the current tag. <code>//</code> will search for all tags in the document, regardless of whether it’s above the current selected node) The text you’ll want to measure the amount of letters is below the bold headline of each news article:</li>
 </ol>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">

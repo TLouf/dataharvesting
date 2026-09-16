@@ -78,7 +78,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-1d495bf0b3d7decfc3a5ab2c9f414beb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-eb96c05b7f203a23b18f87ac89c0dd72.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -201,7 +201,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../08-selenium/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Scraping JavaScript based website</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Scraping JavaScript-based websites</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -597,7 +597,7 @@ named character(0)</code></pre>
 </div>
 </div>
 <p>The expression above is asking for the node <code>"/people/jason/person"</code>. This will return the same as saying <code>xml_raw %&gt;% xml_child(search = 1)</code>. For deeply nested trees, <code>xml_find_all</code> will be many times cleaner than calling <code>xml_child</code> recursively many times.</p>
-<p>However, in most cases the ‘addresses’ used in <code>xml_find_all</code> come from a separate language called XPath (in fact, the ‘address’ we’ve been looking at <strong>is</strong> XPath). XPath is a complex language (such as regular expressions for strings) which we’ll cover in chapter @ref(xpath-chapter).</p>
+<p>However, in most cases the ‘addresses’ used in <code>xml_find_all</code> come from a separate language called XPath (in fact, the ‘address’ we’ve been looking at <strong>is</strong> XPath). XPath is a complex language (such as regular expressions for strings) which we’ll cover in <a href="../05-xpath/index.html" class="quarto-xref"><span>Chapter 5</span></a>.</p>
 <p>Attributes are very flexible in XML and a tag can have as many attributes as you see fit. For example:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode xml code-with-copy"><code class="sourceCode xml"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">name</span>&gt;</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">person</span><span class="ot"> age=</span><span class="st">"23"</span><span class="ot"> status=</span><span class="st">"married"</span><span class="ot"> occupation=</span><span class="st">"teacher"</span>&gt; John Doe &lt;/<span class="kw">person</span>&gt;</span>

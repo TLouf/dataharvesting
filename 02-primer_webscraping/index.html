@@ -78,7 +78,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-1d495bf0b3d7decfc3a5ab2c9f414beb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-eb96c05b7f203a23b18f87ac89c0dd72.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -201,7 +201,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../08-selenium/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Scraping JavaScript based website</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Scraping JavaScript-based websites</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -280,7 +280,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../02-primer_webscraping/index.html">Webscraping</a></li><li class="breadcrumb-item"><a href="../02-primer_webscraping/index.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">A primer on Webscraping</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="primer-webscraping" class="quarto-section-identifier"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">A primer on Webscraping</span></span></h1>
+<h1 class="title"><span id="sec-primer-webscraping" class="quarto-section-identifier"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">A primer on Webscraping</span></span></h1>
 </div>
 
 
@@ -308,7 +308,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>This plot shows the election results for all political parties in Spain since 1978. We do not have data on this on your local computer so we’ll need to find this online and scrape it. By scrape I specifically mean to write down a little R script that will go to a website for you and manually select the data points that you tell it to. Wikipedia has such data but throughout this book we will work mostly with local copies of websites as outlined in section @ref(packages-used).</p>
+<p>This plot shows the election results for all political parties in Spain since 1978. We do not have data on this on your local computer so we’ll need to find this online and scrape it. By scrape I specifically mean to write down a little R script that will go to a website for you and manually select the data points that you tell it to. Wikipedia has such data but throughout this book we will work mostly with local copies of websites as outlined in <a href="../index.html#sec-packages-used" class="quarto-xref"><span>Section 1.1</span></a>.</p>
 <section id="getting-website-data-into-r" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="getting-website-data-into-r"><span class="header-section-number">2.1</span> Getting website data into R</h2>
 <p>Our very own <code>scrapex</code> package has a function called <code>history_elections_spain_ex()</code> which points to a locally saved copy of the Wikipedia website that will persist over time (the original online link is https://en.wikipedia.org/wiki/Elections_in_Spain). Let’s load all packages and take a look at the website.</p>
@@ -324,7 +324,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>link <span class="ot">&lt;-</span> <span class="fu">history_elections_spain_ex</span>()</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>link</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "/home/thomas/.cache/R/renv/cache/v5/linux-endeavouros-2025.03.19/R-4.6/x86_64-pc-linux-gnu/scrapex/0.0.1.9999/9aa78cbb3eccaaa811756b4bf07fdd1a/scrapex/extdata/history_elections_spain//Elections_Spain.html"</code></pre>
+<pre><code>[1] "/home/runner/work/_temp/renv/cache/v5/linux-ubuntu-noble/R-4.6/x86_64-pc-linux-gnu/scrapex/0.0.1.9999/ef820a8572c592077efb4c89177e86bd/scrapex/extdata/history_elections_spain//Elections_Spain.html"</code></pre>
 </div>
 </div>
 <p>This is where the website is saved locally on your computer. We can directly visualize this on our browser like this:</p>
@@ -352,7 +352,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code>{html_document}
 &lt;html class="client-nojs" lang="en" dir="ltr"&gt;
-[1] &lt;head&gt;\n&lt;meta charset="UTF-8"&gt;\n&lt;title&gt;Elections in Spain - Wikipedia&lt;/ti ...
+[1] &lt;head&gt;\n&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8 ...
 [2] &lt;body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject  ...</code></pre>
 </div>
 </div>
@@ -572,7 +572,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 #   UPyD &lt;dbl&gt;, Cs &lt;dbl&gt;, Com. &lt;dbl&gt;, `Pod.[j]` &lt;dbl&gt;, Vox &lt;dbl&gt;, MP &lt;dbl&gt;</code></pre>
 </div>
 </div>
-<p>There we go, all columns are of class numeric and look nice and tidy for plotting. Last step we need to take is to remove the footnote values from the party column names. For doing that we’ll need some more advanced regex patterns that I’ll explain briefly (chapter @ref(regex) will elaborate the concept of regex more in depth). The pattern we’ll use is <code>[.+]</code> which means: detect any character (this is the <code>.</code>) that is repeated one or more times (this is the <code>+</code>) and is enclosed within brackets (this is the <code>[]</code> part). So for example, the string <code>Election</code> won’t find any match because it does not have a bracket with any values repeated one or more times. However, the column name <code>UCD[a]</code> does have this pattern: it contains two brackets <code>[]</code> that have a value that is repeated one time (<code>a</code>).</p>
+<p>There we go, all columns are of class numeric and look nice and tidy for plotting. Last step we need to take is to remove the footnote values from the party column names. For doing that we’ll need some more advanced regex patterns that I’ll explain briefly (<a href="../04-regex/index.html" class="quarto-xref"><span>Chapter 4</span></a>) will elaborate the concept of regex more in depth). The pattern we’ll use is <code>[.+]</code> which means: detect any character (this is the <code>.</code>) that is repeated one or more times (this is the <code>+</code>) and is enclosed within brackets (this is the <code>[]</code> part). So for example, the string <code>Election</code> won’t find any match because it does not have a bracket with any values repeated one or more times. However, the column name <code>UCD[a]</code> does have this pattern: it contains two brackets <code>[]</code> that have a value that is repeated one time (<code>a</code>).</p>
 <p>There’s also a last trick that we need to take into account which is that brackets (<code>[]</code>) have a special meaning in the regex world. To signal to regex that you want to match brackets <em>literally</em>, you need to escape them with the backslash (<code>\\</code>). So the final regex pattern we want to match is: <code>\\[.+\\]</code>. Let’s use it to rename all columns:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>semi_cleaned_data <span class="ot">&lt;-</span></span>
