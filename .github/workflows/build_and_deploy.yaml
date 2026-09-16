@@ -30,8 +30,8 @@ jobs:
           use-public-rspm: true
           r-version: 4.6.0
 
-      - name: Install system-wide depencies
-        run: sudo apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev libv8-dev build-essential fonts-liberation libgdal-dev cmake pkg-config libudunits2-dev libmkl-rt libfontconfig1-dev libnode-dev libsodium-dev
+      - name: Install system-wide dependencies
+        run: sudo apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev libv8-dev build-essential fonts-liberation libgdal-dev cmake pkg-config libudunits2-dev libmkl-rt libfontconfig1-dev libnode-dev libsodium-dev libglpk-dev pandoc
 
       - name: Cache packages renv
         uses: actions/cache@v4
@@ -48,7 +48,7 @@ jobs:
           renv::restore()
 
       - name: Render book
-        uses: quarto-dev/quarto-actions/render@v2
+        run: quarto render .
 
       - name: Render slides
         run: quarto render . --profile=slides
