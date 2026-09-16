@@ -234,8 +234,8 @@
 <span id="cb1-6"><a href=""></a></span>
 <span id="cb1-7"><a href=""></a>bicing <span class="ot">&lt;-</span> <span class="fu">api_bicing</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Visit your REST API at http://localhost:43180"
-[1] "Documentation is at http://localhost:43180/__docs__/"</code></pre>
+<pre><code>[1] "Visit your REST API at http://localhost:7048"
+[1] "Documentation is at http://localhost:7048/__docs__/"</code></pre>
 </div>
 </div>
 </section>
@@ -274,10 +274,10 @@
 <span id="cb3-7"><a href=""></a>resp_output</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;httr2_response&gt;
-GET http://localhost:43180/api/v1/real_time_bicycles
+GET http://localhost:7048/api/v1/real_time_bicycles
 Status: 200 OK
 Content-Type: application/json
-Body: In memory (3309 bytes)</code></pre>
+Body: In memory (3315 bytes)</code></pre>
 </div>
 </div>
 </section>
@@ -320,10 +320,10 @@ Body: In memory (3309 bytes)</code></pre>
 [1] 29
 
 [[1]]$current_time
-[1] "2026-09-16 13:23:45"
+[1] "2026-09-16 13:47:12"
 
 [[1]]$in_use
-[1] 19
+[1] 29
 
 
 [[2]]
@@ -346,10 +346,10 @@ Body: In memory (3309 bytes)</code></pre>
 [1] 27
 
 [[2]]$current_time
-[1] "2026-09-16 13:23:45"
+[1] "2026-09-16 13:47:12"
 
 [[2]]$in_use
-[1] 22</code></pre>
+[1] 21</code></pre>
 </div>
 </div>
 </section>
@@ -373,8 +373,8 @@ Body: In memory (3309 bytes)</code></pre>
 1 BIKE  41.3980    2.1800 Gran Via Corts Catalanes          760    29
 2 BIKE  41.3955    2.1771  Roger de Flor/ Gran Vía          126    27
          current_time in_use
-1 2026-09-16 13:23:45     19
-2 2026-09-16 13:23:45     22</code></pre>
+1 2026-09-16 13:47:12     29
+2 2026-09-16 13:47:12     21</code></pre>
 </div>
 </div>
 <p><br></p>
@@ -417,26 +417,26 @@ Body: In memory (3309 bytes)</code></pre>
 19 BIKE  41.4102    2.1758                      Cartagena          308    20
 20 BIKE  41.4109    2.1740       Sant Antoni Maria Claret          214     2
           current_time in_use
-1  2026-09-16 13:23:45     19
-2  2026-09-16 13:23:45     22
-3  2026-09-16 13:23:45      0
-4  2026-09-16 13:23:45      4
-5  2026-09-16 13:23:45     24
-6  2026-09-16 13:23:45      2
-7  2026-09-16 13:23:45     16
-8  2026-09-16 13:23:45     16
-9  2026-09-16 13:23:45      5
-10 2026-09-16 13:23:45     19
-11 2026-09-16 13:23:45      5
-12 2026-09-16 13:23:45      2
-13 2026-09-16 13:23:45      4
-14 2026-09-16 13:23:45      9
-15 2026-09-16 13:23:45     20
-16 2026-09-16 13:23:45      9
-17 2026-09-16 13:23:45      9
-18 2026-09-16 13:23:45     18
-19 2026-09-16 13:23:45      6
-20 2026-09-16 13:23:45      2</code></pre>
+1  2026-09-16 13:47:12     29
+2  2026-09-16 13:47:12     21
+3  2026-09-16 13:47:12     21
+4  2026-09-16 13:47:12     19
+5  2026-09-16 13:47:12     22
+6  2026-09-16 13:47:12      9
+7  2026-09-16 13:47:12     10
+8  2026-09-16 13:47:12     24
+9  2026-09-16 13:47:12      8
+10 2026-09-16 13:47:12     11
+11 2026-09-16 13:47:12     21
+12 2026-09-16 13:47:12      1
+13 2026-09-16 13:47:12      5
+14 2026-09-16 13:47:12     10
+15 2026-09-16 13:47:12     12
+16 2026-09-16 13:47:12     10
+17 2026-09-16 13:47:12      4
+18 2026-09-16 13:47:12     21
+19 2026-09-16 13:47:12     20
+20 2026-09-16 13:47:12      1</code></pre>
 </div>
 </div>
 </section>
@@ -482,26 +482,26 @@ Body: In memory (3309 bytes)</code></pre>
 <span id="cb13-3"><a href=""></a><span class="fu">bind_cols</span>(first, second)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   first_in_use second_in_use
-1            16            15
-2            27             5
-3            12            10
-4             9            20
-5            33             4
-6            27            34
-7            14             1
-8            11            20
-9             5            20
-10            4             8
-11           28            17
-12            1             0
-13           26             3
-14            2            13
-15           14            18
-16            5            18
-17           20            14
-18           25            24
-19           13             7
-20            0             0</code></pre>
+1            22            11
+2            19             8
+3            11            11
+4             9            12
+5            13            27
+6             1            31
+7            14             2
+8            13             6
+9             8            25
+10           18            11
+11           23             0
+12            2             2
+13           19            17
+14            9            13
+15           13             0
+16            1             3
+17           21            26
+18            7            23
+19            2            14
+20            1             1</code></pre>
 </div>
 </div>
 </section>
@@ -718,7 +718,7 @@ Body: In memory (3309 bytes)</code></pre>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
-
+<p><a href="">↩︎️ Back to book</a></p>
 </div>
 </div></div>
 

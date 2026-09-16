@@ -314,8 +314,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>bicing <span class="ot">&lt;-</span> <span class="fu">api_bicing</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Visit your REST API at http://localhost:3218"
-[1] "Documentation is at http://localhost:3218/__docs__/"</code></pre>
+<pre><code>[1] "Visit your REST API at http://localhost:43260"
+[1] "Documentation is at http://localhost:43260/__docs__/"</code></pre>
 </div>
 </div>
 <p>As usual, the first thing we want to do is access the documentation. Here’s what we get:</p>
@@ -349,7 +349,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>rt_bicing <span class="ot">&lt;-</span> <span class="fu">paste0</span>(bicing<span class="sc">$</span>api_web, <span class="st">"/api/v1/real_time_bicycles"</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>rt_bicing</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "http://localhost:3218/api/v1/real_time_bicycles"</code></pre>
+<pre><code>[1] "http://localhost:43260/api/v1/real_time_bicycles"</code></pre>
 </div>
 </div>
 <p>There we go, let’s make a request and check the body:</p>
@@ -361,10 +361,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>resp_output</span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="do">## &lt;httr2_response&gt;</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="do">## GET http://localhost:3218/api/v1/real_time_bicycles</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="do">## GET http://localhost:43260/api/v1/real_time_bicycles</span></span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Status: 200 OK</span></span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Content-Type: application/json</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Body: In memory (3314 bytes)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Body: In memory (3311 bytes)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The status code of the request is <code>200</code> so everything was successful. We see that the content-type is in JSON format, so it’s everything we’re used to. Let’s check the content of the body:</p>
 <div class="cell" data-layout-align="center">
@@ -395,10 +395,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 [1] 29
 
 [[1]]$current_time
-[1] "2026-09-16 13:21:04"
+[1] "2026-09-16 13:44:21"
 
 [[1]]$in_use
-[1] 4
+[1] 13
 
 
 [[2]]
@@ -421,10 +421,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 [1] 27
 
 [[2]]$current_time
-[1] "2026-09-16 13:21:04"
+[1] "2026-09-16 13:44:21"
 
 [[2]]$in_use
-[1] 6</code></pre>
+[1] 10</code></pre>
 </div>
 </div>
 <p>I’ve only shown the first two slots of the resulting list (parsed from the JSON directly using <code>resp_body_json</code>). This output looks like each slot is the row of a data frame where each contains a column, with names like <code>slots</code>, <code>in_use</code>, <code>latitude/longitude</code> and <code>streetName</code>. There are different ways to parse this output but the first that comes to mind is to loop over each slot and simply try to convert it to a data frame. Since each slot has a named list inside, <code>data.frame</code> can convert that directly to a data frame and we can bind all those rows into a single data frame. Let’s try it:</p>
@@ -437,8 +437,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 1 BIKE  41.3980    2.1800 Gran Via Corts Catalanes          760    29
 2 BIKE  41.3955    2.1771  Roger de Flor/ Gran Vía          126    27
          current_time in_use
-1 2026-09-16 13:21:04      4
-2 2026-09-16 13:21:04      6</code></pre>
+1 2026-09-16 13:44:21     13
+2 2026-09-16 13:44:21     10</code></pre>
 </div>
 </div>
 <p>Yep, works well. Let’s go back to the request and extract all stations and combine them together:</p>
@@ -476,26 +476,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 19 BIKE  41.4102    2.1758                      Cartagena          308    20
 20 BIKE  41.4109    2.1740       Sant Antoni Maria Claret          214     2
           current_time in_use
-1  2026-09-16 13:21:04      4
-2  2026-09-16 13:21:04      6
-3  2026-09-16 13:21:04     25
-4  2026-09-16 13:21:04      1
-5  2026-09-16 13:21:04      6
-6  2026-09-16 13:21:04     27
-7  2026-09-16 13:21:04     22
-8  2026-09-16 13:21:04     11
-9  2026-09-16 13:21:04     19
-10 2026-09-16 13:21:04     19
-11 2026-09-16 13:21:04     23
-12 2026-09-16 13:21:04      3
-13 2026-09-16 13:21:04     18
-14 2026-09-16 13:21:04      0
-15 2026-09-16 13:21:04     11
-16 2026-09-16 13:21:04     11
-17 2026-09-16 13:21:04     11
-18 2026-09-16 13:21:04     11
-19 2026-09-16 13:21:04     18
-20 2026-09-16 13:21:04      0</code></pre>
+1  2026-09-16 13:44:21     13
+2  2026-09-16 13:44:21     10
+3  2026-09-16 13:44:21      6
+4  2026-09-16 13:44:21      5
+5  2026-09-16 13:44:21     32
+6  2026-09-16 13:44:21     22
+7  2026-09-16 13:44:21      8
+8  2026-09-16 13:44:21      6
+9  2026-09-16 13:44:21     21
+10 2026-09-16 13:44:21      0
+11 2026-09-16 13:44:21     25
+12 2026-09-16 13:44:21      0
+13 2026-09-16 13:44:21     12
+14 2026-09-16 13:44:21     17
+15 2026-09-16 13:44:21      9
+16 2026-09-16 13:44:21      8
+17 2026-09-16 13:44:21     19
+18 2026-09-16 13:44:21     27
+19 2026-09-16 13:44:21      7
+20 2026-09-16 13:44:21      0</code></pre>
 </div>
 </div>
 <p>Great, there we go. We managed to access the API, request the real time information of all bicycles and parse the output into a data frame. The most important columns here are <code>slots</code>, <code>current_time</code> and <code>in_use</code>. With these three you can calculate the rate at which the station is used throughout the day. In addition, we have cool stuff like the <code>latitude</code>/<code>longitude</code> to locate the station in case we want to make, for example, maps of bicycle usage. Let’s take a step back and move all of our code into a function that makes a request:</p>
@@ -527,26 +527,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_cols</span>(first, second)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   first_in_use second_in_use
-1            18            12
-2            13            27
-3            26             2
-4            10            10
-5            15            32
-6            17            10
-7             0             9
-8             3            11
-9            18            22
-10            8             0
-11           22            22
-12            0             2
-13           23             0
-14           11             3
-15            2             9
-16            0            21
-17           22            14
-18           16            11
-19           12            10
-20            2             0</code></pre>
+1            26            10
+2             6            11
+3             9            10
+4            16            14
+5            11            21
+6             4            16
+7            23            10
+8            22             5
+9            11             6
+10            6             3
+11            5            16
+12            1             1
+13           25            21
+14            5             5
+15           12             5
+16           21             1
+17           20            17
+18           21            12
+19           14            20
+20            0             2</code></pre>
 </div>
 </div>
 <p>We performed two requests and only selected the column <code>in_use</code> to check that these two columns are different. In effect, the bicycle usage of two requests just 1 second apart shows vastly different usage patterns for each station. This highlights that what we’re really interested in here is adding the two ingredients for making this a robust program: save the data on the fly and automate the script.</p>
