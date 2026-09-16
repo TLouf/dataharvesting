@@ -21,4 +21,4 @@ format:
     revealjs:
         chalkboard: true
         scrollable: true
-        footer: "[↩️ Back to book]()"
+        footer: "[↩️ Back to book](./index.html)"
