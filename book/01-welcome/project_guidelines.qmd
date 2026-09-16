@@ -3,6 +3,7 @@ title: "Project Guidelines"
 format:
     revealjs:
         chalkboard: true
+        footer: "[↩️ Back to book](/)"
 ---
 
 ## Project guidelines

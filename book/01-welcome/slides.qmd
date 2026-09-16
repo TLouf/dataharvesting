@@ -3,6 +3,7 @@ title: "Welcome"
 format:
     revealjs:
         chalkboard: true
+        footer: "[↩️ Back to book](/)"
 ---
 
 ## Welcome to the world of Data Harvesting
