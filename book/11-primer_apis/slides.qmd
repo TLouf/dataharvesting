@@ -18,21 +18,21 @@ knitr::opts_chunk$set(
 
 ## A Primer on APIs
 
-APIs are designed to work programatically not through a user interface.
+APIs are designed to work programmatically, not through a user interface.
 
 **Benefits**
 
--   Schedule requests
+- Schedule requests
 
--   Increase intensity of requests no human can do
+- Increase intensity of requests no human can do
 
--   Construct logic in your program: results from an endpoint are used as input to other endpoint and checks are provided a long the way
+- Construct logic in your program: results from an endpoint are used as input to another endpoint and checks are provided along the way
 
--   Build application that request data real-time
+- Build applications that request data in real time
 
 ## A Primer on APIs
 
-This chapter is hands-on. We focus on programatically accessing an API.
+This chapter is hands-on. We focus on programmatically accessing an API.
 
 Let's load the packages we'll use in this chapter:
 
@@ -65,13 +65,13 @@ How do we get there? Thank the COVerAGE-DB team.
 api_covid <- api_coveragedb()
 ```
 
--   The API is now launched in the background
+- The API is now launched in the background
 
--   Note that learning about a new API online you **won't** have to launch any API.
+- Note that when learning about a new API online you **won't** have to launch any API.
 
--   APIs are hosted on servers elsewhere and you'll just need to read how to access the API.
+- APIs are hosted on servers elsewhere and you'll just need to read how to access the API.
 
--   First thing you want to do is access docs.
+- First thing you want to do is access docs.
 
 ## A Primer on APIs
 
@@ -83,23 +83,23 @@ api_covid <- api_coveragedb()
 
 ## A Primer on APIs
 
--   API has two endpoints: one for cases, another for vaccines
+- API has two endpoints: one for cases, another for vaccines
 
--   API has no authentication
+- API has no authentication
 
--   Cases endpoint has two parameters: `region` and `sex`, which both are required.
+- Cases endpoint has two parameters: `region` and `sex`, which both are required.
 
--   We see that it returns two status codes: `200` and `500`
+- We see that it returns two status codes: `200` and `500`
 
--   How do make a request with this info?
+- How do we make a request with this info?
 
 ## A Primer on APIs
 
--   A base URL. In this case, it's <http://localhost:2234>. **Yours will be different because you launched it in your local computer**.
+- A base URL. In this case, it's <http://localhost:2234>. **Yours will be different because you launched it on your local computer**.
 
--   The endpoint URL of this specific endpoint. For the COVID cases, this is `/api/v1/covid_cases`.
+- The endpoint URL of this specific endpoint. For the COVID cases, this is `/api/v1/covid_cases`.
 
--   The parameters in the endpoint which are specified after a `?` and each parameter is then concatenated with `&`.
+- The parameters in the endpoint which are specified after a `?` and each parameter is then concatenated with `&`.
 
 ```{r}
 api_web <- paste0(api_covid$api_web, "/api/v1/covid_cases")
@@ -121,7 +121,7 @@ req
 
 ## Making your first request
 
-Construct URL query programatically:
+Construct URL query programmatically:
 
 ```{r}
 req_california_m <-
@@ -141,7 +141,7 @@ req_california_m %>%
   req_retry(max_tries = 3, max_seconds = 5)
 ```
 
-See how we can "add" as many things to our "request"? These things might came in the headers or defined in R.
+See how we can "add" as many things to our "request"? These things might come in the headers or defined in R.
 
 ## Making your first request
 
@@ -167,13 +167,13 @@ resp_california_m
 
 We can interpret a few things out of this request.
 
--   It was successful. The `200` status code means that it was OK, so nothing failed
+- It was successful. The `200` status code means that it was OK, so nothing failed
 
--   The response content-type is `JSON`, meaning the data that was sent is in `JSON` format
+- The response content-type is `JSON`, meaning the data that was sent is in `JSON` format
 
--   The actual body of the request has data, which is now loaded in RAM memory
+- The actual body of the request has data, which is now loaded in RAM memory
 
--   All request data has functions `req_*`. Response functions have `resp_*`
+- All request data has functions `req_*`. Response functions have `resp_*`
 
 ## Making your first request
 
@@ -210,15 +210,15 @@ resp_body_california_m
 
 ## Making your first request
 
--   Data has \> 5K rows
+- Data has \> 5K rows
 
--   JSONs can be nested so `simplifyVector = TRUE`
+- JSONs can be nested so `simplifyVector = TRUE`
 
--   As opposed to web scraping, data is organized and clean
+- As opposed to web scraping, data is organized and clean
 
--   Additional info such as encoding to read data seamlessly
+- Additional info such as encoding to read data seamlessly
 
--   Awesome, this was your first request!
+- Awesome, this was your first request!
 
 ## Making your first request
 
@@ -306,8 +306,8 @@ resp_body_california %>%
 
 ## Homework
 
--   Chapter 12 and 13 -- read + exercises
+- Chapter 12 and 13 -- read + exercises
 
 <!-- -->
 
--   How are project ideas coming along? Should confirm with me by email. Deadline to submit project ideas are next week. I advise to start working on project **now**. [Here](https://docs.google.com/spreadsheets/d/11QmdgRXvbwtN9hSOwVyw9-iVjrN-yeRq_BOudidAnX8/edit#gid=73208201).
+- How are project ideas coming along? Should confirm with me by email. The deadline to submit project ideas is next week. I advise starting to work on the project **now**. [Here](https://docs.google.com/spreadsheets/d/11QmdgRXvbwtN9hSOwVyw9-iVjrN-yeRq_BOudidAnX8/edit#gid=73208201).

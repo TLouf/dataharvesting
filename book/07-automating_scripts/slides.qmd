@@ -26,15 +26,15 @@ Ever wondered how you can grab real time data, **on demand**, without moving a f
 
 ## Automating Web Scraping
 
--   One off scraping is *just as good*
+- One-off scraping is *just as good*
 
--   One off scraping will solve many problems as is usually the first starting point
+- One-off scraping will solve many problems and is usually the first starting point
 
--   However, you might need this to collect data that is changing constantly
+- However, you might need this to collect data that is changing constantly
 
--   Sometimes you want to gather info the dissappears
+- Sometimes you want to gather info that disappears
 
--   Ex: weather data, financial data, sports data, political data
+- Ex: weather data, financial data, sports data, political data
 
 ## Automating Web Scraping
 
@@ -81,11 +81,11 @@ final_df <-
 
 ## Automating Web Scraping
 
--   Our goal with this scraper is to monitor El País
+- Our goal with this scraper is to monitor El País
 
--   How it distributes news across different categories
+- How it distributes news across different categories
 
--   Studying whether there are important patterns
+- Studying whether there are important patterns
 
 ```{r}
 final_df
@@ -154,13 +154,13 @@ if (inherits(res, "try-error")) {
 
 Summary:
 
--   This script will read the website of "El País"
+- This script will read the website of "El País"
 
--   Count the number of sections
+- Count the number of sections
 
--   Save the results as a CSV file at `~/newspaper/newspaper_section_counter.csv`.
+- Save the results as a CSV file at `~/newspaper/newspaper_section_counter.csv`.
 
--   That directory still doesn't exist, so we'll create it first.
+- That directory still doesn't exist, so we'll create it first.
 
 ## Automating Web Scraping
 
@@ -178,18 +178,18 @@ Programatically create directories, files, search for files, execute scripts �
 
 ## Automating Web Scraping
 
-With the directory created, we copy the R script and check that is there `ls`
+With the directory created, we copy the R script and check that it is there with `ls`
 
 ```{bash, eval = FALSE}
 ls ~/newspaper/
 # newspaper_scraper.R
 ```
 
--   change directories with the `cd` command, which stands for `c`hange`d`irectory,
+- change directories with the `cd` command, which stands for `c`hange`d`irectory,
 
--   followed by the path where you want to switch to.
+- followed by the path where you want to switch to.
 
--   For our case, this would be `cd ~/newspaper/`
+- For our case, this would be `cd ~/newspaper/`
 
 ## Automating Web Scraping
 
@@ -197,29 +197,29 @@ ls ~/newspaper/
 
 ## Automating Web Scraping
 
--   To execute an R script from the terminal you can do it with the `Rscript` command followed by the file name.
+- To execute an R script from the terminal you can do it with the `Rscript` command followed by the file name.
 
--   For our case it should be `Rscript newspaper_scraper.R`
+- For our case it should be `Rscript newspaper_scraper.R`
 
 ![](images/running_scraper_once.png){fig-align="center"}
 
 ## Automating Web Scraping
 
--   The first few lines show the printing of package loading
+- The first few lines show the printing of package loading
 
--   `File doesn't exist; Creating it` shows how it's creating the first file
+- `File doesn't exist; Creating it` shows how it's creating the first file
 
 ![](images/newspaper_scraping_excel.png){fig-align="center"}
 
 ## cron, your scheduling friend
 
--   Our scraper works
+- Our scraper works
 
--   All infrastructure is ready (directories, excel file)
+- All infrastructure is ready (directories, excel file)
 
--   How do we automate it?
+- How do we automate it?
 
-Here's we `cron` comes in
+Here's where `cron` comes in
 
 ```{bash, eval = FALSE}
 # Linux
@@ -236,7 +236,7 @@ Confirm it works:
 
 ![](images/crontab_list.png){fig-align="center"}
 
-The output means you have no scheduled scripts in your computer.
+The output means you have no scheduled scripts on your computer.
 
 ## Anatomy of a schedule
 
@@ -255,37 +255,37 @@ The output means you have no scheduled scripts in your computer.
 
 ## Anatomy of a schedule
 
--   `* * * * *` every minute, hour, of every day of the month, every month, every day of the week.
+- `* * * * *` every minute, hour, of every day of the month, every month, every day of the week.
 
--   `30 * * * *` run at minute 30 of each hour, each day, each month, each day of the week
+- `30 * * * *` run at minute 30 of each hour, each day, each month, each day of the week
 
--   `30 * * * 3` run every 30 minutes on Wednesdays
+- `30 * * * 3` run every 30 minutes on Wednesdays
 
--   `30 5 * * 6,7` run on the 30th minute of the 5th hour every month on Saturday and Sunday
+- `30 5 * * 6,7` run on the 30th minute of the 5th hour every month on Saturday and Sunday
 
--   *if day of week, the last slot, clashes in a schedule with the third slot which is day of month then any day matching either the day of month, or the day of week, shall be matched.*
+- *if day of week, the last slot, clashes in a schedule with the third slot which is day of month then any day matching either the day of month, or the day of week, shall be matched.*
 
 ## Anatomy of a schedule
 
 Let's say we wanted to run our newspaper scraper every 4 hours, every day, how would it look like?
 
--   We have no way of saying, regardless of the day / hour / minute, run the scraper every X hours.
+- We have no way of saying, regardless of the day / hour / minute, run the scraper every X hours.
 
--   `1 */4 * * *` run at minute 1 every 4 hours, every day, of the year
+- `1 */4 * * *` run at minute 1 every 4 hours, every day, of the year
 
--   `1 */4 * * */2` run at minute 1 every 4 hours, every two days
+- `1 */4 * * */2` run at minute 1 every 4 hours, every two days
 
 These simple rules will allow you to go very far in scheduling scripts for your scrapers or APIs.
 
 ## Scheduling our scraper
 
--   Schedule our newspaper scraper to run every minute, just to make sure it works.
+- Schedule our newspaper scraper to run every minute, just to make sure it works.
 
--   Will get messy because it'll append the same resultsin the CSV file continuously.
+- Will get messy because it'll append the same results in the CSV file continuously.
 
--   However, it will give proof that the script is running on a schedule.
+- However, it will give proof that the script is running on a schedule.
 
--   If we want this to run every minute, our cron expression should be this `* * * * *`
+- If we want this to run every minute, our cron expression should be this `* * * * *`
 
 ## Scheduling our scraper
 
@@ -310,11 +310,11 @@ Depending, you might need to add: `PATH=/usr/local/bin:/usr/bin:/bin`
 
 To exit the `cron` interface, **follow these steps**:
 
--   Hit `CTRL` and `X` (this is for exiting the `cron` interface)
+- Hit `CTRL` and `X` (this is for exiting the `cron` interface)
 
--   It will prompt you to save the file. **Press`Y` to save it**.
+- It will prompt you to save the file. **Press `Y` to save it**.
 
--   Press `enter` to save the `cron` schedule file with the same name it has.
+- Press `enter` to save the `cron` schedule file with the same name it has.
 
 Nothing special should be happening at the moment. Wait two or three minutes
 
@@ -330,10 +330,10 @@ Nothing special should be happening at the moment. Wait two or three minutes
 
 ## Caveats
 
--   Computer needs to be on all the time; this is why servers are used
+- Computer needs to be on all the time; this is why servers are used
 
--   `cron` can also become complex if your schedule patterns are difficult.
+- `cron` can also become complex if your schedule patterns are difficult.
 
--   Backtracking a failed `cron` job is tricky because it's not interactive
+- Backtracking a failed `cron` job is tricky because it's not interactive
 
--   Setting up production ready scrapers are difficult: databases, interactivity, persistence, avoid bans, saving data real time, etc..
+- Setting up production-ready scrapers is difficult: databases, interactivity, persistence, avoid bans, saving data real time, etc..

@@ -12,3 +12,7 @@ pre {
 pre code {
   white-space: inherit;
 }
+
+#quarto-sidebar li:has(> div > a[href="index.html"]) {
+    display: none;
+}

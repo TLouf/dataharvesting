@@ -38,11 +38,11 @@ Extract `Hyperion Cantos`
 </bookshelf>
 ```
 
--   The first node is bookshelf so we start with `/bookshelf`.
+- The first node is bookshelf so we start with `/bookshelf`.
 
--   The *child* of bookshelf is `<dansimmons>` so the XPath becomes `/bookshelf/dansimmons/`
+- The *child* of bookshelf is `<dansimmons>` so the XPath becomes `/bookshelf/dansimmons/`
 
--   The *child* of `<dansimmons>` is `<book>` so we just add that to our XPath: `/bookshelf/dansimmons/book`
+- The *child* of `<dansimmons>` is `<book>` so we just add that to our XPath: `/bookshelf/dansimmons/book`
 
 ## Finding tags with XPath
 
@@ -69,7 +69,7 @@ book_xml %>%
 
 ## Finding tags with XPath
 
--   Direct address is not generalizable. Add a new node (`authors`) and everything breaks:
+- Direct address is not generalizable. Add a new node (`authors`) and everything breaks:
 
 ```{r}
 raw_xml <- "
@@ -91,7 +91,7 @@ book_xml %>%
 
 ## XPath tricks: `//`
 
--   `//dansimmons`: search the entire document and bring me back all `<dansimmons>` tags
+- `//dansimmons`: search the entire document and bring me back all `<dansimmons>` tags
 
 For example:
 
@@ -169,7 +169,7 @@ Which does not find the node.
 
 ## XPath tricks: subsetting nodes by number
 
-- XPath also allows to pick by order of appearance
+- XPath also allows you to pick by order of appearance
 
 ```{r}
 book_xml %>%
@@ -183,18 +183,18 @@ book_xml %>%
 
 ## XPath tricks: `*`
 
-In reality, we won't know the exact address of what we're looking for but rather some vague intutions of the node. For that we use `*`:
+In reality, we won't know the exact address of what we're looking for but rather some vague intuitions about the node. For that we use `*`:
 
 ```{r}
 book_xml %>%
   xml_find_all("//dansimmons/*")
 ```
 
-The result is not the `dansimmons` tag but all it's children, regardless of whether they are `<book>` tags or any other tag
+The result is not the `dansimmons` tag but all its children, regardless of whether they are `<book>` tags or any other tag
 
 ## XPath tricks: `*`
 
--   `*` can be used to fill out a tag which you don't know the name of.
+- `*` can be used to fill out a tag which you don't know the name of.
 
 ```{r}
 book_xml %>%
@@ -203,17 +203,17 @@ book_xml %>%
 
 ## Summary
 
--   `/` links between two tags that have direct parent-child relationship
+- `/` links between two tags that have direct parent-child relationship
 
--   `//` finds all tags in the HTML/XML tree regardless of depth
+- `//` finds all tags in the HTML/XML tree regardless of depth
 
--   Use `[number]` to subset the position of a node. For example: `//a[8]` will return the 8th `<a>` tag.
+- Use `[number]` to subset the position of a node. For example: `//a[8]` will return the 8th `<a>` tag.
 
--   `*` is a wildcard that allows to signal nodes without specifying which nodes.
+- `*` is a wildcard that allows you to signal nodes without specifying which nodes.
 
 ## Filter by attributes
 
--   Let's update our example to include additional authors
+- Let's update our example to include additional authors
 
 ```{r}
 # Note the new <stephenking> tag with it's book 'The Stand' and all <book> tags have some attributes
@@ -294,15 +294,15 @@ book_xml %>%
 
 XPath has additional functions that are useful for filtering:
 
--   `contains()`
+- `contains()`
 
--   `starts-with()`
+- `starts-with()`
 
--   `text()`
+- `text()`
 
--   `not()`
+- `not()`
 
--   `count()`
+- `count()`
 
 ## Case study: Web scraping El País
 
@@ -327,7 +327,7 @@ On the right, you'll see that I opened the web developer tools from the browser.
 
 ## Case study: Web scraping El País
 
--   You want an `<a>` tag that is nested within a `<section>` tag (two tags above the `<a>` tag)
+- You want an `<a>` tag that is nested within a `<section>` tag (two tags above the `<a>` tag)
 
 ![](images/elpais_science_main_sourcecode.png){fig-align="center"}
 
@@ -349,13 +349,13 @@ We know that between our `<a>` tag and `<section>` tag there are two additional 
 
 Let's explain the XPath:
 
--   `//section` means to search for all sections
+- `//section` means to search for all sections
 
--   `//section/*/*` means to search for two *direct* children of `<section>`
+- `//section/*/*` means to search for two *direct* children of `<section>`
 
--   `a[contains(@href, 'science')]` finds the `<a>` tags for which the `@href` attribute contains the text 'science'.
+- `a[contains(@href, 'science')]` finds the `<a>` tags for which the `@href` attribute contains the text 'science'.
 
-**Overall: Find all `<a>` tags for which the `@href` attribute contains the text 'science' which are descendant of the `<section>` tag with two tags in between.**
+**Overall: Find all `<a>` tags for which the `@href` attribute contains the text 'science' which are descendants of the `<section>` tag with two tags in between.**
 
 ## Case study: Web scraping El País
 
@@ -368,9 +368,9 @@ That's what we wanted 🎉!
 
 ## Case study: Web scraping El País
 
--   `contains` searches for text in an attribute
+- `contains` searches for text in an attribute
 
--   Use it with the function `text()` which points to the text of the tag
+- Use it with the function `text()` which points to the text of the tag
 
 ```{r}
 newspaper %>%
@@ -380,7 +380,7 @@ newspaper %>%
 
 ## Case study: Web scraping El País
 
--   `not()`: negates everything inside a filter expression
+- `not()`: negates everything inside a filter expression
 
 ```{r}
 newspaper %>%
@@ -392,7 +392,7 @@ newspaper %>%
 
 You might be interested in scraping newspaper sites to measure bias in news published in certain sections...
 
--   `count()` allows you to use conditionals based on counting something
+- `count()` allows you to use conditionals based on counting something
 
 ```{r}
 newspaper %>%
@@ -409,22 +409,22 @@ newspaper %>%
   xml_attr("data-dtm-region")
 ```
 
-Five sections, mostly entertainment related except for the first one which is the front page ('aperatura' is something like 'opening')
+Five sections, mostly entertainment related except for the first one which is the front page ('apertura' is something like 'opening')
 
 
 ## Conclusion
 
 XPath is a very rich language with over 20 years of development. I've covered some basics as well as intermediate parts of the language but there's much more to be learned:
 
-- [The course's cookbook](https://cimentadaj.github.io/dataharvesting/xpath-chapter.html#xpath-cookbook)
--   [XPath Cheetsheet](https://devhints.io/xpath)
--   [Extensive XPath Cheetsheet](https://www.lambdatest.com/blog/most-exhaustive-xpath-locators-cheat-sheet/)
--   [XPath tutorial](https://www.w3schools.com/xml/xpath_intro.asp)
+- [The course's cookbook](05-xpath#xpath-cookbook)
+- [XPath Cheatsheet](https://devhints.io/xpath)
+- [Extensive XPath Cheatsheet](https://www.lambdatest.com/blog/most-exhaustive-xpath-locators-cheat-sheet/)
+- [XPath tutorial](https://www.w3schools.com/xml/xpath_intro.asp)
 
 ## Homework
 
--   Read and complete exercises of chapter 6
+- Read and complete the exercises of chapter 6
 
--   Deadline for group definitions is next week. How is it going? [Here](https://docs.google.com/spreadsheets/d/11QmdgRXvbwtN9hSOwVyw9-iVjrN-yeRq_BOudidAnX8/edit#gid=73208201).
+- Deadline for group definitions is next week. How is it going? [Here](https://docs.google.com/spreadsheets/d/11QmdgRXvbwtN9hSOwVyw9-iVjrN-yeRq_BOudidAnX8/edit#gid=73208201).
 
--   Start thinking about projects.
+- Start thinking about projects.

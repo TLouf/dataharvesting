@@ -26,13 +26,13 @@ Ever wondered how you can grab real time data, **on demand**, without moving a f
 
 ## Automating APIs
 
--   Automating APIs is actually not that special
+- Automating APIs is actually not that special
 
--   It is the same type of work for automating any script: web scraping, APIs, bots
+- It is the same type of work for automating any script: web scraping, APIs, bots
 
--   Here we focus on a real example as a way to motivate automation
+- Here we focus on a real example as a way to motivate automation
 
--   Grabbing real time data from a real-looking API
+- Grabbing real time data from a real-looking API
 
 ## Automating APIs
 
@@ -40,13 +40,14 @@ Ever wondered how you can grab real time data, **on demand**, without moving a f
 
 ## The Bicing API
 
--   `scrapex` has a near-real copy of the Bicing API. Access it with:
+- `scrapex` has a near-real copy of the Bicing API. Access it with:
 
 ```{r}
 library(scrapex)
 library(httr2)
 library(dplyr)
 library(readr)
+library(here)
 
 bicing <- api_bicing()
 ```
@@ -65,19 +66,19 @@ We want to check the single endpoint:
 
 ## The Bicing API
 
--   Access real time bicycle usage from a sample of 20 stations from Barcelona's public bicycle system
+- Access real time bicycle usage from a sample of 20 stations from Barcelona's public bicycle system
 
--   No parameters needed
+- No parameters needed
 
--   I've only included 20 stations from the original results
+- I've only included 20 stations from the original results
 
--   Data changes per request
+- Data changes per request
 
--   If we want to understand bicycle patterns, we need to automate this process and we need to save this data somewhere.
+- If we want to understand bicycle patterns, we need to automate this process and we need to save this data somewhere.
 
 ## Talking to the bicing API
 
--   Since no parameters are needed, we go make a request to the endpoint:
+- Since no parameters are needed, we go make a request to the endpoint:
 
 ```{r, message = TRUE}
 rt_bicing <- paste0(bicing$api_web, "/api/v1/real_time_bicycles")
@@ -91,11 +92,11 @@ resp_output
 
 ## Talking to the Bicing API
 
--   Output is JSON
+- Output is JSON
 
--   Status code is 200
+- Status code is 200
 
--   Small data (1 byte = 0.000001 mb)
+- Small data (1 byte = 0.000001 mb)
 
 ```{r}
 sample_output <-
@@ -112,13 +113,13 @@ sample_output
 
 ## Talking to the Bicing API
 
--   Output looks like each slot is the row of a data frame where each contains a column, with names like `slots`, `in_use`, `latitude/longitude` and `streetName`
+- Output looks like each slot is the row of a data frame where each contains a column, with names like `slots`, `in_use`, `latitude/longitude` and `streetName`
 
--   Loop over each slot and simply try to convert it to a data frame
+- Loop over each slot and simply try to convert it to a data frame
 
--   Each slot has a named list inside, `data.frame` can convert that directly to a data frame
+- Each slot has a named list inside, `data.frame` can convert that directly to a data frame
 
--   Bind all those rows into a single data frame
+- Bind all those rows into a single data frame
 
 ## Talking to the Bicing API
 
@@ -177,13 +178,13 @@ real_time_bicing <- function(bicing_api) {
 
 ## Talking to the Bicing API
 
--   Receives the bicing API object that has the API website
+- Receives the bicing API object that has the API website
 
--   Makes a request to the API
+- Makes a request to the API
 
--   Combines all results into a data frame and returns the data frame.
+- Combines all results into a data frame and returns the data frame.
 
--   Using this example function we can confirm that making two requests will return different data in terms of bicycle usage.
+- Using this example function we can confirm that making two requests will return different data in terms of bicycle usage.
 
 ## Talking to the Bicing API
 
@@ -197,21 +198,14 @@ bind_cols(first, second)
 
 For saving data we need to focus on several things:
 
--   We must perform the request to the bicing API
+- We must perform the request to the bicing API
 
--   We must specify a local path where the CSV file will be saved. If the directory of the CSV file has not been created, we should create it.
+- We must specify a local path where the CSV file will be saved. If the directory of the CSV file has not been created, we should create it.
 
--   If the CSV file does not exist, then we should create it from scratch
+- If the CSV file does not exist, then we should create it from scratch
 
--   If the CSV file *exists*, then we want to append the result
+- If the CSV file *exists*, then we want to append the result
 
-## Saving data in API programs
-
-<br>
-
-<br>
-
-**You'll see that in the remaining part of this chapter I'll use my local path to save the CSV file. This is in the variable `local_csv`. You should replace this with your local path before running any of the R code below**.
 
 ## Saving data in API programs
 
@@ -220,8 +214,9 @@ save_bicing_data <- function(bicing_api) {
   # Perform a request to the bicing API and get the data frame back
   bicing_results <- real_time_bicing(bicing_api)
 
-  # Specify the local path where the file will be saved
-  local_csv <- "/home/jorge.cimentada/bicing/bicing_history.csv"
+  # Specify the local path where the file will be saved: in the `data` directory
+  # located "here", which is in the directory of this script
+  local_csv <- here("data", "bicing_history.csv")
 
   # Extract the directory where the local file is saved
   main_dir <- dirname(local_csv)
@@ -250,7 +245,7 @@ save_bicing_data(bicing)
 Sys.sleep(5)
 save_bicing_data(bicing)
 
-bicing_history <- read_csv("/home/jorge.cimentada/bicing/bicing_history.csv")
+bicing_history <- read_csv(here("data", "bicing_history.csv"))
 bicing_history %>%
   distinct(current_time)
 ```
@@ -283,7 +278,7 @@ Here's when the fun part begins.
 
 1.  We create a script that defines the functions we'll use for the program.
 2.  Run the functions at the end of that script.
-3.  Automate the process using `cron` by running the script in a schedule.
+3.  Automate the process using `cron` by running the script on a schedule.
 
 ## Automating the program
 
@@ -321,8 +316,9 @@ save_bicing_data <- function(bicing_api) {
   # Perform a request to the bicing API and get the data frame back
   bicing_results <- real_time_bicing(bicing_api)
 
-  # Specify the local path where the file will be saved
-  local_csv <- "/home/jorge.cimentada/bicing/bicing_history.csv"
+  # Specify the local path where the file will be saved: in the `data` directory
+  # located "here", which is in the directory of this script
+  local_csv <- here("data", "bicing_history.csv")
 
   # Extract the directory where the local file is saved
   main_dir <- dirname(local_csv)
@@ -346,13 +342,13 @@ save_bicing_data(bicing)
 
 ## Automating the program
 
--   Save that script in a newly create folder. I did that in `~/bicing/`
+- Save that script in a newly created folder. I did that in `~/bicing/`
 
 ![](images/console_ls_bicing.png){fig-align="center"}
 
 ## Automating the program
 
--   Test it first:
+- Test it first:
 
 ![](images/results_api_bicing_console.png){fig-align="center"}
 
@@ -371,7 +367,7 @@ If it works:
 Let's set the schedule:
 
 1.  Open cron with `crontab -e`
-2.  Define command to run: `* * * * * Rscript /home/jorge.cimentada/bicing/api_bicing.R`
+2.  Define command to run: `* * * * * Rscript <path to api_bicing.R>`
 3.  Paste it into the `cron` tab
 4.  Exit `cron`
     1.  Hit CTRL and X (this is for exiting the cron interface)
@@ -390,7 +386,7 @@ Let's set the schedule:
 
 ## Automating the program
 
-Exit cron and wait a few minutes...⏲️
+Exit cron and wait a few minutes...⏱️
 
 ## Automating the program
 
@@ -398,16 +394,16 @@ Exit cron and wait a few minutes...⏲️
 
 ## Summary
 
--   Real time data often needs frequent requests
+- Real time data often needs frequent requests
 
--   `cron` is your friend for that
+- `cron` is your friend for that
 
--   Saving data on each request is paramount (could by database or locally)
+- Saving data on each request is paramount (could be a database or local storage)
 
--   Automation can take you a long way!
+- Automation can take you a long way!
 
 ## Homework
 
--   Today is the deadline to send your final project.
+- Today is the deadline to send your final project.
 
--   Prepare presentation for your project next week. 8 minutes for each team. Aim do it in 5-6 minutes and I'll give you oral and written feedback.
+- Prepare the presentation for your project next week. 8 minutes for each team. Aim to do it in 5-6 minutes and I'll give you oral and written feedback.

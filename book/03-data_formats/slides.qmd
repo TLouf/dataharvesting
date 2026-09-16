@@ -18,9 +18,9 @@ knitr::opts_chunk$set(
 
 # Data Formats for Webscraping
 
--   Most web scraping involves parsing XML or HTML.
--   XML is for data storage and transfer, HTML for website structure.
--   Use `xml2` package in R to read both formats.
+- Most web scraping involves parsing XML or HTML.
+- XML is for data storage and transfer, HTML for website structure.
+- Use `xml2` package in R to read both formats.
 
 What? What do you mean?
 
@@ -78,11 +78,11 @@ xml_test <- "<people>
 
 ## Data Formats for Webscraping: XML
 
--   XML tags have a beginning and end, with the end being signified by '</>'
+- XML tags have a beginning and end, with the end being signified by '</>'
 
--   XML tags can have any meaning, while HTML has standard tags for website structure.
+- XML tags can have any meaning, while HTML has standard tags for website structure.
 
--   XML and HTML have many differences, some conceptual and some visible to users, and the author will focus on the most important ones for web scraping in the rest of the chapter.
+- XML and HTML have many differences, some conceptual and some visible to users, and the author will focus on the most important ones for web scraping in the rest of the chapter.
 
 ## Data Formats for Webscraping: HTML
 
@@ -113,11 +113,11 @@ html_test <- "<html>
 
 ## Data Formats for Webscraping: HTML
 
--   HTML tags have specific properties that structure how a website is shown on a browser
+- HTML tags have specific properties that structure how a website is shown on a browser
 
--   These tags like `<div>`, `<head>`, `<title>` have predetermined behavior to format the website
+- These tags like `<div>`, `<head>`, `<title>` have predetermined behavior to format the website
 
--   The tags themselves are standard across the HTML language and have specific behavior for website formatting.
+- The tags themselves are standard across the HTML language and have specific behavior for website formatting.
 
 For example...
 
@@ -145,13 +145,13 @@ For example...
 
 ## Data Formats for Webscraping: HTML
 
--   In XML, all tags must have a closing tag, while some HTML tags don't need to be closed.
+- In XML, all tags must have a closing tag, while some HTML tags don't need to be closed.
 
--   There are too many standard HTML tags for one to remember when getting started.
+- There are too many standard HTML tags for one to remember when getting started.
 
--   XML tags have no meaning other than what the creator intended for them.
+- XML tags have no meaning other than what the creator intended for them.
 
--   HTML tags have predetermined behavior and are standard across the language.
+- HTML tags have predetermined behavior and are standard across the language.
 
 ## Data Formats for Webscraping
 
@@ -169,11 +169,11 @@ xml_structure(xml_raw)
 
 In more detail, the structure is as follows:
 
--   The **root** node is `<people>`
+- The **root** node is `<people>`
 
--   The **child** nodes are `<jason>` and `<carol>`
+- The **child** nodes are `<jason>` and `<carol>`
 
--   Then each **child** node has nodes `<first_name>`, `<married>`, `<last_name>` and `<occupation>` nested within them.
+- Then each **child** node has nodes `<first_name>`, `<married>`, `<last_name>` and `<occupation>` nested within them.
 
 ## Data Formats for Webscraping
 
@@ -239,9 +239,9 @@ xml_path(person_nodes)
 xml_find_all(xml_raw, "/people/jason/person")
 ```
 
--   Same as: `xml_raw %>% xml_child(search = 1)`.
+- Same as: `xml_raw %>% xml_child(search = 1)`.
 
--   For deeply nested trees, `xml_find_all` will be better.
+- For deeply nested trees, `xml_find_all` will be better.
 
 ## Tag attributes
 
@@ -280,20 +280,20 @@ How to separate XML from HTML?
 
 ## Conclusion
 
--   XML and HTML are tag-based and have parent-child relationships
+- XML and HTML are tag-based and have parent-child relationships
 
--   XML tags have special meanings while HTML tags have behavior
+- XML tags have special meanings while HTML tags have behavior
 
--   Navigating nodes in XML and HTML can be done with `xml_child`, `xml_children` and `xml_find_all`
+- Navigating nodes in XML and HTML can be done with `xml_child`, `xml_children` and `xml_find_all`
 
--   Extracting attributes and text is done with `xml_attr` and `xml_text`
+- Extracting attributes and text is done with `xml_attr` and `xml_text`
 
--   HTML is more commonly used in web scraping because it is designed to show website format.
+- HTML is more commonly used in web scraping because it is designed to show website format.
 
 ## Homework
 
--   Complete the exercises of chapters 2 and 3
+- Complete the exercises of chapters 2 and 3
 
--   Read and complete the exercises of chapters 4 and 5
+- Read and complete the exercises of chapters 4 and 5
 
--   Start finding a partner for your group. [Here](https://docs.google.com/spreadsheets/d/11QmdgRXvbwtN9hSOwVyw9-iVjrN-yeRq_BOudidAnX8/edit#gid=73208201).
+- Start finding a partner for your group. [Here](https://docs.google.com/spreadsheets/d/11QmdgRXvbwtN9hSOwVyw9-iVjrN-yeRq_BOudidAnX8/edit#gid=73208201).

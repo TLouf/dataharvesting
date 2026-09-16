@@ -1,10 +1,6 @@
 # Data Harvesting
 
-<!-- badges: start -->
-[![R-CMD-check](https://github.com/cimentadaj/dataharvesting/workflows/bookdown/badge.svg)](https://github.com/cimentadaj/dataharvesting/actions)
-<!-- badges: end -->
-
-This is a work in progress book for the course data harvesting at UC3M. The book can be found at [https://cimentadaj.github.io/dataharvesting/index.html](https://cimentadaj.github.io/dataharvesting/index.html). This book contains an `renv` environment to reproduce this book. To activate this environment, launch an R session in the root of this README and run `renv::restore()`.  See [here](https://rstudio.github.io/renv/articles/collaborating.html) for more details.
+This is a work in progress book for the course data harvesting at UC3M. The book can be found at [https://tlouf.github.io/dataharvesting/index.html](https://tlouf.github.io/dataharvesting/index.html). This book contains an `renv` environment to reproduce this book. To activate this environment, launch an R session in the root of this README and run `renv::restore()`.  See [here](https://rstudio.github.io/renv/articles/collaborating.html) for more details.
 
 
 # Details to reproduce the book

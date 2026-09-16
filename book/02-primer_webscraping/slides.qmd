@@ -22,13 +22,13 @@ knitr::opts_chunk$set(
 
 ## Primer on webscraping
 
--   Skip the usual 'basics' right into coding
+- Skip the usual 'basics' right into coding
 
--   Webscraping is the subtle art of being a ninja
+- Webscraping is the subtle art of being a ninja
 
--   The plot above shows the election results for all political parties in Spain since 1978, all completely [scraped from Wikipedia](https://en.wikipedia.org/wiki/Elections_in_Spain).
+- The plot above shows the election results for all political parties in Spain since 1978, all completely [scraped from Wikipedia](https://en.wikipedia.org/wiki/Elections_in_Spain).
 
--   Chapter 2 of the book
+- Chapter 2 of the book
 
 ## Scrapex
 
@@ -96,11 +96,11 @@ html_website
 
 <br>
 
--   Difficult to read -- raw HTML code
+- Difficult to read -- raw HTML code
 
--   Often too long to actually explore it
+- Often too long to actually explore it
 
--   This output is mostly to confirm it was read and the header of the HTML file
+- This output is mostly to confirm it was read and the header of the HTML file
 
 ## Getting website data into R
 
@@ -110,11 +110,11 @@ What we actually want:
 
 ## Getting website data into R
 
--   The output from `read_html()` is difficult to understand
+- The output from `read_html()` is difficult to understand
 
--   The goal is to find the actual election data on the website
+- The goal is to find the actual election data on the website
 
--   The `rvest` package has the `html_table()` function that can extract tables from a website and import them into R.
+- The `rvest` package has the `html_table()` function that can extract tables from a website and import them into R.
 
 <br>
 
@@ -126,9 +126,9 @@ all_tables <-
 
 ## Getting website data into R
 
--   Grabs all tables
+- Grabs all tables
 
--   We only pick the one we're interested in.
+- We only pick the one we're interested in.
 
 ```{r}
 elections_data <- all_tables[[5]]

@@ -7,11 +7,11 @@ format:
 
 ## Welcome to the world of Data Harvesting
 
--   Jorge Cimentada
+- Jorge Cimentada
 
--   Chief Data Scientist at Cognitiva Labs
+- Chief Data Scientist at Cognitiva Labs
 
--   PhD in Sociology
+- PhD in Sociology
 
 How about you?
 
@@ -29,31 +29,30 @@ We'll learn how to interact with APIs.
 
 ## Course website and materials
 
-- <https://cimentadaj.github.io/dataharvesting/>
-- <https://cimentadaj.github.io/dataharvesting/slides/>
+<https://tlouf.github.io/dataharvesting/>{.r-fit-text}
 
 ## How will this course work?
 
--   Office hours on Tuesdays between 18:00 and 20:00. **Requests must be sent by email and confirmed in advance. Office hours will be held online via video call.**
--   Email: **cimentadaj\@gmail.com**
--   Classes on Thursdays:
-    -   18:00 – 19:30: First session
-    -   19:30 – 19:45: Break (15 mins)
-    -   19:45 – 20:45: Second session
+- Office hours on Tuesdays between 18:00 and 20:00. **Requests must be sent by email and confirmed in advance. Office hours will be held online via video call.**
+- Email: **tlouf\@math.uc3m.es**
+- Classes on Thursdays:
+    - 18:00 – 19:30: First session
+    - 19:30 – 19:45: Break (15 mins)
+    - 19:45 – 20:45: Second session
 
 ## How will this course work?
 
--   Readings and exercises will be assigned for each upcoming class.
+- Readings and exercises will be assigned for each upcoming class.
 
--   Review the assigned material beforehand: read the content and run the code.
+- Review the assigned material beforehand: read the content and run the code.
 
 <br>
 
 Grading:
 
--   Class participation: 20%
+- Class participation: 20%
 
--   Final project: 80%
+- Final project: 80%
 
 ## Course outline
 
@@ -69,39 +68,39 @@ Grading:
 
 The final project spreadsheet is available [here](https://docs.google.com/spreadsheets/d/11QmdgRXvbwtN9hSOwVyw9-iVjrN-yeRq_BOudidAnX8/edit#gid=73208201).
 
--   Find your partner as soon as possible -- **deadline: 14th February (third class)**
+- Find your partner as soon as possible -- **deadline: 14th February (third class)**
 
--   Submit project ideas -- **deadline: 27th February (fifth class)**
+- Submit project ideas -- **deadline: 27th February (fifth class)**
 
--   Submit final project -- **deadline: 13th March (seventh class)**
+- Submit final project -- **deadline: 13th March (seventh class)**
 
--   Final project presentations -- **27th March / 16:30–19:15**
+- Final project presentations -- **27th March / 16:30–19:15**
 
--   Each team will have 10 minutes to present.
-
-## Project expectations
-
--   Deliverable: A private or public GitHub repository.
-
--   A clear `README` explaining how to reproduce the scraper/API pipeline.
-
--   Reproducibility is key: I should be able to clone the repository and run everything needed to execute the project seamlessly.
-
--   Document what data is collected, where it is saved, and the purpose of each script.
+- Each team will have 10 minutes to present.
 
 ## Project expectations
 
--   Projects should be of intermediate complexity:
+- Deliverable: A private or public GitHub repository.
 
-    -   Scrape multiple sources of information
+- A clear `README` explaining how to reproduce the scraper/API pipeline.
 
-    -   Combine multiple pages or different websites
+- Reproducibility is key: I should be able to clone the repository and run everything needed to execute the project seamlessly.
 
-    -   Produce a meaningful dataset (e.g., something useful for another course or research project)
+- Document what data is collected, where it is saved, and the purpose of each script.
 
-    -   **Remember that most of the grade is based on this project.**
+## Project expectations
 
--   API projects: API keys and tokens must NOT be pushed to your repository. Provide clear instructions on where and how to configure them for reproducibility.
+- Projects should be of intermediate complexity:
+
+    - Scrape multiple sources of information
+
+    - Combine multiple pages or different websites
+
+    - Produce a meaningful dataset (e.g., something useful for another course or research project)
+
+    - **Remember that most of the grade is based on this project.**
+
+- API projects: API keys and tokens must NOT be pushed to your repository. Provide clear instructions on where and how to configure them for reproducibility.
 
 ## Project expectations
 
@@ -111,7 +110,7 @@ Project ideas must be discussed with and approved by me before the deadline.
 
 <br>
 
-Feel free to reach out via email at cimentadaj\@gmail.com.
+Feel free to reach out via email at tlouf\@math.uc3m.es.
 
 Examples from previous cohorts:
 
@@ -122,7 +121,7 @@ Examples from previous cohorts:
 
 Contribute to the book!
 
-### <https://cimentadaj.github.io/dataharvesting>
+### <https://tlouf.github.io/dataharvesting>
 
 
 ## Motivation

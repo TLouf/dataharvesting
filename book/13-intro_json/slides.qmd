@@ -18,19 +18,19 @@ knitr::opts_chunk$set(
 
 ## Introduction to JSON
 
--   Most APIs will return data in JavaScript Object Notation (JSON)
+- Most APIs will return data in JavaScript Object Notation (JSON)
 
--   Format designed to share data over the internet
+- Format designed to share data over the internet
 
--   JSON is text-based: can be opened with any code editor
+- JSON is text-based: can be opened with any code editor
 
--   It supports the usual numeric/string values + arrays
+- It supports the usual numeric/string values + arrays
 
--   Important: allows to build complex hierarchical structures
+- Important: allows you to build complex hierarchical structures
 
 ## Introduction to JSON
 
-Why is JSON important? Why not use a CSV, for example? or XML? I'll skip the boring stuff and leave you with three:
+Why is JSON important? Why not use a CSV, for example, or XML? I'll skip the boring stuff and leave you with three:
 
 1.  It's lightweight and easy to share
 2.  It has support in nearly all programming languages
@@ -52,13 +52,13 @@ library(tidyr)
       "opposition": "Pitaso"
     }
 
--   Starts with `{}`
+- Starts with `{}`
 
--   It's based around `key:value` pairs
+- It's based around `key:value` pairs
 
--   Each `key:value` can contain numbers od strings (for now)
+- Each `key:value` can contain numbers or strings (for now)
 
--   That's it. That's a JSON file.
+- That's it. That's a JSON file.
 
 ## Your first JSON example
 
@@ -72,11 +72,11 @@ json_str <- '{
 fromJSON(json_str)
 ```
 
--   The `key` must be a string
+- The `key` must be a string
 
--   Parsed as a named list
+- Parsed as a named list
 
--   Think of JSONs as named arrays
+- Think of JSONs as named arrays
 
 ## Real JSON example
 
@@ -116,17 +116,17 @@ Let's break it down:
         }
     ]
 
--   Same JSON rules
+- Same JSON rules
 
--   Now we have an array
+- Now we have an array
 
--   Structure: `key` followed by an array with three `key:value` pairs
+- Structure: `key` followed by an array with three `key:value` pairs
 
 ## Real JSON example
 
--   Think of arrays in JSON as rows in a data frame.
+- Think of arrays in JSON as rows in a data frame.
 
--   Three keys (names of each slot) where each contains a 1 row data frame inside.
+- Three keys (names of each slot) where each contains a 1 row data frame inside.
 
 <!-- -->
 
@@ -213,7 +213,7 @@ json_str <- '
 fromJSON(json_str, simplifyDataFrame = TRUE)
 ```
 
-JSON's are `key:value` pairs and the value it self can be an array with other key/value pairs.
+JSONs are `key:value` pairs and the value itself can be an array with other key/value pairs.
 
 ## Real JSON example
 
@@ -298,9 +298,9 @@ res$opposition <- data.frame(res$opposition)
 res
 ```
 
--   They most important tool for working with JSONs is subsetting
+- The most important tool for working with JSONs is subsetting
 
--   The dirtiest part of JSON is complex nesting
+- The dirtiest part of JSON is complex nesting
 
 ## The `enframe` + `unnest` strategy
 
@@ -314,31 +314,31 @@ Most important part of this section. Taking the previous example, how can we tur
     ## 3 vicepresident <NA>       <NA>               NA
     ## 4 opposition    Pitaso     Everyone United    45
 
--   This is the ideal summary of the result: everything in a single data frame with complete and incomplete information.
+- This is the ideal summary of the result: everything in a single data frame with complete and incomplete information.
 
--   Each 'category' (`president`, `vicepresident`, `opposition`) is a row.
-
-## The `enframe` + `unnest` strategy
-
--   General strategy of combining two functions: `enframe` and `unnest`.
-
--   `enframe` takes a named list and does two things:
-
-    -   Extracts the *names* of each slot in the list and stores it in a column in a data frame.
-
-    -   Takes **everything** inside each slot and stores it in a *list-column*.
+- Each 'category' (`president`, `vicepresident`, `opposition`) is a row.
 
 ## The `enframe` + `unnest` strategy
 
--   List-column: column of class list that can contain different things (if you remember, all columns in R must be of the same kind, either `numeric`, `character` or something else but there can't be two types in the same column).
+- General strategy of combining two functions: `enframe` and `unnest`.
 
--   In our example,
+- `enframe` takes a named list and does two things:
 
-    -   First row of this list-column is a data frame that has two rows
+    - Extracts the *names* of each slot in the list and stores it in a column in a data frame.
 
-    -   The second row is an empty data frame with an `NA` value
+    - Takes **everything** inside each slot and stores it in a *list-column*.
 
-    -   The third is now a data frame since we altered the JSON manually (remember?).
+## The `enframe` + `unnest` strategy
+
+- List-column: column of class list that can contain different things (if you remember, all columns in R must be of the same kind, either `numeric`, `character` or something else but there can't be two types in the same column).
+
+- In our example,
+
+    - First row of this list-column is a data frame that has two rows
+
+    - The second row is an empty data frame with an `NA` value
+
+    - The third is now a data frame since we altered the JSON manually (remember?).
 
 ## The `enframe` + `unnest` strategy
 
@@ -350,18 +350,18 @@ res %>%
 ```
 
 1.  First column contains the names of the named list and the second column contains the list-column.
-2.  List column has two data frame and an empty slot
+2.  List column has two data frames and an empty slot
 3.  This structure is useful for reading nested stuff
 
 ## The `enframe` + `unnest` strategy
 
 How do we transform it?
 
--   `unnest` takes list-columns and 'unpacks' them into the common class of the list.
+- `unnest` takes list-columns and 'unpacks' them into the common class of the list.
 
--   If the all objects are of different classes (`data.frame`, `vectors`, etc..), then `unnest` will fail.
+- If all objects are of different classes (`data.frame`, `vectors`, etc..), then `unnest` will fail.
 
--   If all objects within the list are of the same class, it will combine all of them into a proper column or 'unpack' it's values.
+- If all objects within the list are of the same class, it will combine all of them into a proper column or 'unpack' its values.
 
 All of this sounds convoluted right? Let's see some applied examples.
 
@@ -420,7 +420,7 @@ res %>%
 
 <br>
 
-The main problem you'll encounter with JSON's is that you're trying to parse some JSON that has many **nested arrays** and some of these arrays are not **compatible for unnesting** so you'll have to submerge yourself into these nested arrays and fix whatever data you want to extract.
+The main problem you'll encounter with JSONs is that you're trying to parse some JSON that has many **nested arrays** and some of these arrays are not **compatible for unnesting** so you'll have to submerge yourself into these nested arrays and fix whatever data you want to extract.
 
 ## Accessing deeply nested JSONs
 
@@ -467,7 +467,7 @@ The main problem you'll encounter with JSON's is that you're trying to parse som
 
 ## Accessing deeply nested JSONs
 
-Before understand in-depth a JSON, it's not a terrible idea to try to read it:
+Before understanding a JSON in depth, it's not a bad idea to try to read it:
 
 ```{r}
 json_str <- '
@@ -528,7 +528,7 @@ res$client1
 
 ## Accessing deeply nested JSONs
 
-Say we wanted to append "Device:" to the device of each client:
+Say we wanted to append "Device: " to the device of each client:
 
 ```{r, error = TRUE}
 paste0("Device: ", res$client1$device)
@@ -558,15 +558,15 @@ lapply(res$client1$device[[1]], class)
 res$client1$device[[1]]$location[[1]]
 ```
 
--   General pattern: nested structured
+- General pattern: nested structures
 
 ## Accessing deeply nested JSONs
 
--   Whenever `fromJSON` encounters an array within an array, it converts each one to a data frame.
+- Whenever `fromJSON` encounters an array within an array, it converts each one to a data frame.
 
--   The problem is that these are recurrent data frames inside data frames and so on.
+- The problem is that these are recurrent data frames inside data frames and so on.
 
--   It's difficult to assess where to stop and this is a good example where `unnest` is very handy.
+- It's difficult to assess where to stop and this is a good example where `unnest` is very handy.
 
 ```{r}
 res$client1 %>%
@@ -613,20 +613,20 @@ all_res %>%
 
 ## Summary
 
--   Arrays are interpreted as 'rows' in JSONs
+- Arrays are interpreted as 'rows' in JSONs
 
--   Subsetting is very important for cleaning JSONs
+- Subsetting is very important for cleaning JSONs
 
--   Nested JSONs are your biggest problem
+- Nested JSONs are your biggest problem
 
--   `enframe` + `unnest` strategy can help you with nested JSONs
+- `enframe` + `unnest` strategy can help you with nested JSONs
 
--   Problems: objects in a `list-column` are of different classes
+- Problems: objects in a `list-column` are of different classes
 
 ## Homework
 
--   Chapter 14 -- read + exercises
+- Chapter 14 -- read + exercises
 
--   Everyone should have a project + a group [here](https://docs.google.com/spreadsheets/d/11QmdgRXvbwtN9hSOwVyw9-iVjrN-yeRq_BOudidAnX8/edit#gid=73208201).
+- Everyone should have a project + a group [here](https://docs.google.com/spreadsheets/d/11QmdgRXvbwtN9hSOwVyw9-iVjrN-yeRq_BOudidAnX8/edit#gid=73208201).
 
--   Work on project should begin now. Submissions can be done from now on. Final deadline for the project is in two weeks.
+- Work on the project should begin now. Submissions can be done from now on. Final deadline for the project is in two weeks.

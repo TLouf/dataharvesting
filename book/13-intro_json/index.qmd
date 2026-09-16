@@ -20,21 +20,21 @@ knitr::opts_chunk$set(
 
 ```
 
-# What you need to know about JSON {#json-chapter}
+# What you need to know about JSON {#sec-json-chapter}
 
-Most of the content you'll grab from an API will probably be in JavaScript Object Notation or JSON for short. This is a format that was designed to be easily shared over the internet and is pretty much the standard for sharing data over APIs. JSON's are text based and allow you to store all the usual stuff you're used to such as strings and numbers. However, JSON's also allow you to use arrays, and more importantly, build complex nested structure.
+Most of the content you'll grab from an API will probably be in JavaScript Object Notation or JSON for short. This is a format that was designed to be easily shared over the internet and is pretty much the standard for sharing data over APIs. JSONs are text-based and allow you to store all the usual stuff you're used to such as strings and numbers. However, JSONs also allow you to use arrays, and more importantly, build complex nested structures.
 
-As always, you might ask yourself, why is this new format important? I'll skip you the technical boring details and leave with you the three most important points:
+As always, you might ask yourself, why is this new format important? I'll skip the boring technical details and leave you with the three most important points:
 
 * It's lightweight and easy to share
 * It has support in nearly all programming languages
 * It allows you to make nested relationships and they're easy to read
 
-In this chapter we'll jump directly to the content that is mostly related to parsing JSON's in the context of API requests. This means that we won't be looking at toy examples but rather at a typical response you might get from an API, which has very nested structures. The idea is for users not to have perfect knowledge on JSON's but rather learn tricks on how to convert it to the format that they're interested in.
+In this chapter we'll jump directly to the content that is mostly related to parsing JSONs in the context of API requests. This means that we won't be looking at toy examples but rather at a typical response you might get from an API, which has very nested structures. The idea is for users not to have perfect knowledge of JSONs but rather learn tricks on how to convert them to the format that they're interested in.
 
-If you want more information on JSON's in R, be sure to visit Gaston Sanchez's JSON intro, from which this chapter is very much inspired ( [https://www.gastonsanchez.com/intro2cwd/json.html](https://www.gastonsanchez.com/intro2cwd/json.html))
+If you want more information on JSONs in R, be sure to visit Gaston Sanchez's JSON intro, from which this chapter is very much inspired ( [https://www.gastonsanchez.com/intro2cwd/json.html](https://www.gastonsanchez.com/intro2cwd/json.html))
 
-With theory out of the way, let's get our hands dirty. Let's load the package we'll use in this chapter:
+With theory out of the way, let's get our hands dirty. Let's load the packages we'll use in this chapter:
 
 ```{r}
 library(jsonlite)
@@ -54,7 +54,7 @@ The JSON syntax is very straightforward. You wrap everything in `{}` and specify
 }
 ```
 
-Each `key:value` needs to be wrapped in quotes (`"`). In `R` we can parse JSON's with several packages. In this book we'll use `jsonlite` but feel free to explore other options. Let's lparse the string we specified before with the function `fromJSON`:
+Each `key:value` needs to be wrapped in quotes (`"`). In `R` we can parse JSONs with several packages. In this book we'll use `jsonlite` but feel free to explore other options. Let's parse the string we specified before with the function `fromJSON`:
 
 ```{r}
 json_str <- '{
@@ -66,9 +66,9 @@ json_str <- '{
 fromJSON(json_str)
 ```
 
-It parses the key/value pairs as a named list. That's exactly how yo can think of JSON's for now. A way to store named arrays. At this point I could show you a few examples of how JSON's work but it's pretty much it: `key:value` pairs. You can write number instead of strings as well but there's nothing to be gained from this example of JSON at the moment.
+It parses the key/value pairs as a named list. That's exactly how you can think of JSONs for now. A way to store named arrays. At this point I could show you a few examples of how JSONs work but that's pretty much it: `key:value` pairs. You can write numbers instead of strings as well but there's nothing to be gained from this example of JSON at the moment.
 
-It's inevitable to say that the true deal breaker with JSON's is the nested nature of the format. Here's what you can achieve with very simple syntax:
+It's safe to say that the true power of JSONs is the nested nature of the format. Here's what you can achieve with very simple syntax:
 
 ```
 {
@@ -141,7 +141,7 @@ json_str <- '
 fromJSON(json_str, simplifyDataFrame = TRUE)
 ```
 
-You get precisely a named list where each slot contains a data frame. Are you with me? So far so good. We have that JSON's are `key:value` pairs and the value it self can be an array with other key/value pairs. So, with that idea in mind, you might get something like this:
+You get precisely a named list where each slot contains a data frame. Are you with me? So far so good. We have that JSONs are `key:value` pairs and the value itself can be an array with other key/value pairs. So, with that idea in mind, you might get something like this:
 
 ```
 {
@@ -167,7 +167,7 @@ You get precisely a named list where each slot contains a data frame. Are you wi
 }
 ```
 
-Without looking further down, what you think will be the result of this in R? Study it and write it down. Let's look at the result:
+Without looking further down, what do you think will be the result of this in R? Study it and write it down. Let's look at the result:
 
 ```{r}
 
@@ -199,7 +199,7 @@ res <- fromJSON(json_str)
 res
 ```
 
-Well, It has something we've never looked at before. It has:
+Well, it has something we've never looked at before. It has:
 
 1. A data frame for the first slot. That's correct because the JSON contained an array with two sets of `key:value` pairs. That's translatable to a data frame with two rows even though one of the two sets did not have a field for `age`.
 
@@ -207,7 +207,7 @@ Well, It has something we've never looked at before. It has:
 
 3. A named list. That's right because there is no array structure (`[...]`) so `key:value` pairs are interpreted as a named list.
 
-If for some reason you were thinking, why is this important? Let me tell you that for much of the JSON you'll find in the wild, you'll see it becomes more and more convoluted to read as it becomes more nested. You'll need to learn to use your subsetting skills to actually convert the data into the format that you want. For example, you might want to convert the existing `opposition` slot into a data frame because the array structure was missing (`[...]`):
+If for some reason you were thinking, why is this important? Let me tell you that for much of the JSON data you'll find in the wild, you'll see it becomes more and more convoluted to read as it becomes more nested. You'll need to learn to use your subsetting skills to actually convert the data into the format that you want. For example, you might want to convert the existing `opposition` slot into a data frame because the array structure was missing (`[...]`):
 
 ```{r}
 res$opposition <- data.frame(res$opposition)
@@ -235,7 +235,7 @@ res %>%
   enframe()
 ```
 
-The first column contains the names of the named list while the second column contains the list-column. The list column is telling you right away that it has two data frames and an empty slot. This is very useful for reading nested stuff because it gives you a high level overview of everything that you're working with but how can we actually do something  with this? We work with this using `unnest`. Contrary to `enframe`, `unnest` takes list-columns and 'unpacks' them into the common class of the list. Let me repeat that. `unnest` needs to be passed a list-column (the list-column can contain anything) and it will try to unpack it into whatever is the common class of all objects. If the all objects are of different classes (`data.frame`, `vectors`, etc..), then `unnest` will fail. However, if all objects within the list are of the same class, it will combine all of them into a proper column or 'unpack' it's values.
+The first column contains the names of the named list while the second column contains the list-column. The list column is telling you right away that it has two data frames and an empty slot. This is very useful for reading nested stuff because it gives you a high level overview of everything that you're working with but how can we actually do something with this? We work with this using `unnest`. Contrary to `enframe`, `unnest` takes list-columns and 'unpacks' them into the common class of the list. Let me repeat that. `unnest` needs to be passed a list-column (the list-column can contain anything) and it will try to unpack it into whatever is the common class of all objects. If all objects are of different classes (`data.frame`, `vectors`, etc..), then `unnest` will fail. However, if all objects within the list are of the same class, it will combine all of them into a proper column or 'unpack' its values.
 
 That's a somewhat convoluted explanation, and it's totally fine if it's not clear since there are many edge cases on how `unnest` works. Through the chapter we'll focus on understanding how this function works.
 
@@ -247,7 +247,7 @@ res %>%
   unnest(cols = value)
 ```
 
-Since all objects of the list-column were compatible (all were data frames with the same number of columns), `unnest` unpacks the column entirely to simply expand the data frame's into one single data frame. A perfect example where `unnest` fails is when the different objects in the list are not easily mergeable. Say we use the same example as before but don't convert the third slot into a data frame. We'll that the JSON is parsed like this:
+Since all objects of the list-column were compatible (all were data frames with the same number of columns), `unnest` unpacks the column entirely to simply expand the data frames into one single data frame. A perfect example where `unnest` fails is when the different objects in the list are not easily mergeable. Say we use the same example as before but don't convert the third slot into a data frame. We'll see that the JSON is parsed like this:
 
 ```{r}
 
@@ -287,11 +287,11 @@ res %>%
   unnest(cols = value)
 ```
 
-It says exactly that: the first slot is a data frame and the third slot is a list. It can't find a way to combine them. The main problem you'll encounter with JSON's is that you're trying to parse some JSON that has many nested arrays and some of these arrays are not compatible for unnesting so you'll have to submerge yourself into these nested arrays and fix whatever data you want to extract.
+It says exactly that: the first slot is a data frame and the third slot is a list. It can't find a way to combine them. The main problem you'll encounter with JSONs is that you're trying to parse some JSON that has many nested arrays and some of these arrays are not compatible for unnesting so you'll have to submerge yourself into these nested arrays and fix whatever data you want to extract.
 
 ## Accessing deeply nested JSONs
 
-Suppose that as part of a research project, you've recently been granted access to the API of a company. You're interested in studying the relationship between the geo-location of clients, their shopping patterns and their social class. Once they grant you access to their private API, the endpoint that returns the geo location for each client returns a JSON like the one below. You use `fromJSON` to parse it and here is what you get:
+Suppose that as part of a research project, you've recently been granted access to the API of a company. You're interested in studying the relationship between the geo-location of clients, their shopping patterns and their social class. Once they grant you access to their private API, the endpoint that returns the geo-location for each client returns a JSON like the one below. You use `fromJSON` to parse it and here is what you get:
 
 ```{r}
 
@@ -347,12 +347,12 @@ Great, seems all was parsed correctly. Let's paste "Device: " in front of each d
 paste0("Device: ", res$client1$device)
 ```
 
-Ups, what? Oh, `device` column is not a character vector, it's something like a list. Let's explore it:
+Oops, what? Oh, the `device` column is not a character vector, it's something like a list. Let's explore it:
 
 ```{r}
 res$client1$device[[1]]
 ```
-`device` is a list with a data frame inside. Let's see what class is each of these columns to avoid the same mistake:
+`device` is a list with a data frame inside. Let's see what class each of these columns is to avoid the same mistake:
 
 ```{r}
 lapply(res$client1$device[[1]], class)
@@ -373,7 +373,7 @@ res$client1 %>%
   unnest(cols = location)
 ```
 
-Let's apply our general `enframe` + `unnest` strategy but applying `unnest` as many times as we need:
+Let's apply our general `enframe` + `unnest` strategy by applying `unnest` as many times as we need:
 
 ```{r}
 all_res <-
@@ -406,9 +406,9 @@ all_res %>%
   unnest(cols = "location")
 ```
 
-There we go. That's how you handle nested JSON's in R. Beware that for this example, everything worked well because each nested object was an array that could be merged with other types but the real challenge in parsing JSON's is when some nested object does not conform well when unpacking everything into the same structure.
+There we go. That's how you handle nested JSONs in R. Beware that for this example, everything worked well because each nested object was an array that could be merged with other types but the real challenge in parsing JSONs is when some nested object does not conform well when unpacking everything into the same structure.
 
-JSON's are not that hard but the main challenge is understanding how to combine everything into R data frames when a lot of nested arrays have different classes or shapes. Remember that whenever you try to unpack something, be sure to pay attention to whether the error is related to unmergeable classes or objects of different lengths.
+JSONs are not that hard but the main challenge is understanding how to combine everything into R data frames when a lot of nested arrays have different classes or shapes. Remember that whenever you try to unpack something, be sure to pay attention to whether the error is related to unmergeable classes or objects of different lengths.
 
 
 ## Exercises
@@ -444,7 +444,7 @@ json_str <- '
 fromJSON(json_str)
 ```
 
-2. Here's an excerpt of a deeply nested JSON. Can you parse it into R and unnest all columns as needed. Why can't you do it? Can you manually change the code to fix it?
+2. Here's an excerpt of a deeply nested JSON. Can you parse it into R and unnest all columns as needed? Why can't you do it? Can you manually change the code to fix it?
 
 ```{r}
 json_str <- '
@@ -482,7 +482,7 @@ json_str <- '
 ```
 
 ```{r, echo = FALSE, eval = FALSE}
-# The location number of the first slot were strings. Remove quotes.
+# The location numbers of the first slot were strings. Remove quotes.
 
 json_str <- '
 {

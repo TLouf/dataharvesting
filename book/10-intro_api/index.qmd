@@ -18,23 +18,23 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Introduction to REST APIs {#intro-apis}
+# Introduction to REST APIs {#sec-intro-apis}
 
-So far in the book we've covered the subtle art of web scraping. This art is weird in the sense that it's not structured. To scrape some stuff you have to come up with unusual tricks to gather data from websites. You also have to be careful not to do it too often because it might impact the latency of the website due too excessive requests. Moreover, when you do gather the data, you need to apply some ninja-style tricks to clean the results. Overall, a complicated process because this data (on the website) is not meant for you to scrape it.
+So far in the book we've covered the subtle art of web scraping. This art is weird in the sense that it's not structured. To scrape some stuff you have to come up with unusual tricks to gather data from websites. You also have to be careful not to do it too often because it might impact the latency of the website due to excessive requests. Moreover, when you do gather the data, you need to apply some ninja-style tricks to clean the results. Overall, a complicated process because this data (on the website) is not meant for you to scrape it.
 
-If it were for websites, they would love to prevent scrapers from scraping their website: in nearly all cases, that will bring negative impact to their website either through excessive requests and a possible slow down of their internal servers to reusing *their* data for your own economic benefit.
+If it were up to websites, they would love to prevent scrapers from scraping their website: in nearly all cases, that will bring negative impacts to their website, from excessive requests and a possible slowdown of their internal servers to users reusing *their* data for their own economic benefit.
 
 All of these steps start to hint towards a unilateral effort from the web scraper. You as the scrape master are the only one interested in doing this and that's why the effort of scraping seems more like traveling through a jungle of obstacles rather than a walk in the park.
 
-This is when REST APIs come in. As web scraping is somewhat like an ambush to a website, REST APIs are more of a two party contract. REST Application Programming Interfaces (API) are just a fancy name for a more structured way for users to gather data from the internal servers of the website (as they would do in web scraping) but in a controlled environment where the user agrees to rules that don't affect negatively the data or the performance of the servers of the company.
+This is when REST APIs come in. As web scraping is somewhat like an ambush to a website, REST APIs are more of a two-party contract. REST Application Programming Interfaces (API) are just a fancy name for a more structured way for users to gather data from the internal servers of the website (as they would do in web scraping) but in a controlled environment where the user agrees to rules that don't negatively affect the data or the performance of the servers of the company.
 
 ::: {.rmdnote}
-Users should be careful distinguishing between APIs and REST APIs. APIs are the interface of any program: for example, for the package `dplyr`, the way decisions where taken on how each function accepts arguments, which functions are exported, how these functions interact with each other so on (the general design of how the package works) is called the API of a package, or the programming *interface*. In contrast, a REST API is a data transfer design for users to share data over the internet. In this chapter we'll be discussing exclusively REST APIs.
+Users should be careful distinguishing between APIs and REST APIs. APIs are the interface of any program: for example, for the package `dplyr`, the way decisions were made on how each function accepts arguments, which functions are exported, how these functions interact with each other and so on (the general design of how the package works) is called the API of a package, or the programming *interface*. In contrast, a REST API is a data transfer design for users to share data over the internet. In this chapter we'll be discussing exclusively REST APIs.
 :::
 
-REST APIs are a natural answer for companies once they figured out web scraping was affecting their business negatively. Companies decided to create a custom 'portal' where a user, after authenticating and accepting the agreements of using this 'portal', can access much of the data they can see on a companies website (but not necessarily what you're looking for, it is their prerogative). However, this 'portal' is not a website where you can go in and download the data through drop down menus and clicking buttons: it's a series of URLs that you will need to consult programmatically.
+REST APIs are a natural answer for companies once they figured out web scraping was affecting their business negatively. Companies decided to create a custom 'portal' where a user, after authenticating and accepting the agreements of using this 'portal', can access much of the data they can see on a company's website (but not necessarily what you're looking for, it is their prerogative). However, this 'portal' is not a website where you can go in and download the data through drop-down menus and clicking buttons: it's a series of URLs that you will need to consult programmatically.
 
-So you might ask yourself, well, how do we access a REST API? Can you show me one? Yes! The `scrapex` package contains several REST APIs designed specifically for educational purposes in the this book. First, let's launch the REST API locally:
+So you might ask yourself, well, how do we access a REST API? Can you show me one? Yes! The `scrapex` package contains several REST APIs designed specifically for educational purposes in this book. First, let's launch the REST API locally:
 
 ```{r, eval = FALSE}
 library(scrapex)
@@ -46,14 +46,14 @@ res <- api_amazon()
 ```
 
 ::: {.rmdnote}
-Do you see the print out with the local URL to the `__docs__` of the REST API? This *my* local URL. This won't work on your computer, so don't try to go to that website: you'll get that the URL doesn't exit. You need to install the `scrapex` package and run the `api_amazon()` function, copy *your* local API path onto your web browser and then you'll see the same thing as I do.
+Do you see the print out with the local URL to the `__docs__` of the REST API? This is *my* local URL. This won't work on your computer, so don't try to go to that website: you'll get that the URL doesn't exist. You need to install the `scrapex` package and run the `api_amazon()` function, copy *your* local API path onto your web browser and then you'll see the same thing as I do.
 :::
 
-Since the philosophy of the `scrapex` package is to create both websites and REST APIs that can be reproduced in the long term, the REST APIs you'll see in this book are *fake*. This means they contain made up data and are deployed locally in your computer behind the scenes.
+Since the philosophy of the `scrapex` package is to create both websites and REST APIs that can be reproduced in the long term, the REST APIs you'll see in this book are *fake*. This means they contain made up data and are deployed locally on your computer behind the scenes.
 
 In the real world, you'll go to the website of a company and search for their API documentation (for example, google "Spotify Web API" and you'll be directed to the documentation of Spotify's REST API). Browsing the documentation or looking at online tutorials you'll be able to figure out how their API works, what data they share and how to authenticate. Just beware that the previous step of calling `api_amazon` is something that you won't need to do when accessing APIs of companies; this is just our way of deploying our locally developed APIs on your computer to make the examples in this book as real as possible.
 
-The REST API for this example is a fake database of Amazon's books / users / products database. This means that we can access all sorts of information on the books that Amazon has on their catalogue together with their author's details, the users that read those books and other products that these users bought on their platform. Let's go explore it.
+The REST API for this example is a fake database of Amazon's books / users / products database. This means that we can access all sorts of information on the books that Amazon has on their catalogue together with their authors' details, the users that read those books and other products that these users bought on their platform. Let's go explore it.
 
 I'll assume that you ran your part of loading `scrapex` and ran the `api_amazon` function. That should return your local version of the URL `http://localhost:28723/__docs__/` with a different number for the part `28723`. Let's paste that URL in our browser and you should see this:
 
@@ -71,13 +71,13 @@ knitr::include_graphics(file.path(main_dir_api, "authors_amazon_docs.png"))
 
 Here we can see several things from this endpoint:
 
-1. It does not need any parameters. Endpoints often need parameters to filter data. For example, say you were requesting all the books from an author. Probably the endpoint would need to specify the author from which to return data from. This endpoint returns all available authors in the Amazon Book Store so it does not need any parameters. In other endpoints in this REST API you'll see that you will need to specify parameters.
+1. It does not need any parameters. Endpoints often need parameters to filter data. For example, say you were requesting all the books from an author. Probably the endpoint would need to specify the author to return data for. This endpoint returns all available authors in the Amazon Book Store so it does not need any parameters. In other endpoints in this REST API you'll see that you will need to specify parameters.
 
 2. It allows you to try out this endpoint with a button that says `"Try it out"`.
 
-3. REST APIs have codes that signal the status of your request. Below `Responses`, it says that this endpoint has two codes: `200` which means that everything is OK and `500` which means that something wrong happened when you requested data. Note that *whenever* you request data, one of these codes will be returned. If everything was alright, `200` will be return together with the data that you wanted. If something went wrong, the code `500` will be returned. Note that these are the possible values that it can return, not what is currently being returned: remember that we haven't made yet a request.
+3. REST APIs have codes that signal the status of your request. Below `Responses`, it says that this endpoint has two codes: `200` which means that everything is OK and `500` which means that something wrong happened when you requested data. Note that *whenever* you request data, one of these codes will be returned. If everything was alright, `200` will be returned together with the data that you wanted. If something went wrong, the code `500` will be returned. Note that these are the possible values that it can return, not what is currently being returned: remember that we haven't yet made a request.
 
-4. Right below `Media type`, we can figure out the formats that this endpoint returns. It says this endpoint returns a `JSON` string, a typical format used for sharing data over the web (we'll talk about the JSON format in chapter \@ref(json-chapter)).
+4. Right below `Media type`, we can figure out the formats that this endpoint returns. It says this endpoint returns a `JSON` string, a typical format used for sharing data over the web (we'll talk about the JSON format in @sec-json-chapter).
 
 Finally, and this is irrespective of any particular endpoint, many REST APIs require that you authenticate before requesting any data. Normally, you'll need to follow the instructions for authenticating for the REST API you're after and in return they'll give you some sort of token.
 
@@ -99,7 +99,7 @@ Alright, so right now we performed a request to the `/api/v1/amazon/authors` end
 knitr::include_graphics(file.path(main_dir_api, "authors_amazon_request_result.png"))
 ```
 
-Behind the scenes, we joined the base path of the REST API (`http://localhost:28723`) with the `authors` endpoint (`/api/v1/amazon/authors`) to get the path `http://localhost:28723/api/v1/amazon/authors`. You can see this path under `Request URL` in the image above. That's the complete URL that returns the data for authors. Try copying *your* URL of that endpoint (remember that it has a different port number in the website) and pasting it on a website:
+Behind the scenes, we joined the base path of the REST API (`http://localhost:28723`) with the `authors` endpoint (`/api/v1/amazon/authors`) to get the path `http://localhost:28723/api/v1/amazon/authors`. You can see this path under `Request URL` in the image above. That's the complete URL that returns the data for authors. Try copying *your* URL of that endpoint (remember that it has a different port number in the website) and pasting it into a web browser:
 
 ```{r, echo = FALSE, out.width = "100%"}
 knitr::include_graphics(file.path(main_dir_api, "no_token_error_json.png"))
@@ -129,7 +129,7 @@ list(
 
 When you make a request, you have something like the list above. You make a request to that endpoint but you also add somewhat like an *attachment* that has extra information. This is the headers. Some APIs might require you to specify certain parameters in the headers or they might be optional with default values. For many APIs this header must contain the authentication token that you got from the website for using their REST API.
 
-In this analogy, you see that that we specify the authorization token in the headers as well as that it must accept only data structured in JSON format. Similarly, when you perform a request to an endpoint, the resulting *response* will also contain a headers attachment with information. Following on our analogy using an R list, the response might look something like this:
+In this analogy, you see that we specify the authorization token in the headers as well as that it must accept only data structured in JSON format. Similarly, when you perform a request to an endpoint, the resulting *response* will also contain a headers attachment with information. Following our analogy using an R list, the response might look something like this:
 
 ```{r, echo = FALSE}
 list(
@@ -165,9 +165,9 @@ list(
 )
 ```
 
-This list has three slots: `status_code`, `response_headers` and `response_body`. The first two are somewhat like *attachments* containing information while the third contains the most important part of the request: the data. The response headers (as contrary to the headers you submitted when you did the hypothetical request) has extra information such as the encoding of the response, the date and the transfer encoding. In any case, you won't be paying too much attention to the response headers. Instead you'll be submitting headers in the request and look at the `status_code` to make sure that your request was successfully. If not, then you'll want to look into which status code was returned and look up on the internet the source of the error.
+This list has three slots: `status_code`, `response_headers` and `response_body`. The first two are somewhat like *attachments* containing information while the third contains the most important part of the request: the data. The response headers (in contrast to the headers you submitted when you did the hypothetical request) have extra information such as the encoding of the response, the date and the transfer encoding. In any case, you won't be paying too much attention to the response headers. Instead you'll be submitting headers in the request and look at the `status_code` to make sure that your request was successful. If not, then you'll want to look into which status code was returned and look up on the internet the source of the error.
 
-Coming back to our `authors` example, you can see see that all the information we saw in the R list analogy is in the user interface of the example request:
+Coming back to our `authors` example, you can see that all the information we saw in the R list analogy is in the user interface of the example request:
 
 ```{r, echo = FALSE, eval = TRUE, out.width = "100%"}
 knitr::include_graphics(file.path(main_dir_api, "authors_amazon_request_result.png"))
@@ -182,13 +182,13 @@ And that's pretty much it for the very basics. You performed your first API requ
 
 * REST APIs are structured around endpoints. These are specific URLs that return different types of data. For example `https://api.spotify.com/v1/artists` is an endpoint related to artist data while `https://api.spotify.com/v1/tracks` returns data related to tracks.
 
-* Endpoints might not or might have parameters to filter data.
+* Endpoints may or may not have parameters to filter data.
 
-* The docs of the REST API documents what each endpoint does and which parameters are needed to use to query data.
+* The docs of the REST API document what each endpoint does and which parameters are needed to query data.
 
 * Many REST APIs need authentication tokens for making requests.
 
-* REST APIs response always return status codes and headers describing whether the request was successful or something went bad.
+* REST API responses always return status codes and headers describing whether the request was successful or something went wrong.
 
 ## Exercises
 
@@ -196,6 +196,6 @@ And that's pretty much it for the very basics. You performed your first API requ
 
 2. Using the `users/` endpoint, can you tell me how many Amazon users are in China?
 
-3. Can you breakdown the `Request URL` that you performed in the previous exercises? That is, what do you see differently in a request that needs parameters in contrast to the requests we did to the `authors` endpoint?
+3. Can you break down the `Request URL` that you performed in the previous exercises? That is, what do you see differently in a request that needs parameters in contrast to the requests we did to the `authors` endpoint?
 
-4. Using the `users/` endpoint again, make request using both a customer id (use `2131`) and a country (`China` is fine). What status code do you get? What does the response body says? Can you do anything to fix it? Look on the web for the status code.
+4. Using the `users/` endpoint again, make a request using both a customer id (use `2131`) and a country (`China` is fine). What status code do you get? What does the response body say? Can you do anything to fix it? Look on the web for the status code.

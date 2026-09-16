@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 
 ## Regular expressions
 
--   Regular expressions, also called "regex"
+- Regular expressions, also called "regex"
 
 > Imagine you are playing a treasure hunt game and you are given a clue that says "the treasure is hidden in a sentence with the word 'treasure' in it." You would use regex to help you quickly find the sentence with the word "treasure" in it, like a treasure hunter using a metal detector to find gold.
 
@@ -249,7 +249,7 @@ Note that `[]` works the same way for anything: numbers, letters, punctuation, s
 
 ## Special classes: `[^]`
 
--   `[^abc]`: matches anything except a, b, or c.
+- `[^abc]`: matches anything except a, b, or c.
 
 ```{r, eval = FALSE}
 str_view_all(retirement$Men, "6[^5-9]")
@@ -286,11 +286,11 @@ history_france <- read_html(history_france_html)
 
 `ul` tags are very common and subsetting only for `ul` tags will bring many matches. XPath is the topic of the next chapter but bear with me.
 
--   `//ul`: bring all `ul` tags from the document
+- `//ul`: bring all `ul` tags from the document
 
--   `[.//a]`: subset all `a` tags that are *below* all `ul` tags (notice the `.`)
+- `[.//a]`: subset all `a` tags that are *below* all `ul` tags (notice the `.`)
 
--   `[contains(@title, "House of Valois")]`: where this `a` tag needs to have a `title` attribute that contains "House of Valois".
+- `[contains(@title, "House of Valois")]`: where this `a` tag needs to have a `title` attribute that contains "House of Valois".
 
 ## Case study: mapping the kings of France
 
@@ -339,9 +339,9 @@ There we go, 16 names and their corresponding period.
 
 We want to extract:
 
--   name of monarch
+- name of monarch
 
--   years in power
+- years in power
 
 Problem:
 

@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 
 ```
 
-# A primer on Webscraping {#primer-webscraping}
+# A primer on Webscraping {#sec-primer-webscraping}
 
 Webscraping is the subtle art of being a ninja. You need not be an expert on many things but should have a swiss army knife of skills when it comes to data cleaning and data manipulation. String manipulations, data subsetting and clever tricks rather than exact solutions will be your companion on your day to day scraping needs. Throughout this chapter I'll give you a one-to-one tour on what to expect when webscraping out in the wild. For that reason, this book will skip the usual 'start from the basics' sections to directly webscrape a website and see results from your efforts right away. Ready? Let's get going then.
 
@@ -28,7 +28,7 @@ The aim of this primer is to create a plot like this one:
 knitr::include_graphics(file.path(main_dir, "elections_plot.png"))
 ```
 
-This plot shows the election results for all political parties in Spain since 1978. We do not have data on this on your local computer so we'll need to find this online and scrape it. By scrape I specifically mean to write down a little R script that will go to a website for you and manually select the data points that you tell it to. Wikipedia has such data but throughout this book we will work mostly with local copies of websites as outlined in section \@ref(packages-used).
+This plot shows the election results for all political parties in Spain since 1978. We do not have data on this on your local computer so we'll need to find this online and scrape it. By scrape I specifically mean to write down a little R script that will go to a website for you and manually select the data points that you tell it to. Wikipedia has such data but throughout this book we will work mostly with local copies of websites as outlined in @sec-packages-used.
 
 ## Getting website data into R
 
@@ -191,7 +191,7 @@ semi_cleaned_data <-
 semi_cleaned_data
 ```
 
-There we go, all columns are of class numeric and look nice and tidy for plotting. Last step we need to take is to remove the footnote values from the party column names. For doing that we'll need some more advanced regex patterns that I'll explain briefly (chapter \@ref(regex) will elaborate the concept of regex more in depth). The pattern we'll use is `[.+]` which means: detect any character (this is the `.`) that is repeated one or more times (this is the `+`) and is enclosed within brackets (this is the `[]` part). So for example, the string `Election` won't find any match because it does not have a bracket with any values repeated one or more times. However, the column name `UCD[a]` does have this pattern: it contains two brackets `[]` that have a value that is repeated one time (`a`).
+There we go, all columns are of class numeric and look nice and tidy for plotting. Last step we need to take is to remove the footnote values from the party column names. For doing that we'll need some more advanced regex patterns that I'll explain briefly (@sec-regex) will elaborate the concept of regex more in depth). The pattern we'll use is `[.+]` which means: detect any character (this is the `.`) that is repeated one or more times (this is the `+`) and is enclosed within brackets (this is the `[]` part). So for example, the string `Election` won't find any match because it does not have a bracket with any values repeated one or more times. However, the column name `UCD[a]` does have this pattern: it contains two brackets `[]` that have a value that is repeated one time (`a`).
 
 There's also a last trick that we need to take into account which is that brackets (`[]`) have a special meaning in the regex world. To signal to regex that you want to match brackets *literally*, you need to escape them with the backslash (`\\`). So the final regex pattern we want to match is: `\\[.+\\]`. Let's use it to rename all columns:
 

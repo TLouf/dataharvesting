@@ -35,7 +35,7 @@ These are the links to the landing page of each school inside the website. There
 
 ## Scraping Spanish school locations
 
-Let's see how one school website looks like:
+Let's see what one school website looks like:
 
 ```{r}
 library(xml2)
@@ -68,15 +68,15 @@ school_raw
 
 ## Build a scraper for one school
 
--   Objective: extract school locations.
+- Objective: extract school locations.
 
--   You always want to begin by browsing the source code on your browser
+- You always want to begin by browsing the source code on your browser
 
--   Exploring the output of `read_html` is not the best way to explore what you're looking for
+- Exploring the output of `read_html` is not the best way to explore what you're looking for
 
--   Get very familiar with the website. Scraping two websites will require vastly different strategies.
+- Get very familiar with the website. Scraping two websites will require vastly different strategies.
 
--   We'll use the developers tool from your browser: `CTRL + SHIFT + c`
+- We'll use the developers tool from your browser: `CTRL + SHIFT + c`
 
 ## Build a scraper for one school
 
@@ -114,7 +114,7 @@ In case you didn't know, the coordinates are hidden in a string inside the `href
 
 ## Build a scraper for one school
 
-Typical brain storming:
+Typical brainstorming:
 
 1.  Extract a unique tag?
 2.  Extract a common tag but with a unique attribute?
@@ -131,11 +131,11 @@ We'll go with option 3:
 
 ## Build a scraper for one school
 
--   Tag `<p>` with a descendant `<a>` will return too many results
+- Tag `<p>` with a descendant `<a>` will return too many results
 
--   We can combine option 3 with option 2: Tag `<p>` with a unique text attribute with a descendant `<a>`.
+- We can combine option 3 with option 2: Tag `<p>` with a unique text attribute with a descendant `<a>`.
 
--   Possible XPath: find all `p` tags with `class` set to `d-flex align-items-baseline g-mt-5`. If we get one match, we're on the right track:
+- Possible XPath: find all `p` tags with `class` set to `d-flex align-items-baseline g-mt-5`. If we get one match, we're on the right track:
 
 ```{r}
 # Search for all <p> tags with that class in the document
@@ -145,9 +145,9 @@ school_raw %>%
 
 ## Build a scraper for one school
 
--   Extend XPath to say: find all `a` tags which are children of a `p` tag with `class` set to `d-flex align-items-baseline g-mt-5`.
+- Extend XPath to say: find all `a` tags which are children of a `p` tag with `class` set to `d-flex align-items-baseline g-mt-5`.
 
--   Or in other words: append `//a` to the previous XPath
+- Or in other words: append `//a` to the previous XPath
 
 ```{r}
 # Search for all <p> tags with that class in the document
@@ -159,7 +159,7 @@ There we are, we can see the coordinates 👏
 
 ## Build a scraper for one school
 
--   Extract `href` attribute with `xml_attr`:
+- Extract `href` attribute with `xml_attr`:
 
     ```{r}
     location_str <-
@@ -174,7 +174,7 @@ Awesome, but now we need some ninja string skills to extract the coordinates.
 
 ## Data Cleaning
 
-We need some regex skills to extract this. Let's brain storming:
+We need some regex skills to extract this. Let's brainstorm:
 
 1.  First coordinate appears after the first `=`
 2.  There's a few words like 'colegio' (this is just Spanish for school) and 'longitud' that are in the middle of the two coordinates.
@@ -199,9 +199,9 @@ There we go!
 
 Now we need to replace all unwanted letters in the strings. One way would be to say:
 
--   Replace the `=` or `colegio.longitud` with an empty string.
+- Replace the `=` or `colegio.longitud` with an empty string.
 
--   Why not replace the `&` as well? Because we can split the string based on `&` later
+- Why not replace the `&` as well? Because we can split the string based on `&` later
 
 ```{r}
 location <-
@@ -222,25 +222,25 @@ location <-
 location
 ```
 
-Great, that's it, this is data we've looking for in the entire chapter. Let's summarize the work so far:
+Great, that's it, this is the data we've been looking for in the entire chapter. Let's summarize the work so far:
 
--   Using XPath to extract tags that match our data
+- Using XPath to extract tags that match our data
 
--   Clean up the data with some regex
+- Clean up the data with some regex
 
--   Only do this for a *single* school since it's much easier
+- Only do this for a *single* school since it's much easier
 
 ## Scaling the scraper to all schools
 
--   When scraping repetitively similar pages, it always makes sense to start small.
+- When scraping repetitively similar pages, it always makes sense to start small.
 
--   Focus your efforts on a single school
+- Focus your efforts on a single school
 
--   Wrap all your work into a function that works for that single school
+- Wrap all your work into a function that works for that single school
 
--   Loop over all other schools applying the tested function
+- Loop over all other schools applying the tested function
 
--   Set your `User-Agent` to identify yourself
+- Set your `User-Agent` to identify yourself
 
 ## Scaling the scraper to all schools
 
@@ -329,13 +329,13 @@ ggplot(sp_sf) +
 
 ## Scraping public/private school
 
--   Private/public school info can help understand inequality.
+- Private/public school info can help understand inequality.
 
--   Mapping school location to average income at the neighborhood level
+- Mapping school location to average income at the neighborhood level
 
--   Correlating private/public school quotas with income can understand inequality patterns
+- Correlating private/public school quotas with income can help understand inequality patterns
 
--   Luckily, the website has the info for us
+- Luckily, the website has the info for us
 
 ## Scraping public/private school
 
@@ -353,13 +353,13 @@ Open up developer tools (`CTRL + SHIFT + c`) and hover over that info:
 
 Brainstorming scraping strategy:
 
--   Info we want is within a `<strong>` tag
+- Info we want is within a `<strong>` tag
 
--   `<strong>` is **bold** in HTML world
+- `<strong>` is **bold** in HTML world
 
--   Too many matches if search for `<strong>`
+- Too many matches if search for `<strong>`
 
--   Find an ascendant with a unique attribute. For example: `<div>` tag with class `'col-6 g-brd-left g-brd-bottom g-theme-brd-gray-light-v3 g-px-15 g-py-25'`
+- Find an ascendant with a unique attribute. For example: `<div>` tag with class `'col-6 g-brd-left g-brd-bottom g-theme-brd-gray-light-v3 g-px-15 g-py-25'`
 
 Let's try it.
 
@@ -391,9 +391,9 @@ text_boxes
 
 ## Scraping public/private school
 
--   We don't know if all schools will have exactly 10 boxes
+- We don't know if all schools will have exactly 10 boxes
 
--   Make it more precise with regex
+- Make it more precise with regex
 
 ```{r}
 single_public_private <-
@@ -508,13 +508,13 @@ One additional information that might also be useful to know is the type of each
 
 Brain storm:
 
--   This is the exact same code as before?
+- This is the exact same code as before?
 
--   Can we recycle at least until extracting the `div` XPath?
+- Can we recycle at least until extracting the `div` XPath?
 
--   Problem: we can't know in advance the *type* of center so we can't regex to detect it
+- Problem: we can't know in advance the *type* of center so we can't regex to detect it
 
--   Instead: detect `Tipo Centro`, genetic for "Type of center"
+- Instead: detect `Tipo Centro`, generic for "Type of center"
 
 ## Extracting type of school
 
@@ -535,9 +535,9 @@ selected_node <- text_boxes %>% xml_text() %>% str_detect("Tipo Centro")
 selected_node
 ```
 
--   Subset that node and from here on we can do as we did last time: extract the strong tag.
+- Subset that node and from here on we can do as we did last time: extract the strong tag.
 
--   XPath `.//strong`. `.//strong` means to find all strong tags but the `.` means to search for all tags below the current selection.
+- XPath `.//strong`. `.//strong` means to find all strong tags but the `.` means to search for all tags below the current selection.
 
 ## Extracting type of school
 
@@ -653,20 +653,20 @@ ggplot(sp_sf) +
 
 ## Summary
 
--   Web scraping is all about creativity
+- Web scraping is all about creativity
 
--   Knowing some XPath
+- Knowing some XPath
 
--   Mastering some regex
+- Mastering some regex
 
--   Thinking outside the box
+- Thinking outside the box
 
 🤯
 
 ## Homework
 
--   Chapter 10 and 11 -- read + exercises
+- Chapters 10 and 11 -- read + exercises
 
--   Deadline for groups is today. Anyone missing? [Here](https://docs.google.com/spreadsheets/d/11QmdgRXvbwtN9hSOwVyw9-iVjrN-yeRq_BOudidAnX8/edit#gid=73208201).
+- Deadline for groups is today. Anyone missing? [Here](https://docs.google.com/spreadsheets/d/11QmdgRXvbwtN9hSOwVyw9-iVjrN-yeRq_BOudidAnX8/edit#gid=73208201).
 
--   Each group should send me an email with their project idea (other team members as cc) and I will advise on whether it's a good idea. Deadline is in **two weeks.**
+- Each group should send me an email with their project idea (other team members as cc) and I will advise on whether it's a good idea. Deadline is in **two weeks.**

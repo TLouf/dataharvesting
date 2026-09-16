@@ -18,11 +18,11 @@ knitr::opts_chunk$set(
 
 ```
 
-# Automating Web Scraping Scripts {#automating-scripts}
+# Automating Web Scraping Scripts {#sec-automating-scripts}
 
-There are two types of webscraping: one-off scrapings or frequent scrapings. The first one is what we did in chapter \@ref(primer-webscraping). You create a program to scrape something only once. This is a very common approach and we've done it a few time throughout this book. The second one involves building scrapers that you know will be used more frequently. Many examples come to mind: scrapers to extract news on a frequent basis, scrapers to extract temperature data on a daily basis, scrapers to collect prices of groceries in a supermarket website and so on. These scrapers are designed to be run on frequent intervals to get timely information.
+There are two types of webscraping: one-off scrapings or frequent scrapings. The first one is what we did in @sec-primer-webscraping. You create a program to scrape something only once. This is a very common approach and we've done it a few times throughout this book. The second one involves building scrapers that you know will be used more frequently. Many examples come to mind: scrapers to extract news on a frequent basis, scrapers to extract temperature data on a daily basis, scrapers to collect prices of groceries in a supermarket website and so on. These scrapers are designed to be run on frequent intervals to get timely information.
 
-For one-off scrapers, all of the material of the book until this chapter should be enough. However, for frequent scrapings we need new tools and strategies. Have you asked yourself how can you automate a script? By automating I mean, for example, run that script every Thursday at 08:00 PM. This chapter focuses on scheduling programs to run whenever you want them to. You might need this to collect data on a website that is changing constantly or to request data from an API on frequent intervals (the topic of API's is the second part of this book) but in any of those two cases you don't want to be manually running to your house at 3 in the morning to run the program. This chapter will make sure you don't have to do that.
+For one-off scrapers, all of the material of the book until this chapter should be enough. However, for frequent scrapings we need new tools and strategies. Have you asked yourself how you can automate a script? By automating I mean, for example, run that script every Thursday at 08:00 PM. This chapter focuses on scheduling programs to run whenever you want them to. You might need this to collect data on a website that is changing constantly or to request data from an API on frequent intervals (the topic of APIs is the second part of this book) but in any of those two cases you don't want to be manually running to your house at 3 in the morning to run the program. This chapter will make sure you don't have to do that.
 
 ::: {.rmdnote}
 Scheduling scripts is very different between operating systems. This chapter will focus solely on scheduling scripts for Linux and MacOS. Windows users are recommended to search for 'Windows Task Scheduler' online to find out how they can schedule their R programs.
@@ -30,7 +30,7 @@ Scheduling scripts is very different between operating systems. This chapter wil
 
 ## The Scraping Program
 
-The first thing we need is a scraping program. Let's recycle one from chapter \@ref(xpath-chapter) which loaded an example from the newspaper "El País". Our scraper will count the number of articles for each of the sections available in the newspaper "El País". The R script will parse the "El País" website, extract the number of articles per section and collect everything in a data frame. Here's how it would look like:
+The first thing we need is a scraping program. Let's recycle one from @sec-xpath-chapter which loaded an example from the newspaper "El País". Our scraper will count the number of articles for each of the sections available in the newspaper "El País". The R script will parse the "El País" website, extract the number of articles per section and collect everything in a data frame. Here's how it would look like:
 
 ```{r}
 # Load all our libraries
@@ -72,7 +72,7 @@ There are 11 sections, each one with their respective number of articles. For a 
 The scraper above does precisely that but it's missing a step: saving the data. The logic that we want to achieve is something like this:
 
 1. If this is the first time the scraper is run, save a csv file with the count of sections
-2. If the CSV with the count of section exists, open the CSV file and append the newest data with the current time stamp
+2. If the CSV with the count of sections exists, open the CSV file and append the newest data with the current time stamp
 
 This approach will add rows with new counts every time the scraper is run. By plotting the time stamp and the count of sections you'll be able to visualize how these counts change over time. To do that, we should add a new section in the code to save our results on a CSV file with the time stamp of the current date. Let's add a section to save our data:
 
@@ -126,19 +126,19 @@ In summary, this script will read the website of "El País", count the number of
 
 ## The Terminal
 
-To use `cron`, and in general to executing R scripts, you'll need to get familiar with the terminal. Let's open the terminal. On Linux, you can do it by pressing the keys CTRL + ALT + t together. For MacOS click the Launchpad icon in the Dock, type Terminal in the search field and then click Terminal. For both operating systems you should see a window like this (not exactly but similar) one pop up:
+To use `cron`, and in general to execute R scripts, you'll need to get familiar with the terminal. Let's open the terminal. On Linux, you can do it by pressing the keys CTRL + ALT + t together. For MacOS click the Launchpad icon in the Dock, type Terminal in the search field and then click Terminal. For both operating systems you should see a window like this (not exactly but similar) one pop up:
 
 ```{r, echo = FALSE, out.width = "100%"}
 knitr::include_graphics(file.path(main_dir, "basic_terminal_ubuntu.png"))
 ```
 
-This is the terminal. It allows you to do things like create directories and files just as you would do in your computer but through code. Let's create the directory where we'll save the CSV file and the R script that performs the scraping. To create the directory, we use the command `mkdir` which stands for `m`a`k`e`dir`ectory. Let's create it with `mkdir ~/newspaper/`:
+This is the terminal. It allows you to do things like create directories and files just as you would do on your computer but through code. Let's create the directory where we'll save the CSV file and the R script that performs the scraping. To create the directory, we use the command `mkdir` which stands for `m`a`k`e`dir`ectory. Let's create it with `mkdir ~/newspaper/`:
 
 ```{r, echo = FALSE, out.width = "100%"}
 knitr::include_graphics(file.path(main_dir, "create_newspaper_dir.png"))
 ```
 
-Great, the directory was created. Now you should copy the R script we wrote down above and save it in `~/newspaper/`. Save it as `newspaper_scraper.R`. You should have only an R file within `~/newspaper/` called `newspaper_scraper.R`. You can confirm this by typing `ls ~/newspaper/` which will list all files/directories inside `~/newspaper`/. You should see an output like this one:
+Great, the directory was created. Now you should copy the R script we wrote down above and save it in `~/newspaper/`. Save it as `newspaper_scraper.R`. You should have only an R file within `~/newspaper/` called `newspaper_scraper.R`. You can confirm this by typing `ls ~/newspaper/` which will list all files/directories inside `~/newspaper/`. You should see an output like this one:
 
 ```{bash, eval = FALSE}
 ls ~/newspaper/
@@ -158,7 +158,7 @@ As you can see in the third line of the image, there now appears `~/newspaper` i
 knitr::include_graphics(file.path(main_dir, "running_scraper_once.png"))
 ```
 
-The first few lines show the printing of package loading but we finally see the print statement we added when the file doesn't exit: `File doesn't exist; Creating it`. If you opened the CSV in your computer you should see the a sheet like this one:
+The first few lines show the printing of package loading but we finally see the print statement we added when the file doesn't exist: `File doesn't exist; Creating it`. If you opened the CSV on your computer you should see a sheet like this one:
 
 ```{r, echo = FALSE, out.width = "80%"}
 knitr::include_graphics(file.path(main_dir, "newspaper_scraping_excel.png"))
@@ -187,7 +187,7 @@ In both cases, after the install is successful, you should be able to confirm th
 knitr::include_graphics(file.path(main_dir, "crontab_list.png"))
 ```
 
-The output means you have no scheduled scripts in your computer. To schedule a script with `cron` you need two things: the command to execute and the schedule. The command to execute we already know, it's `Rscript ~/newspaper/newspaper_scraper.R`. For specifying schedules, `cron` has a particular syntax. How does it work? Let's take a look:
+The output means you have no scheduled scripts on your computer. To schedule a script with `cron` you need two things: the command to execute and the schedule. The command to execute we already know, it's `Rscript ~/newspaper/newspaper_scraper.R`. For specifying schedules, `cron` has a particular syntax. How does it work? Let's take a look:
 
 ```
   * * * * * <command to execute>
@@ -199,14 +199,14 @@ The output means you have no scheduled scripts in your computer. To schedule a s
 # minute (0–59)
 ```
 
-At the bottom of the image we see 5 `*`. The text above it tells what each of these `*` stands for. In this order, they represent minutes, hours, day of month, month and day of week.`*` is in fact a placeholder to signal that whenever there is a `*` it means the command will be repeated at each instance of the place holder. Complicated? Look at this example:
+At the bottom of the image we see 5 `*`. The text above it tells what each of these `*` stands for. In this order, they represent minutes, hours, day of month, month and day of week. `*` is in fact a placeholder to signal that whenever there is a `*` it means the command will be repeated at each instance of the placeholder. Complicated? Look at this example:
 
 ```
 * * * * *
 ```
 
 By writing `* * * * *`, we're scheduling the program to run at every minute, of every hour, of every day of the month, for every month for every day of the week. Say we changed the schedule to run every 30 minutes for each hour of each day of each month for each day of week. That sounds awfully complicated to say. A simpler way is to say that the script will run every 30 minutes *because* all other date parameters are `*`, which means on every unit of each of the parameters.
-How would such a schedule look like? We know the first slot is for minutes so we can write `30` in the first slot:
+How would such a schedule look? We know the first slot is for minutes so we can write `30` in the first slot:
 
 ```
 30 * * * *
@@ -228,7 +228,7 @@ Or you might want to run your scraper at 05:30 AM only on Saturday and Sunday:
 
 The expression reads like this: run on the 30th minute of the 5th hour every month but on Saturday and Sunday (6th and 7th day of the week). These simple rules can take you a long way when building your scraper.
 
-Let's say we wanted to run our newspaper scraper every 4 hours, every day, how would it look like? That sounds a bit different to what we've done until now. The syntax we've discussed specifically writes down the day / hour / minute we want to the scraper to do. We have no way of saying, regardless of the day / hour / minute, run the scraper every X hours. For that `cron` has additional tricks. If we wanted to run a scraper every every 4 hours we would write it like this:
+Let's say we wanted to run our newspaper scraper every 4 hours, every day, how would it look? That sounds a bit different to what we've done until now. The syntax we've discussed specifically writes down the day / hour / minute we want the scraper to run on. We have no way of saying, regardless of the day / hour / minute, run the scraper every X hours. For that `cron` has additional tricks. If we wanted to run a scraper every 4 hours we would write it like this:
 
 ```
 1 */4 * * *
@@ -242,7 +242,7 @@ For the date parameter you want to make recurrent, add `/` by the frequency you 
 
 So there it is. That's the basics of `cron`. These simple rules will allow you to go very far in scheduling scripts for your scrapers or APIs. These details are enough to get our example running.
 
-Let's schedule our newspaper scraper to run every minute, just to make sure it works. This will get messy because it'll append the same results in the CSV file continuously, filling out with CSV with repeated data. However, it will give you proof that your script is running on a schedule. If we want this to run every minute, our cron expression should be this `* * * * *`, the simplest expression.
+Let's schedule our newspaper scraper to run every minute, just to make sure it works. This will get messy because it'll append the same results in the CSV file continuously, filling the CSV with repeated data. However, it will give you proof that your script is running on a schedule. If we want this to run every minute, our cron expression should be this `* * * * *`, the simplest expression.
 
 To save the cron expression type `crontab -e` in your terminal. If this is your first time using `crontab` you should see something like this:
 
@@ -271,10 +271,10 @@ knitr::include_graphics(file.path(main_dir, "crontab_newspaper_scraper.png"))
 To exit the `cron` interface, **follow these steps**:
 
 * Hit `CTRL` and `X` (this is for exiting the `cron` interface)
-* It will prompt you to save the file. **Press`Y` to save it**.
+* It will prompt you to save the file. **Press `Y` to save it**.
 * Press `enter` to save the `cron` schedule file with the same name it has.
 
-After you do this, you should be back at the terminal and you cron job should be saved. Nothing special should be happening at the moment. Wait two or three minutes and open your the CSV file again. You should find the same records duplicated but with a different time stamp:
+After you do this, you should be back at the terminal and your cron job should be saved. Nothing special should be happening at the moment. Wait two or three minutes and open the CSV file again. You should find the same records duplicated but with a different time stamp:
 
 ```{r, echo = FALSE, out.width = "80%"}
 knitr::include_graphics(file.path(main_dir, "newspaper_results_crontab.png"))
@@ -284,7 +284,7 @@ Our `cron` schedule worked as expected! You will see different time stamps in th
 
 ## Conclusion
 
-This framework of building a scraper, testing it and then scheduling it to run on frequent intervals is very powerful. With these commands you can automate any program (in fact, not only R but any programming language or program). However, this approach has limitations. Your computer needs to be turned on all the time in order for your `cron` schedule to run. If you're doing a school project and it's possible, you might get around with only using your computer. However, for more demanding scrapings (lots of data, frequent intervals) it's almost always a better idea to run your scraper on a server.
+This framework of building a scraper, testing it and then scheduling it to run on frequent intervals is very powerful. With these commands you can automate any program (in fact, not only R but any programming language or program). However, this approach has limitations. Your computer needs to be turned on all the time in order for your `cron` schedule to run. If you're doing a school project and it's possible, you might get by with only using your computer. However, for more demanding scrapings (lots of data, frequent intervals) it's almost always a better idea to run your scraper on a server.
 
 Launching a server and running a scraper is out of the scope of this chapter but keep that in mind when building scrapers for your work. There are many tutorials to do that over the internet.
 
@@ -295,13 +295,13 @@ Launching a server and running a scraper is out of the scope of this chapter but
 
 ## Exercises
 
-1. What is the `cron` expression to run every 15 minutes on Monday, Wednesday and Friday but only on February?
+1. What is the `cron` expression to run every 15 minutes on Monday, Wednesday and Friday but only in February?
 
 ```{bash, eval = FALSE, echo = FALSE}
 */15 * * 2 1,3,5
 ```
 
-2. An R packaged called `cronR` allows you to setup `cron` schedules within R. Can you replicate what we did in this chapter using the `cronR` package? The package documentation can be found [here](https://github.com/bnosac/cronR).
+2. An R package called `cronR` allows you to setup `cron` schedules within R. Can you replicate what we did in this chapter using the `cronR` package? The package documentation can be found [here](https://github.com/bnosac/cronR).
 
 
 3. Can you write down a script that empties the trash folder on your personal computer every Monday at 11AM? Write down both the scraper as well as the `cron` expression. **Remember to remove this `cron` after deploying it to avoid unexpected files being deleted**.

@@ -1,4 +1,4 @@
-# Scraping JavaScript based website
+# Scraping JavaScript-based websites
 
 ```{r selenium-setup, include=FALSE}
 main_dir <- "./images"
@@ -13,43 +13,43 @@ knitr::opts_chunk$set(
 )
 ```
 
-Even with all the techniques we've covered in this book, some websites can't be scraped in the traditional way. What does this mean? Some websites have their content hidden behind JavaScript code that can't be seen by simply reading the HTML code. These website are built for interactivity, meaning that some parts will *only* be revealed when you interact with it. When you read the HTML of that website, you won't be able to see the data that you want. As usual, let's motivate this chapter with an example.
+Even with all the techniques we've covered in this book, some websites can't be scraped in the traditional way. What does this mean? Some websites have their content hidden behind JavaScript code that can't be seen by simply reading the HTML code. These websites are built for interactivity, meaning that some parts will *only* be revealed when you interact with them. When you read the HTML of that website, you won't be able to see the data that you want. As usual, let's motivate this chapter with an example.
 
-The European Social Survey (ESS) is an academically driven cross-national survey that has been conducted across Europe since its establishment in 2001. Every two years, face-to-face interviews are conducted with newly selected, cross-sectional samples. The survey measures the attitudes, beliefs and behavior patterns of diverse populations in more than thirty nations. In their website they have a 'Data Portal' that allows you to pick variables they asked in their questionnaire, pick the country/years of data you want and download that custom data set for yourself. You can find the data portal [here](https://ess-search.nsd.no/CDW/ConceptVariables). This is how it looks like:
+The European Social Survey (ESS) is an academically driven cross-national survey that has been conducted across Europe since its establishment in 2001. Every two years, face-to-face interviews are conducted with newly selected, cross-sectional samples. The survey measures the attitudes, beliefs and behavior patterns of diverse populations in more than thirty nations. On their website they have a 'Data Portal' that allows you to pick variables they asked in their questionnaire, pick the country/years of data you want and download that custom data set for yourself. You can find the data portal [here](https://ess-search.nsd.no/CDW/ConceptVariables). This is what it looks like:
 
 ```{r, echo = FALSE, out.width = "100%", eval = TRUE}
 knitr::include_graphics(file.path(main_dir, "ess_data_portal.png"))
 ```
 
-With the developer's tools (CTRL-SHIT-C), we can see the HTML code behind the website. Let's say that you want to extract all variable names associated with a category of questions. Under 'Media use and trust' there are several question names and labels that belong to that category:
+With the developer tools (CTRL-SHIFT-C), we can see the HTML code behind the website. Let's say that you want to extract all variable names associated with a category of questions. Under 'Media use and trust' there are several question names and labels that belong to that category:
 
 ```{r, echo = FALSE, out.width = "100%", eval = TRUE}
 knitr::include_graphics(file.path(main_dir, "list_variables_ess_data_portal.png"))
 ```
 
-However, unless you *click* on the drop down menu, those questions won't be displayed on the source code of the website. That is, if right now you spent 10 minutes searching the source code from the developer's tools on the right, you won't find the names of those variables anywhere:
+However, unless you *click* on the drop-down menu, those questions won't be displayed on the source code of the website. That is, if right now you spent 10 minutes searching the source code from the developer tools on the right, you won't find the names of those variables anywhere:
 
 ```{r, echo = FALSE, out.width = "100%", eval = TRUE}
 knitr::include_graphics(file.path(main_dir, "list_variables_source_code.png"))
 ```
 
-Those variable names won't be found anywhere. You might think, well that's easy to solve: I'll click on the drop down menu and use the new generated link (with all data displayed) to read it with `read_html`. The issue is that the URL of the website will be the same whether you click or not the drop down menu:
+Those variable names won't be found anywhere. You might think, well that's easy to solve: I'll click on the drop-down menu and use the newly generated link (with all data displayed) to read it with `read_html`. The issue is that the URL of the website will be the same whether you click the drop-down menu or not:
 
 ```{r, echo = FALSE, out.width = "100%", eval = TRUE}
 knitr::include_graphics(file.path(main_dir, "list_displayed_same_link.png"))
 ```
 
-Same URL, despite that I clicked on 'Media use and trust' and all variable names are displayed. This means that whenever you use `read_html` on that link, the variable labels won't be displayed and you won't be able to gather that data. That's the motivation behind Selenium. It's objective is to be able to scrape websites that are dynamic and interactive and are impossible to do so using traditional URLs and the source.
+Same URL, despite the fact that I clicked on 'Media use and trust' and all variable names are displayed. This means that whenever you use `read_html` on that link, the variable labels won't be displayed and you won't be able to gather that data. That's the motivation behind Selenium. Its objective is to be able to scrape websites that are dynamic and interactive and where it is impossible to do so using traditional URLs and the source code.
 
 ## Introduction to RSelenium
 
-Selenium is a software program that you use to 'mimic' a human. Yes, that's right. All Selenium does is literally open a browser and click on parts of the page as if you were a human. Once you've clicked on certain parts of the website, you can use your knowledge on XPath, HTML and `xml2` to extract the data you need.
+Selenium is a software program that you use to 'mimic' a human. Yes, that's right. All Selenium does is literally open a browser and click on parts of the page as if you were a human. Once you've clicked on certain parts of the website, you can use your knowledge of XPath, HTML and `xml2` to extract the data you need.
 
 The example we'll use for this chapter is the blog of the statistician [Andrew Gelman](https://statmodeling.stat.columbia.edu/). According to [Rohan Alexander](https://rohanalexander.com/posts/2021-09-17-andrew-gelman-dsi-intro/):
 
 > Gelman’s blog—Statistical Modeling, Causal Inference, and Social Science—launched in 2004—is the go-to place for a fun mix of somewhat-nerdy statistics-focused content. The very first post promised to ‘…report on recent research and ongoing half-baked ideas, including … Bayesian statistics, multilevel modeling, causal inference, and political science.’ 17 years on, the site has very much kept its promise.
 
-We'll use this blog to explore the topics that have been discussed in the world of statistics over the last 17 years. This website **does not** need to be scraped using Selenium and can be scraped by just reading the HTML code. However, websites which **do** need to use Selenium can't be saved locally and are doomed to change over time, which entails a risk of making this chapter unusable in the future. For that reason we are going to perform all our scraping using a traditional example but highlighting it as if it were a JavaScript based website.
+We'll use this blog to explore the topics that have been discussed in the world of statistics over the last 17 years. This website **does not** need to be scraped using Selenium and can be scraped by just reading the HTML code. However, websites which **do** need to use Selenium can't be saved locally and are doomed to change over time, which entails a risk of making this chapter unusable in the future. For that reason we are going to perform all our scraping using a traditional example but highlighting it as if it were a JavaScript-based website.
 
 Let's load the packages we'll use and our example:
 
@@ -170,7 +170,7 @@ remDr <- rsDriver(port = 4445L)
 ## [1] "a3585bf8-9c4a-462e-a74d-b9d6b35daff7"
 ```
 
-After the last line that starts with`BEGIN` we'll see all the options from our browser. For example, the `browserName` and the `browserVersion`. The important thing here is that, aside from this output, you should see a browser that opened in your computer completely empty:
+After the last line that starts with `BEGIN` we'll see all the options from our browser. For example, the `browserName` and the `browserVersion`. The important thing here is that, aside from this output, you should see a browser that opened on your computer completely empty:
 
 ```{r, echo = FALSE, out.width = "100%", eval = TRUE}
 knitr::include_graphics(file.path(main_dir, "empty_firefox.png"))
@@ -188,7 +188,7 @@ Have a look at the browser and you should see the blog opened there:
 knitr::include_graphics(file.path(main_dir, "selenium_blog_main.png"))
 ```
 
-The most effective way to navigate in `RSelenium` is to use XPath to find parts of the website that you want perform an action and then use some of the methods to click, send or submit something on the website. For example, suppose we wanted to perform some natural language processing on all posts over the last 17 years of blog posts. The first we'd like to do is to click on the blog post name and extract all the text.
+The most effective way to navigate in `RSelenium` is to use XPath to find parts of the website that you want to perform an action on and then use some of the methods to click, send or submit something on the website. For example, suppose we wanted to perform some natural language processing on all posts over the last 17 years of blog posts. The first thing we'd like to do is to click on the blog post name and extract all the text.
 
 ## Navigating a website in RSelenium
 
@@ -198,7 +198,7 @@ Let's focus on the first blog post. Let's find the XPath expression that will re
 knitr::include_graphics(file.path(main_dir, "blog_first_entry.png"))
 ```
 
-To validate our XPath nothing prevents us from reading the source code and trying it out. At this point I read it with `read_html` and tried several XPath until I managed to land on the one we're interested in:
+To validate our XPath nothing prevents us from reading the source code and trying it out. At this point I read it with `read_html` and tried several XPaths until I managed to land on the one we're interested in:
 
 ```{r, eval = TRUE}
 blog_link %>%
@@ -214,7 +214,7 @@ Let's explain it. If you look at the source from the image above, you'll see tha
 * Wrap everything in `()` to collect the result
 * Keep only the first result `[1]`
 
-We now know this XPath is validated so we need to locate it in `RSelenium` and click on it. Everything you do on `RSelenium` is done using the property `client`, which has many methods associated with the browser. The main methods we'll be using is `findElement` and `clickElement`. `findElement` is used to position the pointer of the browser exactly where you want and `clickElement` will click on it. Let's use our XPath to move the pointer to the blog post and click on it:
+We now know this XPath is validated so we need to locate it in `RSelenium` and click on it. Everything you do on `RSelenium` is done using the property `client`, which has many methods associated with the browser. The main methods we'll be using are `findElement` and `clickElement`. `findElement` is used to position the pointer of the browser exactly where you want and `clickElement` will click on it. Let's use our XPath to move the pointer to the blog post and click on it:
 
 ```{r}
 # Since we'll use the client a lot let's save it on a separate object
@@ -234,13 +234,13 @@ If you scroll down you'll see there are comments:
 knitr::include_graphics(file.path(main_dir, "first_entry_comments.png"))
 ```
 
-We clicked on the first entry and the browser entered that post. Great! This simple strategy of `findElement` and `clickElement` can be reused for most of you needs. The strategy is simple:
+We clicked on the first entry and the browser entered that post. Great! This simple strategy of `findElement` and `clickElement` can be reused for most of your needs. The strategy is simple:
 
 1. Find the XPath where you want to click
 2. Use the XPath in `findElement`
 3. Use `clickElement` to click it
 
-One natural follow up question is how do we actually extract the HTML code to extract stuff for us to analyze. After all, we've only opened a browser and clicked on something. The actual fun is to extract data to do stuff with it. `RSelenium` has the property `getPageSource()`. This property returns a list so we need to extract the first slot:
+One natural follow-up question is how do we actually extract the HTML code to extract stuff for us to analyze. After all, we've only opened a browser and clicked on something. The actual fun is to extract data to do stuff with it. `RSelenium` has the property `getPageSource()`. This property returns a list so we need to extract the first slot:
 
 ```{r}
 page_source <- driver$getPageSource()[[1]]
@@ -301,7 +301,7 @@ entry_date
 ## [1] "2022-10-16 09:31:00"
 ```
 
-Note of the use of `parse_date_time` and the time format (all the `%` symbols) to convert the string of date/time into R. With that information we can create a clean data frame of entry dates with their respective categories in a list column:
+Note the use of `parse_date_time` and the time format (all the `%` symbols) to convert the string of date/time into R. With that information we can create a clean data frame of entry dates with their respective categories in a list column:
 
 ```{r}
 final_res <- tibble(entry_date = entry_date, categories = list(categories_first_post))
@@ -328,7 +328,7 @@ knitr::include_graphics(file.path(main_dir, "selenium_blog_main.png"))
 
 ## Scaling RSelenium to many websites
 
-With that ready, we can move all our code into a function and loop it over all blog posts in this page:
+With that ready, we can move all our code into a function and loop it over all blog posts on this page:
 
 ```{r}
 collect_categories <- function(page_source) {
@@ -383,7 +383,7 @@ for (i in seq_len(num_blogs)) {
 }
 ```
 
-While your code runs, open the browser and enjoy the show. Your browser will start working it self as if a ghost were scrolling down and clicking on each blog post. When it finishes, we'll have a list of all categories in the last 20 blog posts. Let's combine those and get a count of the most used categories:
+While your code runs, open the browser and enjoy the show. Your browser will start working itself as if a ghost were scrolling down and clicking on each blog post. When it finishes, we'll have a list of all categories in the last 20 blog posts. Let's combine those and get a count of the most used categories:
 
 ```{r}
 combined_df <- bind_rows(blog_posts)
@@ -437,9 +437,9 @@ driver$switchToWindow("windowId")
 ```
 
 
-You can do all sorts of things like taking a screenshot of the website, grabbing the URL, delete cookies and so much more. We can't cover everything that `RSelenium` can do but we can focus on the most common ones.
+You can do all sorts of things like taking a screenshot of the website, grabbing the URL, deleting cookies and so much more. We can't cover everything that `RSelenium` can do but we can focus on the most common ones.
 
-One common thing you'll also want to do is to learn how to fill out a form. It's common for a website to ask you information before showing you a website or fill out a search bar (like in any eCommerce website such as Amazon) to obtain results. For these tasks you have to manually type content into a form-like box.
+One common thing you'll also want to do is to learn how to fill out a form. It's common for a website to ask you for information before showing you a website or fill out a search bar (like in any eCommerce website such as Amazon) to obtain results. For these tasks you have to manually type content into a form-like box.
 
 Our blog example contains one nice example we can recycle for filling out forms. Whenever you want to post a comment on the blog's posts you need to fill out a form with the comment text, the author name, email and author's website before you're allowed to publish. To see this, we need to go into a blog post and scroll down. Let's go to the first post:
 
@@ -447,13 +447,13 @@ Our blog example contains one nice example we can recycle for filling out forms.
 driver$findElement(value = "(//h1[@class='entry-title']//a)[1]")$clickElement()
 ```
 
-And scroll down see the comments section:
+And scroll down to see the comments section:
 
 ```{r, echo = FALSE, out.width = "100%", eval = TRUE}
 knitr::include_graphics(file.path(main_dir, "first_entry_comments_form.png"))
 ```
 
-On the left you'll see the form. Each of those text areas has a corresponding tag on the right. The one for the author form has been highlighted on the right. You'll see that the `id` attribute is `author`. Similarly, if you see a tiny bit below, the email input has the `id` set to `email`. Using our traditional XPath syntax we can probably navigate the browser to that specific tag. However, `RSelenium` has some nice tricks that can make it even easier for us. `findElement` assumes that you'll be using XPath, as we did previously, but it also allows to specify certain attributes without using XPath. If we wanted to go the tag that has an `id` set to `author`, we could do it like this:
+On the left you'll see the form. Each of those text areas has a corresponding tag on the right. The one for the author form has been highlighted on the right. You'll see that the `id` attribute is `author`. Similarly, if you see a tiny bit below, the email input has the `id` set to `email`. Using our traditional XPath syntax we can probably navigate the browser to that specific tag. However, `RSelenium` has some nice tricks that can make it even easier for us. `findElement` assumes that you'll be using XPath, as we did previously, but it also allows you to specify certain attributes without using XPath. If we wanted to go to the tag that has an `id` set to `author`, we could do it like this:
 
 ```{r}
 driver$findElement(using = "id", "author")
@@ -491,7 +491,7 @@ At this point, we need to fill out the text of the comment but we don't want to 
 driver$findElement(using = "id", "submit")$clickElement()
 ```
 
-The post won't be published, instead you'll see a pop up saying "Please fill out this field", saying you need to provide a comment to the post behind publishing it:
+The post won't be published, instead you'll see a pop up saying "Please fill out this field", saying you need to provide a comment to the post before publishing it:
 
 
 ```{r, echo = FALSE, out.width = "100%", eval = TRUE}
@@ -565,4 +565,4 @@ knitr::include_graphics(file.path(main_dir, "older_posts.png"))
 2. Has the use of images grown over time in the blog? It's up to you to decide how many posts in the past you want to go back. Hint: count the number of `<img>` tags for each post.
 
 
-3. Gelman is a big proponent of using  Bayesian methods over Frequentist methods in statistics. Can you plot the frequency usage of the word "Bayesian" over time? Is there a peak moment in the history of the blog?
+3. Gelman is a big proponent of using Bayesian methods over Frequentist methods in statistics. Can you plot the frequency of usage of the word "Bayesian" over time? Is there a peak moment in the history of the blog?
