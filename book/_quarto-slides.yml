@@ -21,3 +21,4 @@ format:
     revealjs:
         chalkboard: true
         scrollable: true
+        footer: "[↩️ Back to book]()"
