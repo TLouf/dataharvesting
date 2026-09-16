@@ -43,6 +43,7 @@ library(httr)
 library(tidyverse)
 library(sf)
 library(rnaturalearth)
+library(rnaturalearthhires)
 library(scrapex)
 
 school_links <- spanish_schools_ex()
