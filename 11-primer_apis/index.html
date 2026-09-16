@@ -324,11 +324,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Inside <code>scrapex</code> the function <code>api_coveragedb()</code> has a local API that was designed to be used in this book. Let’s load it:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>api_covid <span class="ot">&lt;-</span> <span class="fu">api_coveragedb</span>()</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "Visit your REST API at http://localhost:37159"</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "Documentation is at http://localhost:37159/__docs__/"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "Visit your REST API at http://localhost:26799"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "Documentation is at http://localhost:26799/__docs__/"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The API is now launched in the background and we can access it. Note that when learning about a new API online you <strong>won’t</strong> have to launch any API. APIs are hosted on servers elsewhere and you’ll just need to read how to access the API. Since this is a stand-alone book (we don’t want any of our examples to depend on fast-changing websites or APIs, making most of the content in this book useless in just a few months), we use a local API that won’t change over time and thus we need to launch it ourselves.</p>
-<p>When you do access an API, instead you’ll be directly given things like the documentation page. That we can see in the printout of the previous R call http://localhost:37159/<strong>docs</strong>/. <strong>Note that this link won’t work on your computer because you need to launch the API on your computer (remember how this is a local API?). Go to your URL and you should see something like this</strong>:</p>
+<p>When you do access an API, instead you’ll be directly given things like the documentation page. That we can see in the printout of the previous R call http://localhost:26799/<strong>docs</strong>/. <strong>Note that this link won’t work on your computer because you need to launch the API on your computer (remember how this is a local API?). Go to your URL and you should see something like this</strong>:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -350,11 +350,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>First thing we see is that this endpoint has two parameters: <code>region</code> and <code>sex</code>. Both are required. Also, the documentation of each parameter tells us the valid values that can be accepted. Aside from that, we see that this endpoint returns a JSON structured response as well as the usual return codes that are standard (<code>200</code> for a successful request and <code>500</code> for a standard error code). Alright, we have enough information to construct our <em>first</em> endpoint. Let’s go over a few things. Each endpoint is composed of three things:</p>
 <ul>
-<li>A base URL. In this case, it’s http://localhost:37159. <strong>Yours will be different because you launched it on your local computer</strong>.</li>
+<li>A base URL. In this case, it’s http://localhost:26799. <strong>Yours will be different because you launched it on your local computer</strong>.</li>
 <li>The endpoint URL of this specific endpoint. For the COVID cases, this is <code>/api/v1/covid_cases</code>.</li>
 <li>The parameters in the endpoint which are specified after a <code>?</code> and each parameter is then concatenated with <code>&amp;</code>.</li>
 </ul>
-<p>So the complete endpoint URL for this endpoint would be http://localhost:37159/api/v1/covid_cases. How would we add parameters? We start with a <code>?</code> and then add <code>parameter=value</code> followed by an <code>&amp;</code> to concatenate with other parameters. Sounds confusing? Let’s construct it in R:</p>
+<p>So the complete endpoint URL for this endpoint would be http://localhost:26799/api/v1/covid_cases. How would we add parameters? We start with a <code>?</code> and then add <code>parameter=value</code> followed by an <code>&amp;</code> to concatenate with other parameters. Sounds confusing? Let’s construct it in R:</p>
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># COVID cases endpoint</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>api_web <span class="ot">&lt;-</span> <span class="fu">paste0</span>(api_covid<span class="sc">$</span>api_web, <span class="st">"/api/v1/covid_cases"</span>)</span>
@@ -363,7 +363,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>cases_endpoint <span class="ot">&lt;-</span> <span class="fu">paste0</span>(api_web, <span class="st">"?region=California&amp;sex=m"</span>)</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>cases_endpoint</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "http://localhost:37159/api/v1/covid_cases?region=California&amp;sex=m"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "http://localhost:26799/api/v1/covid_cases?region=California&amp;sex=m"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The parameters we specified were <code>?region=California&amp;sex=m</code>. It’s not that difficult to construct these paths but rather tedious. Imagine having to construct this for an endpoint with 7 parameters. Too many <code>&amp;</code> can confuse anyone and it can start to get difficult to read. Instead, the <code>httr2</code> package can help us with this. With <code>httr2</code> we just pass the endpoint URL and use functions to add as many parameters as we see fit.</p>
 </section>
@@ -376,7 +376,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>req <span class="ot">&lt;-</span> <span class="fu">request</span>(api_web)</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>req</span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="do">## &lt;httr2_request&gt;</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="do">## GET http://localhost:37159/api/v1/covid_cases</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="do">## GET http://localhost:26799/api/v1/covid_cases</span></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Body: empty</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>There we go. The <code>request</code> function from <code>httr2</code> builds something like a placeholder for our request. It says it already has the endpoint URL (we can see it in the <code>GET</code> line) but it does not say anything about our parameters or headers. Let’s add the endpoint and parameters:</p>
@@ -387,7 +387,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>req_california_m</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="do">## &lt;httr2_request&gt;</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="do">## GET http://localhost:37159/api/v1/covid_cases?region=California&amp;sex=m</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="do">## GET http://localhost:26799/api/v1/covid_cases?region=California&amp;sex=m</span></span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Body: empty</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The function <code>req_url_query</code> constructs the endpoint by adding as many parameters as we want. Do you see the idea here? <code>request</code> builds a placeholder for the endpoint and then you add as many “add-ons” as you want to your request. Our “add-on” so far has just been parameters but you could hypothetically add authentication headers and a retry policy, for example:</p>
@@ -396,7 +396,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_auth_basic</span>(<span class="at">username =</span> <span class="st">"fake name"</span>, <span class="at">password =</span> <span class="st">"fake password"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_retry</span>(<span class="at">max_tries =</span> <span class="dv">3</span>, <span class="at">max_seconds =</span> <span class="dv">5</span>)</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="do">## &lt;httr2_request&gt;</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="do">## GET http://localhost:37159/api/v1/covid_cases?region=California&amp;sex=m</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="do">## GET http://localhost:26799/api/v1/covid_cases?region=California&amp;sex=m</span></span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Headers:</span></span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="do">## * Authorization: &lt;REDACTED&gt;</span></span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Body: empty</span></span>
@@ -413,7 +413,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>req_california_m</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="do">## &lt;httr2_request&gt;</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="do">## GET http://localhost:37159/api/v1/covid_cases?region=California&amp;sex=m</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="do">## GET http://localhost:26799/api/v1/covid_cases?region=California&amp;sex=m</span></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Body: empty</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Whenever we’re happy with our request, we can actually <em>make</em> the request with <code>req_perform</code>:</p>
@@ -424,7 +424,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>resp_california_m</span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="do">## &lt;httr2_response&gt;</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="do">## GET http://localhost:37159/api/v1/covid_cases?region=California&amp;sex=m</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="do">## GET http://localhost:26799/api/v1/covid_cases?region=California&amp;sex=m</span></span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Status: 200 OK</span></span>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Content-Type: application/json</span></span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Body: In memory (1086936 bytes)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -552,7 +552,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <div class="cell" data-layout-align="center">
 <pre><code>## &lt;httr2_request&gt;
-## GET http://localhost:37159/api/v1/covid_cases?region=California&amp;sex=m
+## GET http://localhost:26799/api/v1/covid_cases?region=California&amp;sex=m
 ## Headers:
 ## * Authorization: &lt;REDACTED&gt;
 ## * Content-type : "*/*"

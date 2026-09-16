@@ -242,8 +242,8 @@
 <div class="cell" data-layout-align="center">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a>api_covid <span class="ot">&lt;-</span> <span class="fu">api_coveragedb</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Visit your REST API at http://localhost:9125"
-[1] "Documentation is at http://localhost:9125/__docs__/"</code></pre>
+<pre><code>[1] "Visit your REST API at http://localhost:40046"
+[1] "Documentation is at http://localhost:40046/__docs__/"</code></pre>
 </div>
 </div>
 <ul>
@@ -283,7 +283,7 @@
 <span id="cb4-2"><a href=""></a>cases_endpoint <span class="ot">&lt;-</span> <span class="fu">paste0</span>(api_web, <span class="st">"?region=California&amp;sex=m"</span>)</span>
 <span id="cb4-3"><a href=""></a>cases_endpoint</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "http://localhost:9125/api/v1/covid_cases?region=California&amp;sex=m"</code></pre>
+<pre><code>[1] "http://localhost:40046/api/v1/covid_cases?region=California&amp;sex=m"</code></pre>
 </div>
 </div>
 </section>
@@ -296,7 +296,7 @@
 <span id="cb6-3"><a href=""></a>req</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;httr2_request&gt;
-GET http://localhost:9125/api/v1/covid_cases
+GET http://localhost:40046/api/v1/covid_cases
 Body: empty</code></pre>
 </div>
 </div>
@@ -313,7 +313,7 @@ Body: empty</code></pre>
 <span id="cb8-5"><a href=""></a>req_california_m</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;httr2_request&gt;
-GET http://localhost:9125/api/v1/covid_cases?region=California&amp;sex=m
+GET http://localhost:40046/api/v1/covid_cases?region=California&amp;sex=m
 Body: empty</code></pre>
 </div>
 </div>
@@ -327,7 +327,7 @@ Body: empty</code></pre>
 <span id="cb10-3"><a href=""></a>  <span class="fu">req_retry</span>(<span class="at">max_tries =</span> <span class="dv">3</span>, <span class="at">max_seconds =</span> <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;httr2_request&gt;
-GET http://localhost:9125/api/v1/covid_cases?region=California&amp;sex=m
+GET http://localhost:40046/api/v1/covid_cases?region=California&amp;sex=m
 Headers:
 * Authorization: &lt;REDACTED&gt;
 Body: empty
@@ -349,7 +349,7 @@ Policies:
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a>req_california_m</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;httr2_request&gt;
-GET http://localhost:9125/api/v1/covid_cases?region=California&amp;sex=m
+GET http://localhost:40046/api/v1/covid_cases?region=California&amp;sex=m
 Body: empty</code></pre>
 </div>
 </div>
@@ -365,7 +365,7 @@ Body: empty</code></pre>
 <span id="cb14-5"><a href=""></a>resp_california_m</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;httr2_response&gt;
-GET http://localhost:9125/api/v1/covid_cases?region=California&amp;sex=m
+GET http://localhost:40046/api/v1/covid_cases?region=California&amp;sex=m
 Status: 200 OK
 Content-Type: application/json
 Body: In memory (1086936 bytes)</code></pre>
